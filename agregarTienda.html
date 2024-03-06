@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar tienda</title>
+    <link rel="stylesheet" href="css/agregarTienda.css">
+    <!-- Le cambio la direcion del estilo -->
+</head>
+
+<body>
+    <form class="agregarTienda" id="fromAgregarTienda">
+        <div>
+            <h1>Agregar tienda</h1>
+        </div>
+        <div class="inputAgregar">
+            <div class="inputTexto">
+                <input type="text" placeholder="Numero tienda" id="numeroTienda" required>
+                <input type="text" placeholder="Nombre tienda" id="nombreTienda" required>
+                <input type="text" placeholder="Fecha pruebas" id="fechaPruebas" required>
+                <input type="text" placeholder="Fecha apertura" id="fechaApertura" required>
+                <p class="warnings" id="warnings"></p>
+                <div class="inputBotones">
+                    <button class="btnAceptar" onclick="agregarTienda()">Aceptar</button>
+                    <button class="btnCancelar">Cancelar</button>
+                </div>
+            </div>   
+        </div>
+    </form>
+
+    <!-- Le cambio la direccion de la imagen -->
+    <footer  class="Alinear_Flex">
+        <img src="assets/logos/chredraui an.png" alt="Logo Chedraui" class="LogoChedraui">
+    </footer>
+
+    <script src="js/agregarTienda.js"></script>
+</body>
+
+</html>

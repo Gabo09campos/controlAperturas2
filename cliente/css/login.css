@@ -1,0 +1,40 @@
+.headerLogin{
+    align-items: center;
+    margin-top: 5%;
+    margin-left: 480px;
+}
+
+.formLogin{
+    align-items: center;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    margin-top: 3%;
+}
+
+.tituloLogin{
+    margin-top: 50px;
+}
+
+.LogoChedrauiLogin{
+    width: 300px;
+}
+
+input{
+    margin-top: 30px;
+    width: 250px;
+    height: 32px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+button{
+    margin-top: 30px;
+    width: 150px;
+    height: 40px;
+    background-color: #E0832F;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+}
+

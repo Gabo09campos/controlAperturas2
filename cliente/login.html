@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/login.css">
+    
+    <title>Login</title>
+</head>
+
+<body>
+    <header class="headerLogin">
+        <img src="assets/logos/chredraui an.png" alt="LogoChedraui" class="LogoChedrauiLogin">
+    </header>
+    <form class="formLogin" id="formLogin"> <!-- Seccion de inicio de sesion -->
+        
+        <!-- Utilizamos el required para mostrar que es requerido el campo del input, sin mebargo tambien esta validado con JS. -->
+        <h1 class="tituloLogin">Control Aperturas</h1>
+        <input type="text" placeholder="Usuario" id="usuario" required>
+        <input type="text" placeholder="Contraseña" id="contraseña" required>
+    
+        <div>
+            <!-- Se dirige hacia la lista de tiendas que estan por abrir, y sera dependiendo el usuario las opciones que pueda ver y realizar -->
+            <button type="submit" class="btnIniciarSesion" id="btnInicio">
+                Iniciar sesion
+            </button>
+            <p class="warnings" id="warnings"></p>
+        </div>
+    </form>
+
+    <script src="js/login.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+.listasTiendas{
+    align-items: center;
+    text-align: -webkit-center;
+    margin-top: 5%;
+}
+
+.divTitulo{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+table{
+    border:2rem;
+    width: 1000px;
+    height: 200px;
+    text-align: center;
+    margin-top: 70px;
+}
+
+footer{
+    text-align: center;
+    margin-top: 50px;
+}
+
+.LogoChedraui{
+    width: 300px;
+}

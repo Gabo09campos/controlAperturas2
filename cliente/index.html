@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/index.css">
+    <title>Lista Aperturas</title>
+</head>
+
+<body>
+    <section class="listasTiendas">
+        <div class="divTitulo">
+            <h1 class="listaAperturas">Lista de aperturas</h1>
+            <!-- Utilizamos la etiqueta <a> para agregar una direccion interna en HTML -->
+            <a href="agregarTienda.html">
+                <!-- Con el boton se manda a la seccion de agregar tienda -->
+                <button class="btnAgregarTienda">Agregar tienda</button>
+            </a>
+            
+        </div>
+        
+        <table class="table" border="1">
+            <tr>
+                <th>Numero tienda</th>
+                <th>Nombre tienda</th>
+                <th>Fecha pruebas</th>
+                <th>Fecha apertura</th>
+                <th>Opciones</th>
+            </tr>
+<!-- En esta parte se podra navegar hacia los pasos a travez del nombre de la tienda, se pondra como link -->
+            <tr >
+                <td><a href="Pasos.html">Tienda 1</a></td>
+                <td>20 Nov</td>
+                <td>15 de febrero</td>
+                <td>30 de marzo</td>
+                <td>
+                    <button class="btnEditar">Editar</button>
+                    <button class="btnEliminar">Eliminar</button>
+                </td>
+                
+
+
+            </tr>
+
+            <tr>
+                <td><a href="Pasos.html">Tienda 2</a></td>
+                <td> Revolucion</td>
+                <td>05 de marzo</td>
+                <td>01 de abril</td>
+                <td>
+                    <button class="btnEditar">Editar</button>
+                    <button class="btnEliminar">Eliminar</button>
+                </td>
+            </tr>
+
+            <tr>
+                <td><a href="Pasos.html">Tienda 3</a></td>
+                <td> crystal</td>
+                <td>20 de mayo</td>
+                <td>10 de abril</td>
+                <td>
+                    <button class="btnEditar">Editar</button>
+                    <button class="btnEliminar">Eliminar</button>
+                </td>
+            </tr>
+
+        </table>
+    </section>
+    <footer>
+        <img src="assets/logos/chredraui an.png" alt="Logo Chedraui" class="LogoChedraui">
+    </footer>
+
+    <script src="js/agregarTienda.js"></script>
+</body>
+
+</html>
