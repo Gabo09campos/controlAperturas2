@@ -7,6 +7,7 @@ const contra = document.getElementById("contraseña");
 const form = document.getElementById("formLogin");
 const parrafo = document.getElementById("warnings");
 
+
 /**
      * A travez del form estaremos escuchando todo lo que sucede en el login con el "addEventListener".
      * Con el "preventDefault" evitamos que se envie el formulario al dar clic al boton sin antes obtener lo datos.
@@ -27,14 +28,18 @@ form.addEventListener("submit", e=>{
     if(usuario.value.length < 6 || contra.value.length < 8){
         warnings += 'El usuario y/o la contraseña no son validos <br>'
         entrar = true;
-        parrafo.innerHTML = warnings;   
+        parrafo.innerHTML = warnings;    
+        
     }else{
+        
         axios.get("login", {
             params: {
                 usuario: usuario.value,
                 contrasena: contra.value
             }
-        });
+        }); 
+        
+        console.log(usuario.value, contra.value);
     }
 
 });

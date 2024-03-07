@@ -1,5 +1,5 @@
 /* Creamos una variable para llamar a la libreria y los metodos necesarios */
-let baseDatos = require("mysql");
+const baseDatos = require("mysql");
 
 /* Creamos otra variable para crear la conexion con la base de datos.
     Utilizando la variable anterior llamamos el metodo de crear la coneccion. 

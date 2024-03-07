@@ -39,8 +39,9 @@ app.use("/usuarios", function(pet, rest){
 app.use("/login", function(pet, rest){
     conexion.query("SELECT Nombre, T_usuario, Contraseña FROM usuarios", function(err, resultado){
       
+        
         if(err){
-            console.log(err)
+            
             rest.status(500).json({error: "Hubo un error al realizar la consulta del login"});
             return
         }
