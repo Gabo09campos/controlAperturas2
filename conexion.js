@@ -6,7 +6,7 @@ const baseDatos = require("mysql");
     Dentro del metodo creamos el objeto de la coneccion con las propiedades ya definidas,
     (host=nombre de base de datos, database=nombre de la base de datos, user=nombre de usuario, password).
 */
-let conexion = baseDatos.createConnection({
+const conexion = baseDatos.createConnection({
     host: "localhost",
     database: "controlapertras",
     user: "root",

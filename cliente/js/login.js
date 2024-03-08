@@ -30,16 +30,6 @@ form.addEventListener("submit", e=>{
         entrar = true;
         parrafo.innerHTML = warnings;    
         
-    }else{
-        
-        axios.get("login", {
-            params: {
-                usuario: usuario.value,
-                contrasena: contra.value
-            }
-        }); 
-        
-        console.log(usuario.value, contra.value);
     }
 
 });
