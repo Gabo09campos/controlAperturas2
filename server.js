@@ -1,9 +1,7 @@
 const express = require("express");
 const http = require("node:http");
-const fs = require("node:fs");
-
+const conexion = require("./conexion.js");
 const app = express();
-const mysql = require('mysql');
 
 app.use(express.static("./cliente"));
 /** 
@@ -21,7 +19,7 @@ app.use(express.static("./cliente"));
  * app es una aplicacion de express, use es una funcion de la aplicacion(app).
  * esta funcion le dice a la aplicacion de express que use o cree una nueva ruta que seria la cadena en el primer parametro, en este caso "/usuarios", cuando llegue una peticion http a la ruta usuarios va a correr la funcion en el segundo parametro de la funcion use.
 */
-
+/*
 const conexion = mysql.createConnection({
   host: 'localhost',
   user: 'root',
@@ -112,6 +110,7 @@ function consulta(pedido, respuesta) {
         } )
     })
 }
+*/
 
 /*
 app.use("/usuarios", function(pet, rest){
@@ -127,35 +126,47 @@ app.use("/usuarios", function(pet, rest){
         return rest.json({resultado : resultado}); 
     }); 
 });
-
+**/
 
 app.use("/login", function(pet, rest){
-    conexion.query("SELECT Nombre, T_usuario, Contraseña FROM usuarios", function(err, resultado){
-      
+    const consultaSql = `SELECT Nombre, T_usuario, Contraseña FROM usuarios WHERE Nombre = ? AND Contraseña = ? LIMIT 1`;
+    conexion.query(consultaSql, [pet.usuario, pet.contrasena], function(err, resultado){
         
         if(err){
-            
+            console.log(err)
             rest.status(500).json({error: "Hubo un error al realizar la consulta del login"});
-            return
         }
-        console.log(resultado)
+        console.log(resultado);
 
-        return rest.json({resultado : resultado})
+        // Verificamos que no este vacio el resultado.
+        if(resultado.lenght > 0){
+            // Desestructuración de los datos
+            const [{Nombre, T_usuario, Contraseña}] = resultado;
+
+            // Ahora puedes usar las variables Nombre, T_usuario y Contraseña directamente
+            console.log(`Nombre: ${Nombre}, Tipo de Usuario: ${T_usuario}, Contraseña: ${Contraseña}`);
+
+        }else{
+            console.log("No se encontro un resultado");
+        }
+
+        return rest.json({resultado : resultado});
     });
 });
-*/
+
 
 /**
  * creamos un servidor http de node.js para acelerar el funcionanmiento.
  * le decimos el puerto en donde estara
  * creamos una function que nos muestre en consola si saliio bien
- 
+*/
 let servidor = http.createServer(app);
 servidor.listen(3000, function(){
     console.log("Te estoy escuchando");
 });
-*/
 
+
+/*
 const servidor = http.createServer((pedido, respuesta) => {
     const url = new URL('http://localhost:8888' + pedido.url)
     let camino = 'cliente' + url.pathname
@@ -166,4 +177,4 @@ const servidor = http.createServer((pedido, respuesta) => {
   })
 
   servidor.listen(8888)
-
+*/
