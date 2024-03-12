@@ -44,18 +44,20 @@ form.addEventListener("submit", e=>{
                 return;
             }
 
-            if(resultado.data.resultado.length){
+            const usuario = resultado.data.resultado[0];
+            switch(resultado.data.resultado.length){
                 //redireccionar
-                const usuario = resultado.data.resultado[0];
-                if(usuario.T_usuario == "Administrador"){
+                case usuario.T_usuario == "Administrador":
                     location.href = "./index.html";
-                }else if(usuario.T_usuario == "Usuario"){
-                    location.href = "listaAperturasUsuarios.html";
-                }else{
+                    break;
+                case usuario.T_usuario == "Usuario":
+                    location.href = "./listaAperturasUsuarios.html";
+                    break;
+                case usuario.T_usuario == "":
                     console.log("Tipo de usuario no definido");
-                }
-            }else{
-                console.log("No se encontro el usuario");
+                    break;
+                default:
+                    console.log("No se encontro el usuario");
             }
         })
         .catch(error => {
