@@ -37,9 +37,9 @@ app.use("/usuarios", function(pet, rest){
 
 
 app.use("/login", function(pet, rest){
-    const {usuario, contrasena} = pet.body
-    const consultaSql = `SELECT Nombre, T_usuario, Contrasena FROM usuarios WHERE Nombre = ${usuario} AND Contrasena = ${contrasena} `;
-    console.log(usuario, contrasena);
+    const {usuario, contrasena} = pet.query
+    const consultaSql = `SELECT Nombre, T_usuario, Contrasena FROM usuarios WHERE Nombre = ? AND  Contrasena = ? `;
+    console.log(usuario, contrasena); 
     conexion.query(consultaSql, [usuario, contrasena], function(err, resultado){
         if(err){
             console.log(err)

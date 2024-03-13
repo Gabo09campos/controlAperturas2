@@ -25,11 +25,10 @@ form.addEventListener("submit", e=>{
      * Importamos en el front a "axios" que es una libreria para hacer peticiones http
      * Con un objeto enviamos a travez de la ruta los valores del login para revisar que se encuentren en la BD
      */
-    if(usuario.value.length < 6 || contra.value.length < 8){
+    if(usuario.value.length <= 3 || contra.value.length < 8){
         warnings += 'El usuario y/o la contraseña no son validos <br>'
         entrar = true;
         parrafo.innerHTML = warnings;    
-        
     }else{
         axios.get("login", {
             params: {
@@ -38,26 +37,22 @@ form.addEventListener("submit", e=>{
             }
         })
         .then(resultado => {
-            console.log(resultado.data);
+            //console.log(resultado.data);
             if(resultado.data.error){
                 console.log(resultado.data.error);
                 return;
             }
-
             const usuario = resultado.data.resultado[0];
-            switch(resultado.data.resultado.length){
+            switch(usuario.T_usuario){
                 //redireccionar
-                case usuario.T_usuario == "Administrador":
+                case 'Administrador':
                     location.href = "./index.html";
                     break;
-                case usuario.T_usuario == "Usuario":
+                case 'Usuario':
                     location.href = "./listaAperturasUsuarios.html";
                     break;
-                case usuario.T_usuario == "":
-                    console.log("Tipo de usuario no definido");
-                    break;
                 default:
-                    console.log("No se encontro el usuario");
+                    alert("usuario no definido", location.href = "./listaAperturasUsuarios.html");
             }
         })
         .catch(error => {
