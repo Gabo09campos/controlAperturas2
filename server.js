@@ -35,7 +35,7 @@ app.use("/usuarios", function(pet, rest){
     }); 
 });
 
-
+// Back-end de login
 app.use("/login", function(pet, rest){
     const {usuario, contrasena} = pet.query
     const consultaSql = `SELECT Nombre, T_usuario, Contrasena FROM usuarios WHERE Nombre = ? AND  Contrasena = ? `;
@@ -57,6 +57,21 @@ app.use("/login", function(pet, rest){
        // rest.json({resultado : resultado});
        rest.json({resultado});
     });
+});
+
+//Obtener a la lista de las tiendas por abrir de la BD a la vista
+app.get("/tiendas", function(pet, rest){
+    
+    conexion.query("SELECT N_tienda, Nom_tienda, Fecha_prueba, Fecha_apertura FROM tiendas", function(err, resultado){
+        if(err){
+            console.log(err)
+            rest.status(500).send("Error en la query");
+           
+        }else{
+            rest.status(200).send(resultado);
+            conexion.end();
+        }
+    }); 
 });
 
 
