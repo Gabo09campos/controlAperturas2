@@ -4,6 +4,7 @@ const conexion = require("./conexion.js");
 const app = express();
 app.use(express.json());
 app.use(express.static("./cliente"));
+
 /** 
  * requerimos a express y creamos un servodor con http
  * creamos una constante para la aplicacion de express donde express es un servidor web http.
@@ -20,7 +21,7 @@ app.use(express.static("./cliente"));
  * esta funcion le dice a la aplicacion de express que use o cree una nueva ruta que seria la cadena en el primer parametro, en este caso "/usuarios", cuando llegue una peticion http a la ruta usuarios va a correr la funcion en el segundo parametro de la funcion use.
 */
 
-
+//Este es de prueba
 app.use("/usuarios", function(pet, rest){
     
     conexion.query("SELECT * FROM usuarios", function(err, resultado){
@@ -39,18 +40,16 @@ app.use("/usuarios", function(pet, rest){
 app.use("/login", function(pet, rest){
     const {usuario, contrasena} = pet.query
     const consultaSql = `SELECT Nombre, T_usuario, Contrasena FROM usuarios WHERE Nombre = ? AND  Contrasena = ? `;
-    console.log(usuario, contrasena); 
     conexion.query(consultaSql, [usuario, contrasena], function(err, resultado){
         if(err){
             console.log(err)
             rest.status(500).json({error: "Hubo un error al realizar la consulta del login"});
         }
         // Verificamos que no este vacio el resultado.
-        if(resultado.length > 0){
+        if(resultado && resultado.length > 0){
             // Desestructuración de los datos
-            const [{Nombre, T_usuario, Contrasena}] = resultado;
             // Ahora puedes usar las variables Nombre, T_usuario y Contraseña directamente
-            console.log(`Nombre: ${Nombre}, Tipo de Usuario: ${T_usuario}, Contraseña: ${Contrasena}`);
+            const [{Nombre, T_usuario, Contrasena}] = resultado;
         }else{
             console.log("No se encontro un resultado");
         }
@@ -59,10 +58,10 @@ app.use("/login", function(pet, rest){
     });
 });
 
+
 //Obtener a la lista de las tiendas por abrir de la BD a la vista
 app.get("/tiendas", function(pet, rest){
-    
-    conexion.query("SELECT N_tienda, Nom_tienda, Fecha_prueba, Fecha_apertura FROM tiendas", function(err, resultado){
+    conexion.query("SELECT N_tienda, Nom_tienda, DATE_FORMAT(Fecha_prueba, '%Y.%m.%d') as Fecha_prueba, DATE_FORMAT(Fecha_apertura, '%Y.%m.%d') as Fecha_apertura FROM tiendas", function(err, resultado){
         if(err){
             console.log(err)
             rest.status(500).send("Error en la query");
@@ -74,6 +73,19 @@ app.get("/tiendas", function(pet, rest){
     }); 
 });
 
+//Agregar tiendas
+app.use("/agregarTienda", function(pet, rest){
+    const {N_tienda, Nom_tienda, Fecha_prueba, Fecha_apertura} = pet.body
+    const consultaSql = `INSERT INTO tiendas (N_tienda, Nom_tienda, Fecha_prueba, Fecha_apertura) VALUES ( ?, ?, ?, ?) `;
+    conexion.query(consultaSql, [N_tienda, Nom_tienda, Fecha_prueba, Fecha_apertura], function(err, resultado){
+        if(err){
+            console.log(err)
+            rest.status(500).json({error: "Hubo un error al realizar la consulta de LA BASE DE DATOS"});
+        }else{
+            console.log("Datos insertados correctamente");
+        }
+    });
+});
 
 /**
  * creamos un servidor http de node.js para acelerar el funcionanmiento.

@@ -1,11 +1,7 @@
-//Obtenemos la tabla de el HTML a travez de su id para poder mandarle los datos.
-const tiendas = document.getElementById("tiendasLista");
+// Llamamos a la vista de tinedas de usuarios con su id.
+const tiendas = document.getElementById("tiendasUsuarios");
 
-/**
- * Con un fetch indicamos cual sera la url en donde nos mostrara los datos en la web.
- * Con .then resivimos la respuesta de la base de datos y con el json lo interpreta a una manera legible para el usuario.
- * En el forEach creamos una variable "tienda" y le indicamos que si encuentra algun registro nuevo se incremente la tabla con el appendChild.
- */
+//Usamos el mismo Back que con el administrador, solo que quitamos funciones de los administradores.
 fetch("http://localhost:3000/tiendas")
 .then(rest => rest.json())
 .then(rest => {
@@ -28,18 +24,7 @@ fetch("http://localhost:3000/tiendas")
         Fecha_apertura.innerHTML = tienda.Fecha_apertura;
         row.appendChild(Fecha_apertura);
 
-        let opciones = document.createElement('td');
-        opciones.innerHTML = `
-            <button class="btnEditar">Editar</button>
-            <button class="btnEliminar">Eliminar</button>
-        `;
-        row.appendChild(opciones);
-
         tiendas.appendChild(row);
     });
     
 });
-
-
-
-

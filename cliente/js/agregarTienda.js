@@ -2,10 +2,11 @@ const numeroTienda = document.getElementById("numeroTienda");
 const nombreTienda = document.getElementById("nombreTienda");
 const fPruebas = document.getElementById("fechaPruebas");
 const fApertura = document.getElementById("fechaApertura");
-const trTienda = document.getElementById("trTienda");
+const form = document.getElementById("fromAgregarTienda");
+const parrafo = document.getElementById("warnings");
 
 let mensaje = "";
-
+/*
 function agregarTienda(){
 
     numeroTienda
@@ -20,3 +21,42 @@ function agregarTienda(){
     fPruebas.insertAdjacentHTML("afterend", mensaje);
     fApertura.insertAdjacentHTML("afterend", mensaje);
 }
+
+/**
+     * A travez del form estaremos escuchando todo lo que sucede en el login con el "addEventListener".
+     * Con el "preventDefault" evitamos que se envie el formulario al dar clic al boton sin antes obtener lo datos.
+     * Creamos una variable "warnings" para mandar el mensaje de input no valido.
+     * Agregamos un booleano para saber si se mostrara el mensaje de warning o no.
+     * Finalmente redirigimos hacia una nueva pantalla despues de dar clic al boton y haber validado que todo este correcto esto con "href".
+     * Y utilizamos una funcion "reset" para limpiar el formulario despues de ingresar.
+ */
+form.addEventListener("submit", e =>{
+    e.preventDefault();
+    let warnings = "";
+    let entrar = true;
+    
+    /**
+     * Importamos en el front a "axios" que es una libreria para hacer peticiones http
+     * Con un objeto enviamos a travez de la ruta los valores del login para revisar que se encuentren en la BD
+     */
+    if(numeroTienda.value.length < 3 || nombreTienda.value.length < 10 || fPruebas.value.length < 8 || fApertura.value.length < 8 ){
+        warnings += 'Todos los campos deben ser llenados correctamente <br>'
+        entrar = true;
+        parrafo.innerHTML = warnings;
+    }else{
+        axios.post("agregarTienda", {
+            N_tienda: numeroTienda.value,
+            Nom_tienda: nombreTienda.value,
+            Fecha_prueba: fPruebas.value,
+            Fecha_apertura: fApertura.value
+        })
+        .then(function (response) {
+            console.log(response.data);
+        })
+        .then((error) => console.log(error));
+    }
+    form.reset();
+    location.href = './index.html';
+
+});
+
