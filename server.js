@@ -68,7 +68,9 @@ app.get("/tiendas", function(pet, rest){
            
         }else{
             rest.status(200).send(resultado);
+            return rest.json();
             conexion.end();
+            
         }
     }); 
 });

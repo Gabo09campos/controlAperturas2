@@ -2,7 +2,7 @@ const numeroTienda = document.getElementById("numeroTienda");
 const nombreTienda = document.getElementById("nombreTienda");
 const fPruebas = document.getElementById("fechaPruebas");
 const fApertura = document.getElementById("fechaApertura");
-const form = document.getElementById("fromAgregarTienda");
+const form = document.getElementById("formAgregarTienda");
 const parrafo = document.getElementById("warnings");
 
 let mensaje = "";
@@ -34,7 +34,6 @@ form.addEventListener("submit", e =>{
     e.preventDefault();
     let warnings = "";
     let entrar = true;
-    
     /**
      * Importamos en el front a "axios" que es una libreria para hacer peticiones http
      * Con un objeto enviamos a travez de la ruta los valores del login para revisar que se encuentren en la BD
