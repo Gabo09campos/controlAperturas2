@@ -38,7 +38,9 @@ app.use("/usuarios", function(pet, rest){
 
 // Back-end de login
 app.use("/login", function(pet, rest){
+    //Conectamos con el front para recibir los valores del formulario.
     const {usuario, contrasena} = pet.query
+    //Realizamos la consulta a la base de datos para comprobar que el usuario ingresado existe.
     const consultaSql = `SELECT Nombre, T_usuario, Contrasena FROM usuarios WHERE Nombre = ? AND  Contrasena = ? `;
     conexion.query(consultaSql, [usuario, contrasena], function(err, resultado){
         if(err){
@@ -53,31 +55,34 @@ app.use("/login", function(pet, rest){
         }else{
             console.log("No se encontro un resultado");
         }
-       // rest.json({resultado : resultado});
+       // Con un json enviamos los datos hacia el cliente.
        rest.json({resultado});
     });
 });
 
 
-//Obtener a la lista de las tiendas por abrir de la BD a la vista
+//Back-end index/lista de tiendas por aperturar.
 app.get("/tiendas", function(pet, rest){
-    conexion.query("SELECT N_tienda, Nom_tienda, DATE_FORMAT(Fecha_prueba, '%Y.%m.%d') as Fecha_prueba, DATE_FORMAT(Fecha_apertura, '%Y.%m.%d') as Fecha_apertura FROM tiendas", function(err, resultado){
+    //Hacemos la consulta a la base de datos de las tiendas existentes.
+    //Utilizamos "DATE_FORMAT(Fecha_prueba, '%Y.%m.%d')" para que solo muestre la fecha del lado del cliente.
+    conexion.query("SELECT id, N_tienda, Nom_tienda, DATE_FORMAT(Fecha_prueba, '%Y.%m.%d') as Fecha_prueba, DATE_FORMAT(Fecha_apertura, '%Y.%m.%d') as Fecha_apertura FROM tiendas", function(err, resultado){
         if(err){
             console.log(err)
             rest.status(500).send("Error en la query");
-           
         }else{
+            //Obetenemos los resultados y los enviamos con un json hacia el cliente.
             rest.status(200).send(resultado);
             return rest.json();
-            conexion.end();
-            
+            conexion.end(); 
         }
     }); 
 });
 
-//Agregar tiendas
+// Back-end Agregar tiendas
 app.use("/agregarTienda", function(pet, rest){
+    //Conectamos con el front para recibir los valores del formulario.
     const {N_tienda, Nom_tienda, Fecha_prueba, Fecha_apertura} = pet.body
+    // Insertamos los datos del formulario a la base de datos.
     const consultaSql = `INSERT INTO tiendas (N_tienda, Nom_tienda, Fecha_prueba, Fecha_apertura) VALUES ( ?, ?, ?, ?) `;
     conexion.query(consultaSql, [N_tienda, Nom_tienda, Fecha_prueba, Fecha_apertura], function(err, resultado){
         if(err){
@@ -95,7 +100,7 @@ app.use("/agregarTienda", function(pet, rest){
  * creamos una function que nos muestre en consola si saliio bien
 */
 let servidor = http.createServer(app);
-servidor.listen(3000, function(){
+servidor.listen(3004, function(){
     console.log("Te estoy escuchando");
 });
 

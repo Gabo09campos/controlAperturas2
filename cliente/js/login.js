@@ -37,7 +37,7 @@ form.addEventListener("submit", e=>{
             }
         })
         .then(resultado => {
-            //console.log(resultado.data);
+            //Obtenemos el resultado del back si existe coincidencia con los datos ingresados en el formulario.
             if(resultado.data.error){
                 console.log(resultado.data.error);
                 return;
@@ -59,7 +59,6 @@ form.addEventListener("submit", e=>{
             console.error(error);
         })
     }
-
 });
 
 

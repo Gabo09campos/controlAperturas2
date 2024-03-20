@@ -4,24 +4,10 @@ const fPruebas = document.getElementById("fechaPruebas");
 const fApertura = document.getElementById("fechaApertura");
 const form = document.getElementById("formAgregarTienda");
 const parrafo = document.getElementById("warnings");
+const botonAceptar = document.getElementById("btnAceptar");
+const botonCancelar = document.getElementById("btnCancelar");
 
 let mensaje = "";
-/*
-function agregarTienda(){
-
-    numeroTienda
-    nombreTienda
-    fPruebas
-    fApertura
-    
-
-    let mensaje = numeroTienda.value + ' ' + nombreTienda.value + ' ' + fPruebas.value + ' ' + fApertura.value;
-    numeroTienda.insertAdjacentHTML("afterend", mensaje);
-    nombreTienda.insertAdjacentHTML("afterend", mensaje);
-    fPruebas.insertAdjacentHTML("afterend", mensaje);
-    fApertura.insertAdjacentHTML("afterend", mensaje);
-}
-
 /**
      * A travez del form estaremos escuchando todo lo que sucede en el login con el "addEventListener".
      * Con el "preventDefault" evitamos que se envie el formulario al dar clic al boton sin antes obtener lo datos.
@@ -36,7 +22,7 @@ form.addEventListener("submit", e =>{
     let entrar = true;
     /**
      * Importamos en el front a "axios" que es una libreria para hacer peticiones http
-     * Con un objeto enviamos a travez de la ruta los valores del login para revisar que se encuentren en la BD
+     * Con un objeto enviamos a travez de la ruta los valores de la nueva tienda para agregarla a la lista.
      */
     if(numeroTienda.value.length < 3 || nombreTienda.value.length < 10 || fPruebas.value.length < 8 || fApertura.value.length < 8 ){
         warnings += 'Todos los campos deben ser llenados correctamente <br>'

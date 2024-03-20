@@ -1,12 +1,13 @@
+
 //Obtenemos la tabla de el HTML a travez de su id para poder mandarle los datos.
 const tiendas = document.getElementById("tiendasLista");
 
 /**
  * Con un fetch indicamos cual sera la url en donde nos mostrara los datos en la web.
- * Con .then resivimos la respuesta de la base de datos y con el json lo interpreta a una manera legible para el usuario.
+ * Con .then recibimos la respuesta de la base de datos y con el json lo interpreta a una manera legible para el usuario.
  * En el forEach creamos una variable "tienda" y le indicamos que si encuentra algun registro nuevo se incremente la tabla con el appendChild.
  */
-fetch("http://localhost:3000/tiendas")
+fetch("http://localhost:3004/tiendas")
 .then(rest => rest.json())
 .then(rest => {
     rest.forEach(tienda => {
@@ -36,10 +37,29 @@ fetch("http://localhost:3000/tiendas")
         row.appendChild(opciones);
 
         tiendas.appendChild(row);
+
+        // Agregar controladores de eventos a los botones
+        opciones.querySelector('.btnEditar').addEventListener('click', function() {
+            // Código para editar la tienda
+            //console.log('Editar tienda', tienda);
+            console.log("Ahora puedes editar");
+        });
+        opciones.querySelector('.btnEliminar').addEventListener('click', function() {
+            // Código para eliminar la tienda
+            console.log('Eliminar tienda', tienda);
+
+            fetch(`http://localhost:3004/tiendas/${tienda.id}`,
+            { 
+                method: 'DELETE',
+            })
+            .then(response => response.json())
+            .then(() => {
+                console.log('tienda eliminada');
+                row.remove();
+            })
+            .catch(error => console.error('error:', error));
+        });
     });
     
 });
-
-
-
 
