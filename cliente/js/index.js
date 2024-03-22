@@ -1,5 +1,3 @@
-
-
 //Obtenemos la tabla de el HTML a travez de su id para poder mandarle los datos.
 const tiendas = document.getElementById("tiendasLista");
 

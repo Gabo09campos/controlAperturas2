@@ -42,6 +42,5 @@ form.addEventListener("submit", e =>{
     }
     form.reset();
     location.href = './index.html';
-
 });
 

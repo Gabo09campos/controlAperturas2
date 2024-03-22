@@ -6,8 +6,6 @@ const usuario = document.getElementById("usuario");
 const contra = document.getElementById("contraseña");
 const form = document.getElementById("formLogin");
 const parrafo = document.getElementById("warnings");
-
-
 /**
      * A travez del form estaremos escuchando todo lo que sucede en el login con el "addEventListener".
      * Con el "preventDefault" evitamos que se envie el formulario al dar clic al boton sin antes obtener lo datos.
@@ -19,8 +17,7 @@ const parrafo = document.getElementById("warnings");
 form.addEventListener("submit", e=>{
     e.preventDefault();
     let warnings = "";
-    let entrar = true;
-    
+    let entrar = true;  
     /**
      * Importamos en el front a "axios" que es una libreria para hacer peticiones http
      * Con un objeto enviamos a travez de la ruta los valores del login para revisar que se encuentren en la BD

@@ -94,6 +94,7 @@ app.delete("/borrarTienda/:id", function(req, res){
     }); 
 });
 
+//Back-end para editar una tienda de la lista de aperturas.
 app.put("/editarTienda/:id", function(req, res){
     // Aquí es donde actualizamos los datos de la tienda en la base de datos.
     // Utilizaríamos req.params.id para obtener el ID de la tienda a actualizar.
@@ -110,15 +111,14 @@ app.put("/editarTienda/:id", function(req, res){
     }); 
 });
 
-
-
 // Back-end Agregar tiendas
 app.use("/agregarTienda", function(pet, rest){
     //Conectamos con el front para recibir los valores del formulario.
     const {N_tienda, Nom_tienda, Fecha_prueba, Fecha_apertura} = pet.body
     // Insertamos los datos del formulario a la base de datos.
-    const consultaSql = `INSERT INTO tiendas (N_tienda, Nom_tienda, Fecha_prueba, Fecha_apertura) VALUES ( ?, ?, ?, ?) `;
+    const consultaSql = `INSERT INTO tiendas (N_tienda, Nom_tienda, Fecha_prueba, Fecha_apertura) VALUES (?, ?, ?, ?) `;
     conexion.query(consultaSql, [N_tienda, Nom_tienda, Fecha_prueba, Fecha_apertura], function(err, resultado){
+        
         if(err){
             console.log(err)
             rest.status(500).json({error: "Hubo un error al realizar la consulta de LA BASE DE DATOS"});

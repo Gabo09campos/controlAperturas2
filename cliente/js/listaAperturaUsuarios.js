@@ -13,7 +13,7 @@ fetch("http://localhost:3004/tiendas")
         row.appendChild(N_tienda);
 
         let Nom_tienda = document.createElement('td');
-        Nom_tienda.innerHTML = `<a href="Pasos.html">${tienda.Nom_tienda}</a>`;
+        Nom_tienda.innerHTML = `<a href="pasosUsuarios.html">${tienda.Nom_tienda}</a>`;
         row.appendChild(Nom_tienda);
 
         let Fecha_prueba = document.createElement('td');
