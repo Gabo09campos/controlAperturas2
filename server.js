@@ -118,7 +118,6 @@ app.use("/agregarTienda", function(pet, rest){
     // Insertamos los datos del formulario a la base de datos.
     const consultaSql = `INSERT INTO tiendas (N_tienda, Nom_tienda, Fecha_prueba, Fecha_apertura) VALUES (?, ?, ?, ?) `;
     conexion.query(consultaSql, [N_tienda, Nom_tienda, Fecha_prueba, Fecha_apertura], function(err, resultado){
-        
         if(err){
             console.log(err)
             rest.status(500).json({error: "Hubo un error al realizar la consulta de LA BASE DE DATOS"});
