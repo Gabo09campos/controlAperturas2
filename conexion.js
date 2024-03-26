@@ -1,6 +1,5 @@
 /* Creamos una variable para llamar a la libreria y los metodos necesarios */
 const baseDatos = require("mysql");
-
 /* Creamos otra variable para crear la conexion con la base de datos.
     Utilizando la variable anterior llamamos el metodo de crear la coneccion. 
     Dentro del metodo creamos el objeto de la coneccion con las propiedades ya definidas,
@@ -12,7 +11,6 @@ const conexion = baseDatos.createConnection({
     user: "root",
     password: ""
 });
-
 /**
  * exportamos la conexion para que pueda ser requerida en otras hojas.
  */

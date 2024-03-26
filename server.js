@@ -79,17 +79,17 @@ app.get("/tiendas", function(pet, rest){
 });
 
 //Back-end para eliminar una tienda de la lista de aperturas.
-app.delete("/borrarTienda/:id", function(req, res){
+app.post("/borrarTienda/:id", function(req, res){
     // Aquí borramos la tienda de la base de datos.
     // Utilizamos req.params.id para obtener el ID de la tienda a borrar.
     conexion.query("DELETE FROM tiendas WHERE id = ?", [req.params.id], function(err, resultado){
-        if(err){
-            console.log(err)
-            res.status(500).send("Error en la query");
-        }else{
+        if(res){
             // Se envía una respuesta al cliente para indicar que la tienda fue borrada exitosamente.
             res.status(200).send({message: 'Tienda eliminada exitosamente'});
-            conexion.end(); 
+            //conexion.end();
+        }else{
+            console.log(err)
+            res.status(500).send("Error en la query");
         }
     }); 
 });
@@ -99,14 +99,14 @@ app.put("/editarTienda/:id", function(req, res){
     // Aquí es donde actualizamos los datos de la tienda en la base de datos.
     // Utilizaríamos req.params.id para obtener el ID de la tienda a actualizar.
     // Utilizaríamos req.body para obtener los nuevos datos de la tienda.
-    conexion.query("UPDATE tiendas SET Nom_tienda = ?, Fecha_prueba = ?, Fecha_apertura = ? WHERE id = ?", [req.body.Nom_tienda, req.body.Fecha_prueba, req.body.Fecha_apertura, req.params.id], function(err, resultado){
-        if(err){
-            console.log(err)
-            res.status(500).send("Error en la query");
-        }else{
+    conexion.query("UPDATE tiendas SET N_tienda = ?, Nom_tienda = ?, Fecha_prueba = ?, Fecha_apertura = ? WHERE id = ?", [req.body.N_tienda,  req.body.Nom_tienda, req.body.Fecha_prueba, req.body.Fecha_apertura, req.params.id], function(err, resultado){
+        if(res){
             // Envía una respuesta al cliente para indicar que la tienda fue actualizada exitosamente.
             res.status(200).send({message: 'Tienda actualizada exitosamente'});
-            conexion.end(); 
+            //conexion.end();
+        }else{
+            console.log(err)
+            res.status(500).send("Error en la query");
         }
     }); 
 });

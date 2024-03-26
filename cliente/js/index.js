@@ -41,15 +41,16 @@ fetch("http://localhost:3004/tiendas")
         // Código para editar la tienda
         opciones.querySelector('.btnEditar').addEventListener('click', function() {
             // Solicitamos al usuario los nuevos datos de la tienda.
+            let nuevoNumero = prompt("Por favor ingresa el nuevo numero de la tienda", tienda.N_tienda);
             let nuevoNombre = prompt("Por favor ingresa el nuevo nombre de la tienda", tienda.Nom_tienda);
             let nuevaFechaPrueba = prompt("Por favor ingresa la nueva fecha de prueba", tienda.Fecha_prueba);
             let nuevaFechaApertura = prompt("Por favor ingresa la nueva fecha de apertura", tienda.Fecha_apertura);
             //Validamos que los campos esten llenos.
-            if(nuevoNombre !== null && nuevaFechaPrueba !== null && nuevaFechaApertura !== null){
+            if(nuevoNumero !== null && nuevoNombre !== null && nuevaFechaPrueba !== null && nuevaFechaApertura !== null){
                 //En esta parte es en donde se actualizan los valores en la base de datos.
                 //Utilizamos fetch con el metodo "PUT" para actualizar los valores en el servidor.
                 const myDataObject = {
-                    N_tienda: tienda.N_tienda,
+                    N_tienda: nuevoNumero,
                     Nom_tienda: nuevoNombre,
                     Fecha_prueba: nuevaFechaPrueba,
                     Fecha_apertura: nuevaFechaApertura
@@ -65,7 +66,8 @@ fetch("http://localhost:3004/tiendas")
                 .then(response => response.json())
                 .then(() => {
                     console.log('tienda actualizada');
-                    // Actualiza los datos en la tabla
+                    // Actualiza los datos en la tabla.
+                    N_tienda.innerHTML = nuevoNumero;
                     Nom_tienda.innerHTML = `<a href="Pasos.html">${nuevoNombre}</a>`;
                     Fecha_prueba.innerHTML = nuevaFechaPrueba;
                     Fecha_apertura.innerHTML = nuevaFechaApertura;
@@ -74,7 +76,6 @@ fetch("http://localhost:3004/tiendas")
             }
         });
 
-        
         // Código para eliminar la tienda
         opciones.querySelector('.btnEliminar').addEventListener('click', function() {
             /**
@@ -85,9 +86,10 @@ fetch("http://localhost:3004/tiendas")
              * Por ultimo esperamos la respuesta, 'tienda eliminada' o el error que se encuentre.
              */
             const myDataObject = {tienda: 1}
+            alert('¿Estas seguro de eliminar esta tienda?');
             fetch(`http://localhost:3004/borrarTienda/${tienda.id}`,
             { 
-                method: 'DELETE',
+                method: 'POST',
                     headers: {
                         'Content-type': 'application/json'
                     },
@@ -101,6 +103,5 @@ fetch("http://localhost:3004/tiendas")
             .catch(error => console.error('error:', error));
         });
     });
-    
 });
 
