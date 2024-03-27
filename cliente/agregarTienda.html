@@ -23,13 +23,23 @@
                 <p class="warnings" id="warnings"></p>
                 <div class="inputBotones">
                     <button class="btnAceptar" id="btnAceptar" type="submit">Aceptar</button>
-                    <button class="btnCancelar" id="btnCancelar" type="reset">Cancelar</button>
+                    <button class="btnCancelar" id="btnCancelar" onclick="cancelatTienda()">Cancelar</button>
                     <p class="warnings" id="warnings"></p>
                 </div>
             </div>   
         </div>
     </form>
-
+    <!-- Creamos un script para realizar un confirm() en el boton de cancelar y de esta manera no borren los datos por error. -->
+    <script>
+        const formu = document.getElementById("formAgregarTienda")
+        function cancelatTienda() {
+          if (confirm("¿Desea borrar los datos ingresados?") == true) {
+            formu.reset();
+          } else {
+            console.log("Los datos siguen");
+          }
+        }
+        </script>
     <!-- Le cambio la direccion de la imagen -->
     <footer  class="Alinear_Flex">
         <img src="assets/logos/chredraui an.png" alt="Logo Chedraui" class="LogoChedraui">

@@ -1,5 +1,15 @@
 /* Esta hoja esta enlazada con Pasos.html y pasosUsuario.html, por lo que al modificarla se modifican ambas.*/
 
+.navIndex{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 10px;
+    margin-right: 10px;
+    background: silver;
+    display: ruby-text;
+}
+
 .seccionPasos{
     align-items: center;
     text-align: center;

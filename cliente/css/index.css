@@ -1,3 +1,13 @@
+.navIndex{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 10px;
+    margin-right: 10px;
+    background: silver;
+    display: ruby-text;
+}
+
 .listasTiendas{
     align-items: center;
     text-align: -webkit-center;

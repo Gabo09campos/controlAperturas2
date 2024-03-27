@@ -84,23 +84,26 @@ fetch("http://localhost:3004/tiendas")
              * Describimos el pedido y enviamos datos adicionales usando "applicacion/json"
              * Dentro de "body" utilizamos la funcion json.stringify() del objeto stringify de js.
              * Por ultimo esperamos la respuesta, 'tienda eliminada' o el error que se encuentre.
+             * Utilizamos un confirm() dentro de un condicional para asegurar que el usuario desea eliminar esa tienda y no que sea por error.
              */
             const myDataObject = {tienda: 1}
-            alert('¿Estas seguro de eliminar esta tienda?');
-            fetch(`http://localhost:3004/borrarTienda/${tienda.id}`,
-            { 
-                method: 'POST',
-                    headers: {
-                        'Content-type': 'application/json'
-                    },
-                    body: JSON.stringify(myDataObject)
-            })
-            .then(response => response.json())
-            .then(() => {
-                console.log('tienda eliminada');
-                row.remove();
-            })
-            .catch(error => console.error('error:', error));
+            if(confirm('¿Estas seguro de eliminar esta tienda?') == true){
+                fetch(`http://localhost:3004/borrarTienda/${tienda.id}`,
+                { 
+                    method: 'POST',
+                        headers: {
+                            'Content-type': 'application/json'
+                        },
+                        body: JSON.stringify(myDataObject)
+                })
+                .then(response => response.json())
+                .then(() => {
+                    row.remove();
+                })
+                .catch(error => console.error('error:', error));
+            }else{
+                console.log("No se borro nada");
+            }
         });
     });
 });
