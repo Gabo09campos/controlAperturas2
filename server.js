@@ -21,7 +21,7 @@ app.use(express.static("./cliente"));
  * esta funcion le dice a la aplicacion de express que use o cree una nueva ruta que seria la cadena en el primer parametro, en este caso "/usuarios", cuando llegue una peticion http a la ruta usuarios va a correr la funcion en el segundo parametro de la funcion use.
 */
 
-//Este es de prueba
+//Este es de prueba.
 app.use("/usuarios", function(pet, rest){
     
     conexion.query("SELECT * FROM usuarios", function(err, resultado){
@@ -36,7 +36,7 @@ app.use("/usuarios", function(pet, rest){
     }); 
 });
 
-// Back-end de login
+// Back-end de login.
 app.use("/login", function(pet, rest){
     //Conectamos con el front para recibir los valores del formulario.
     const {usuario, contrasena} = pet.query
@@ -59,7 +59,6 @@ app.use("/login", function(pet, rest){
        rest.json({resultado});
     });
 });
-
 
 //Back-end index/lista de tiendas por aperturar.
 app.get("/tiendas", function(pet, rest){
@@ -109,7 +108,7 @@ app.put("/editarTienda/:id", function(req, res){
     }); 
 });
 
-// Back-end Agregar tiendas
+// Back-end Agregar tiendas.
 app.use("/agregarTienda", function(pet, rest){
     //Conectamos con el front para recibir los valores del formulario.
     const {N_tienda, Nom_tienda, Fecha_prueba, Fecha_apertura} = pet.body
@@ -124,6 +123,28 @@ app.use("/agregarTienda", function(pet, rest){
         }
     });
 });
+
+// Back-end para cerrar sesion.
+app.post("/cerrarSesion", (pet, rest) =>{
+    if (pet.session) {
+        // Destruye la sesión
+        pet.session.destroy(err => {
+            if(err) {
+                // Maneja el error
+                console.log(err);
+                rest.status(500).send('Error al cerrar la sesión');
+            } else {
+                // Redirige al usuario a la página de inicio de sesión
+                rest.redirect('/login');
+            }
+        });
+    } else {
+        // No hay una sesión para destruir
+        rest.redirect('/login');
+    }
+});
+
+
 
 /**
  * creamos un servidor http de node.js para acelerar el funcionanmiento.
