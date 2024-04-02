@@ -24,9 +24,9 @@ document.addEventListener("DOMContentLoaded", function() {
             let warnings = "";
             let entrar = true;
             
-            if(numeroTienda.value.length < 3 && nombreTienda.value.length < 10 && fPruebas.value.length < 8 && fApertura.value.length < 8 ){
+            if(numeroTienda.value.length < 3 || nombreTienda.value.length < 10 || fPruebas.value.length < 8 || fApertura.value.length < 8 ){
                 warnings += 'Todos los campos deben ser llenados correctamente <br>'
-                entrar = true;
+                entrar = false;
                 parrafo.innerHTML = warnings;
                 console.log(numeroTienda.value, nombreTienda.value, fPruebas.value, fApertura.value);
             }else{

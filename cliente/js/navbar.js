@@ -33,4 +33,27 @@ function checkAuthenticated(req, res, next) {
 app.get('/', checkAuthenticated, (req, res) => {
     // Sirve la página principal
 });
+
+// Función para verificar si el usuario está logueado
+function estaLogueado() {
+    // Obtener datos de localStorage
+    var usuario = JSON.parse(localStorage.getItem('usuario'));
+
+    if (usuario) {
+        // El usuario está logueado
+        return true;
+    } else {
+        // El usuario no está logueado
+        return false;
+    }
+}
+
+// Verificar autenticación en cada página
+window.onload = function() {
+    if (!estaLogueado()) {
+        // Si el usuario no está logueado, redirigir a la página de inicio de sesión
+        window.location.href = "/ruta/a/la/pagina/de/inicio/de/sesion";
+    }
+}
+
 */

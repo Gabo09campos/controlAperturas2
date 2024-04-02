@@ -58,4 +58,35 @@ form.addEventListener("submit", e=>{
     }
 });
 
+// Supongamos que este es tu formulario de inicio de sesión
+const loginForm = document.getElementById('login-form');
+
+loginForm.addEventListener('submit', function(event) {
+  // Evita el comportamiento de envío de formulario predeterminado.
+  event.preventDefault();
+
+  // Recoge los valores de los campos del formulario.
+  const username = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
+
+  // Haz una solicitud POST al endpoint de login
+  fetch('/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      username: username,
+      password: password,
+    }),
+  })
+    .then(response => response.json())
+    .then(data => {
+      // Guarda el token en el almacenamiento local
+      localStorage.setItem('token', data.token);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+});
 

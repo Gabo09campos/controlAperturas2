@@ -1,7 +1,7 @@
 const express = require("express");
 const http = require("node:http");
 const conexion = require("./conexion.js");
-const app = express();
+const jwt = require('jsonwebtoken');
 app.use(express.json());
 app.use(express.static("./cliente"));
 
@@ -58,6 +58,26 @@ app.use("/login", function(pet, rest){
        // Con un json enviamos los datos hacia el cliente.
        rest.json({resultado});
     });
+
+app.post('/login', (req, res) => {
+  // Aquí autenticarías al usuario. En un caso real, no usarías
+  // credenciales estáticas, sino que verificarías las credenciales
+  // proporcionadas en req.body contra una base de datos.
+  const username = req.body.username;
+  const password = req.body.password;
+
+  if (username === 'usuario' && password === 'contraseña') {
+    // Si la autenticación es exitosa, firmas el JWT con los detalles del usuario
+    // y algún secreto de tu aplicación.
+    const token = jwt.sign({ username: username }, 'tu_secreto');
+
+    // Luego, devuelves el token al cliente.
+    res.json({ token: token });
+  } else {
+    res.status(401).send('Credenciales incorrectas');
+  }
+});
+
 });
 
 //Back-end index/lista de tiendas por aperturar.
