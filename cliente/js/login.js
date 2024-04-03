@@ -14,7 +14,7 @@ const parrafo = document.getElementById("warnings");
      * Finalmente redirigimos hacia una nueva pantalla despues de dar clic al boton y haber validado que todo este correcto esto con "href".
      * Y utilizamos una funcion "reset" para limpiar el formulario despues de ingresar.
  */
-form.addEventListener("submit", e=>{
+form.addEventListener("submit", e => {
     e.preventDefault();
     let warnings = "";
     let entrar = true;  
@@ -27,11 +27,9 @@ form.addEventListener("submit", e=>{
         entrar = true;
         parrafo.innerHTML = warnings;    
     }else{
-        axios.get("login", {
-            params: {
+        axios.post("login", {
                 usuario: usuario.value,
                 contrasena: contra.value
-            }
         })
         .then(resultado => {
             //Obtenemos el resultado del back si existe coincidencia con los datos ingresados en el formulario.
@@ -40,6 +38,8 @@ form.addEventListener("submit", e=>{
                 return;
             }
             const usuario = resultado.data.resultado[0];
+            const token = resultado.data.token;
+            localStorage.setItem('token', token);
             switch(usuario.T_usuario){
                 //redireccionar
                 case 'Administrador':
@@ -57,36 +57,26 @@ form.addEventListener("submit", e=>{
         })
     }
 });
+/*
+document.getElementById("formLogin").addEventListener("submit", function(event){
+    event.preventDefault()
 
-// Supongamos que este es tu formulario de inicio de sesión
-const loginForm = document.getElementById('login-form');
-
-loginForm.addEventListener('submit', function(event) {
-  // Evita el comportamiento de envío de formulario predeterminado.
-  event.preventDefault();
-
-  // Recoge los valores de los campos del formulario.
-  const username = document.getElementById('username').value;
-  const password = document.getElementById('password').value;
-
-  // Haz una solicitud POST al endpoint de login
-  fetch('/login', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      username: username,
-      password: password,
-    }),
-  })
+    let usuario = document.getElementById('usuario').value;
+    let contra = document.getElementById('contraseña').value;
+    fetch('/login', {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ usuario, contra }),
+    })
     .then(response => response.json())
     .then(data => {
-      // Guarda el token en el almacenamiento local
-      localStorage.setItem('token', data.token);
+        console.log('Success:', data);
     })
-    .catch(error => {
-      console.error('Error:', error);
+    .catch((error) => {
+        console.error('Error:', error);
     });
 });
 
+*/

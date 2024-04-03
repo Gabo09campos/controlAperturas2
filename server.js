@@ -2,6 +2,8 @@ const express = require("express");
 const http = require("node:http");
 const conexion = require("./conexion.js");
 const jwt = require('jsonwebtoken');
+const app = express();
+const bcrypt = require('bcrypt');
 app.use(express.json());
 app.use(express.static("./cliente"));
 
@@ -35,7 +37,7 @@ app.use("/usuarios", function(pet, rest){
         return rest.json({resultado : resultado}); 
     }); 
 });
-
+/*
 // Back-end de login.
 app.use("/login", function(pet, rest){
     //Conectamos con el front para recibir los valores del formulario.
@@ -58,11 +60,58 @@ app.use("/login", function(pet, rest){
        // Con un json enviamos los datos hacia el cliente.
        rest.json({resultado});
     });
+});
 
-app.post('/login', (req, res) => {
+app.post("/login", (req, res) => {
+    //Obtenemos del front los valores del cuerpo.
+    let body = req.body;
+    //Buscamos si coincide el usuario ingresado con alguno en la base de datos.
+    usuario.findOne({usuario: body.usuario}, (err, usuario) => {
+        if(err){
+            return res.status(500).json({
+                ok: false,
+                err
+            });
+        }else{
+            console.log('Logrado');
+        }
+        //Si no encuentra el usuario, responde con un error.
+        if(!usuario){
+            return res.status(400).json({
+                ok: false,
+                err: {
+                    message: 'Usuario o contraseña incorrectos'
+                }
+            });
+        }else{
+            console.log('Lo logro señor');
+        }
+        // Si la contraseña ingresada no coincide con la del usuario, enviamos un error.
+        if(!bcrypt.compareSync(body.contra, usuario.contra)){
+            return res.status(400).json({
+                ok: false,
+                err: {
+                    message: 'Usuario o contraseña incorrectos'
+                }
+            });
+        }else{
+            console.log('Estamos bien');
+        }
+        //Creamos un token JWT para el usuario.
+        let token = jwt.sign({
+            usuario
+        }, 'este-es-el-seed', {expiresIn: '120'});
+        //Enviamos la respuesta, el usuario y el token.
+        res.json({
+            ok: true,
+            usuario,
+            token
+        });
+    })
   // Aquí autenticarías al usuario. En un caso real, no usarías
   // credenciales estáticas, sino que verificarías las credenciales
-  // proporcionadas en req.body contra una base de datos.
+  // proporcionadas en req.body contra una base de datos. 
+  /*
   const username = req.body.username;
   const password = req.body.password;
 
@@ -75,10 +124,66 @@ app.post('/login', (req, res) => {
     res.json({ token: token });
   } else {
     res.status(401).send('Credenciales incorrectas');
-  }
+  } */
+
+
+app.post("/login", (req, res) => {
+    //Obtenemos del front los valores del cuerpo.
+    let body = req.body;
+    //const usuario = req.body;
+    //const contrasena = req.body;
+    const {usuario, contrasena} = req.body;
+    //Realizamos la consulta a la base de datos para comprobar que el usuario ingresado existe.
+    const consultaSql = `SELECT Nombre, T_usuario, Contrasena FROM usuarios WHERE Nombre = ? AND  Contrasena = ? `;
+    console.log(consultaSql, [usuario, contrasena]);
+    conexion.query(consultaSql, [usuario, contrasena], function(err, resultado){
+        
+        if(err){
+            console.log(err)
+            return res.status(500).json({error: "Hubo un error al realizar la consulta del login"});
+        }
+        // Verificamos que no este vacio el resultado.
+        if(resultado && resultado.length > 0){
+            // Desestructuración de los datos.
+            // Ahora puedes usar las variables Nombre, T_usuario y Contraseña directamente.
+            const [{Nombre, T_usuario, Contrasena}] = resultado;
+            console.log('Logrado');
+        }else{
+            console.log("No se encontro un resultado");
+            return res.status(400).json({
+                ok: false,
+                err: {
+                    message: 'Usuario o contraseña incorrectos'
+                }
+            });
+        }
+
+        // Si la contraseña ingresada no coincide con la del usuario, enviamos un error.
+        if(!bcrypt.compareSync(body.contra, contrasena)){
+            return res.status(400).json({
+                ok: false,
+                err: {
+                    message: 'Usuario o contraseña incorrectos'
+                }
+            });
+        }else{
+            console.log('Estamos bien');
+        }
+
+        //Creamos un token JWT para el usuario.
+        let token = jwt.sign({
+            usuario: Nombre
+        }, 'este-es-el-seed', {expiresIn: '120'});
+
+        //Enviamos la respuesta, el usuario y el token.
+        res.json({
+            ok: true,
+            usuario: Nombre,
+            token
+        });
+    });
 });
 
-});
 
 //Back-end index/lista de tiendas por aperturar.
 app.get("/tiendas", function(pet, rest){
@@ -145,6 +250,7 @@ app.use("/agregarTienda", function(pet, rest){
 });
 
 // Back-end para cerrar sesion.
+/*
 app.post("/cerrarSesion", (pet, rest) =>{
     if (pet.session) {
         // Destruye la sesión
