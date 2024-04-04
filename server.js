@@ -37,107 +37,15 @@ app.use("/usuarios", function(pet, rest){
         return rest.json({resultado : resultado}); 
     }); 
 });
-/*
+
 // Back-end de login.
-app.use("/login", function(pet, rest){
-    //Conectamos con el front para recibir los valores del formulario.
-    const {usuario, contrasena} = pet.query
-    //Realizamos la consulta a la base de datos para comprobar que el usuario ingresado existe.
-    const consultaSql = `SELECT Nombre, T_usuario, Contrasena FROM usuarios WHERE Nombre = ? AND  Contrasena = ? `;
-    conexion.query(consultaSql, [usuario, contrasena], function(err, resultado){
-        if(err){
-            console.log(err)
-            rest.status(500).json({error: "Hubo un error al realizar la consulta del login"});
-        }
-        // Verificamos que no este vacio el resultado.
-        if(resultado && resultado.length > 0){
-            // Desestructuración de los datos
-            // Ahora puedes usar las variables Nombre, T_usuario y Contraseña directamente
-            const [{Nombre, T_usuario, Contrasena}] = resultado;
-        }else{
-            console.log("No se encontro un resultado");
-        }
-       // Con un json enviamos los datos hacia el cliente.
-       rest.json({resultado});
-    });
-});
-
 app.post("/login", (req, res) => {
     //Obtenemos del front los valores del cuerpo.
     let body = req.body;
-    //Buscamos si coincide el usuario ingresado con alguno en la base de datos.
-    usuario.findOne({usuario: body.usuario}, (err, usuario) => {
-        if(err){
-            return res.status(500).json({
-                ok: false,
-                err
-            });
-        }else{
-            console.log('Logrado');
-        }
-        //Si no encuentra el usuario, responde con un error.
-        if(!usuario){
-            return res.status(400).json({
-                ok: false,
-                err: {
-                    message: 'Usuario o contraseña incorrectos'
-                }
-            });
-        }else{
-            console.log('Lo logro señor');
-        }
-        // Si la contraseña ingresada no coincide con la del usuario, enviamos un error.
-        if(!bcrypt.compareSync(body.contra, usuario.contra)){
-            return res.status(400).json({
-                ok: false,
-                err: {
-                    message: 'Usuario o contraseña incorrectos'
-                }
-            });
-        }else{
-            console.log('Estamos bien');
-        }
-        //Creamos un token JWT para el usuario.
-        let token = jwt.sign({
-            usuario
-        }, 'este-es-el-seed', {expiresIn: '120'});
-        //Enviamos la respuesta, el usuario y el token.
-        res.json({
-            ok: true,
-            usuario,
-            token
-        });
-    })
-  // Aquí autenticarías al usuario. En un caso real, no usarías
-  // credenciales estáticas, sino que verificarías las credenciales
-  // proporcionadas en req.body contra una base de datos. 
-  /*
-  const username = req.body.username;
-  const password = req.body.password;
-
-  if (username === 'usuario' && password === 'contraseña') {
-    // Si la autenticación es exitosa, firmas el JWT con los detalles del usuario
-    // y algún secreto de tu aplicación.
-    const token = jwt.sign({ username: username }, 'tu_secreto');
-
-    // Luego, devuelves el token al cliente.
-    res.json({ token: token });
-  } else {
-    res.status(401).send('Credenciales incorrectas');
-  } */
-
-
-app.post("/login", (req, res) => {
-    //Obtenemos del front los valores del cuerpo.
-    let body = req.body;
-    //const usuario = req.body;
-    //const contrasena = req.body;
     const {usuario, contrasena} = req.body;
     //Realizamos la consulta a la base de datos para comprobar que el usuario ingresado existe.
     const consultaSql = `SELECT Nombre, T_usuario, Contrasena FROM usuarios WHERE Nombre = ? AND  Contrasena = ? `;
-    console.log(consultaSql, [usuario, contrasena]);
-    conexion.query(consultaSql, [usuario, contrasena], function(err, resultado){
-        
+    conexion.query(consultaSql, [usuario, contrasena], function(err, resultado){   
         if(err){
             console.log(err)
             return res.status(500).json({error: "Hubo un error al realizar la consulta del login"});
@@ -157,7 +65,7 @@ app.post("/login", (req, res) => {
                 }
             });
         }
-
+        /*
         // Si la contraseña ingresada no coincide con la del usuario, enviamos un error.
         if(!bcrypt.compareSync(body.contra, contrasena)){
             return res.status(400).json({
@@ -169,21 +77,20 @@ app.post("/login", (req, res) => {
         }else{
             console.log('Estamos bien');
         }
-
+        */
         //Creamos un token JWT para el usuario.
         let token = jwt.sign({
-            usuario: Nombre
+            usuario: usuario
         }, 'este-es-el-seed', {expiresIn: '120'});
-
         //Enviamos la respuesta, el usuario y el token.
         res.json({
             ok: true,
-            usuario: Nombre,
-            token
+            usuario: usuario,
+            token,
+            resultado
         });
     });
 });
-
 
 //Back-end index/lista de tiendas por aperturar.
 app.get("/tiendas", function(pet, rest){
@@ -250,11 +157,10 @@ app.use("/agregarTienda", function(pet, rest){
 });
 
 // Back-end para cerrar sesion.
-/*
 app.post("/cerrarSesion", (pet, rest) =>{
-    if (pet.session) {
+    if (pet.token) {
         // Destruye la sesión
-        pet.session.destroy(err => {
+        pet.token.destroy(err => {
             if(err) {
                 // Maneja el error
                 console.log(err);
@@ -267,9 +173,21 @@ app.post("/cerrarSesion", (pet, rest) =>{
     } else {
         // No hay una sesión para destruir
         rest.redirect('/login');
+        console.log('No encontre ninguna sesion');
     }
 });
 
+/*
+app.put("/api/logout", authToken, function (req, res) {
+    const authHeader = req.headers["authorization"];
+    jwt.sign(authHeader, "", { expiresIn: 1 }, (logout, err) => {
+      if (logout) {
+        res.send({msg : 'Has sido desconectado' });
+      } else {
+        res.send({msg:'Error'});
+      }
+    });
+  });  
 
 
 /**

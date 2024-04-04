@@ -57,26 +57,4 @@ form.addEventListener("submit", e => {
         })
     }
 });
-/*
-document.getElementById("formLogin").addEventListener("submit", function(event){
-    event.preventDefault()
 
-    let usuario = document.getElementById('usuario').value;
-    let contra = document.getElementById('contraseña').value;
-    fetch('/login', {
-        method: 'POST',
-        headers: {
-        'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ usuario, contra }),
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Success:', data);
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
-});
-
-*/

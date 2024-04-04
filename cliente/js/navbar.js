@@ -2,6 +2,7 @@ const logout = document.getElementById("btnCerrarSesion");
 const titulo = document.getElementById("tituloNav");
 
 logout.addEventListener("click", e => {
+    e.preventDefault();
     // Aquí puedes agregar la lógica para cerrar la sesión.
     fetch("cerrarSesion",
                 { 
@@ -18,7 +19,7 @@ logout.addEventListener("click", e => {
                 .catch(error => console.error('El error es:', error));
 });
 
-/*
+
 function checkAuthenticated(req, res, next) {
     if (req.session && req.session.userId) {
         // El usuario está autenticado, así que puedes continuar con la siguiente función middleware
@@ -28,7 +29,7 @@ function checkAuthenticated(req, res, next) {
         res.redirect('/login');
     }
 }
-
+/*
 // Usa el middleware en todas las rutas que requieran autenticación
 app.get('/', checkAuthenticated, (req, res) => {
     // Sirve la página principal
