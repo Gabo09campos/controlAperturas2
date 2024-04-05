@@ -17,7 +17,7 @@ const parrafo = document.getElementById("warnings");
 form.addEventListener("submit", e => {
     e.preventDefault();
     let warnings = "";
-    let entrar = true;  
+    let entrar = true;
     /**
      * Importamos en el front a "axios" que es una libreria para hacer peticiones http
      * Con un objeto enviamos a travez de la ruta los valores del login para revisar que se encuentren en la BD
@@ -28,6 +28,7 @@ form.addEventListener("submit", e => {
         parrafo.innerHTML = warnings;    
     }else{
         axios.post("login", {
+            //Enviamos al Back los valores de los inputs de el login.
                 usuario: usuario.value,
                 contrasena: contra.value
         })
@@ -39,7 +40,9 @@ form.addEventListener("submit", e => {
             }
             const usuario = resultado.data.resultado[0];
             const token = resultado.data.token;
+            //Guardamos en el navegador el token para verificar si esta iniciada la sesion y el nombre para la bienvenida en el navbar.
             localStorage.setItem('token', token);
+            localStorage.setItem('nombreUsuario', usuario.Nombre);
             switch(usuario.T_usuario){
                 //redireccionar
                 case 'Administrador':
@@ -56,5 +59,6 @@ form.addEventListener("submit", e => {
             console.error(error);
         })
     }
+    
 });
 

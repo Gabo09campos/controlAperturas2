@@ -1,60 +1,36 @@
-const logout = document.getElementById("btnCerrarSesion");
-const titulo = document.getElementById("tituloNav");
+const logout = document.getElementById('btnCerrarSesion').addEventListener('click', cerrarSesion);
+//const titulo = document.getElementById("tituloNav");
 
-logout.addEventListener("click", e => {
-    e.preventDefault();
-    // Aquí puedes agregar la lógica para cerrar la sesión.
-    fetch("cerrarSesion",
-                { 
-                    method: 'POST',
-                        headers: {
-                            'Content-type': 'application/json'
-                        }
-                })
-                .then(response => {
-                    if(!response.ok){
-                        throw new Error('Error al cerrar la sesion');
-                    } window.location.href = 'login.html';
-                })
-                .catch(error => console.error('El error es:', error));
-});
-
-
-function checkAuthenticated(req, res, next) {
-    if (req.session && req.session.userId) {
-        // El usuario está autenticado, así que puedes continuar con la siguiente función middleware
-        next();
-    } else {
-        // El usuario no está autenticado, así que redirige al usuario a la página de inicio de sesión
-        res.redirect('/login');
-    }
+//Funcion para cerrar sesion.
+function cerrarSesion() {
+    // Eliminar el token de localStorage para que al cerrar sesion no se pueda utulzar la pagina.
+    localStorage.removeItem('token');     
+    // Redirigir al usuario a la página de inicio de sesión.
+    location.href = "./login.html";
 }
-/*
-// Usa el middleware en todas las rutas que requieran autenticación
-app.get('/', checkAuthenticated, (req, res) => {
-    // Sirve la página principal
-});
-
-// Función para verificar si el usuario está logueado
+//Funcion para verificar si el usuario esta activo o ya fue eliminado el token.
 function estaLogueado() {
-    // Obtener datos de localStorage
-    var usuario = JSON.parse(localStorage.getItem('usuario'));
-
-    if (usuario) {
-        // El usuario está logueado
+    // Obtener el token de localStorage.
+    var token = localStorage.getItem('token');
+    //Validacion del token.
+    if (token) {
+        // El usuario está logueado y puede seguir navegado.
         return true;
     } else {
-        // El usuario no está logueado
+        // El usuario no está logueado se finaliza la sesion con "window.onload".
         return false;
     }
 }
-
-// Verificar autenticación en cada página
+// Verificar autenticación en cada página con la funcion anterior.
 window.onload = function() {
     if (!estaLogueado()) {
-        // Si el usuario no está logueado, redirigir a la página de inicio de sesión
-        window.location.href = "/ruta/a/la/pagina/de/inicio/de/sesion";
+        // Si el usuario no está logueado, redirigir a la página de inicio de sesión.
+        window.location.replace('./login.html');
+    }else{
+        // Si el usuario está logueado, mostrar su nombre en la barra de navegación.
+        var elementoNavbar = document.getElementById('tituloNav');
+        // Obtenemos el nombre del usuario del almacenamiento local y lo mostramos en el nav.
+        var nombreUsuario = localStorage.getItem('nombreUsuario'); 
+        elementoNavbar.innerHTML = 'Bienvenido, ' + nombreUsuario;
     }
-}
-
-*/
+} 

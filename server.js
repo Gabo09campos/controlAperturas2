@@ -55,7 +55,6 @@ app.post("/login", (req, res) => {
             // Desestructuración de los datos.
             // Ahora puedes usar las variables Nombre, T_usuario y Contraseña directamente.
             const [{Nombre, T_usuario, Contrasena}] = resultado;
-            console.log('Logrado');
         }else{
             console.log("No se encontro un resultado");
             return res.status(400).json({
@@ -65,19 +64,6 @@ app.post("/login", (req, res) => {
                 }
             });
         }
-        /*
-        // Si la contraseña ingresada no coincide con la del usuario, enviamos un error.
-        if(!bcrypt.compareSync(body.contra, contrasena)){
-            return res.status(400).json({
-                ok: false,
-                err: {
-                    message: 'Usuario o contraseña incorrectos'
-                }
-            });
-        }else{
-            console.log('Estamos bien');
-        }
-        */
         //Creamos un token JWT para el usuario.
         let token = jwt.sign({
             usuario: usuario
@@ -155,40 +141,6 @@ app.use("/agregarTienda", function(pet, rest){
         }
     });
 });
-
-// Back-end para cerrar sesion.
-app.post("/cerrarSesion", (pet, rest) =>{
-    if (pet.token) {
-        // Destruye la sesión
-        pet.token.destroy(err => {
-            if(err) {
-                // Maneja el error
-                console.log(err);
-                rest.status(500).send('Error al cerrar la sesión');
-            } else {
-                // Redirige al usuario a la página de inicio de sesión
-                rest.redirect('/login');
-            }
-        });
-    } else {
-        // No hay una sesión para destruir
-        rest.redirect('/login');
-        console.log('No encontre ninguna sesion');
-    }
-});
-
-/*
-app.put("/api/logout", authToken, function (req, res) {
-    const authHeader = req.headers["authorization"];
-    jwt.sign(authHeader, "", { expiresIn: 1 }, (logout, err) => {
-      if (logout) {
-        res.send({msg : 'Has sido desconectado' });
-      } else {
-        res.send({msg:'Error'});
-      }
-    });
-  });  
-
 
 /**
  * creamos un servidor http de node.js para acelerar el funcionanmiento.

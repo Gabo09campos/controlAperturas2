@@ -10,6 +10,16 @@
     display: ruby-text;
 }
 
+.btnCerrarSesion{
+    border-radius: 5px;
+    width: 110px;
+    height: 30px;
+    background-color: #0076c8;
+    cursor: pointer;
+    color: white;
+    margin-left: 405px;
+}
+
 .seccionPasos{
     align-items: center;
     text-align: center;

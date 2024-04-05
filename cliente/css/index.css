@@ -8,17 +8,27 @@
     display: ruby-text;
 }
 
+.btnCerrarSesion{
+    border-radius: 5px;
+    width: 110px;
+    height: 30px;
+    background-color: #0076c8;
+    cursor: pointer;
+    color: white;
+    margin-left: 405px;
+}
+
 .listasTiendas{
     align-items: center;
     text-align: -webkit-center;
-    margin-top: 5%;
+    margin-top: 3%;
 }
 
 .divTitulo{
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-around;
+    /*justify-content: space-around;*/
     margin-left: 270px;
 }
 
@@ -26,9 +36,10 @@
     border-radius: 5px;
     width: 110px;
     height: 30px;
-    background-color: #E0832F;
+    background-color: #0076c8;
     cursor: pointer;
     color: white;
+    margin-left: 398px;
 }
 
 table{
@@ -36,21 +47,21 @@ table{
     width: 1000px;
     height: 200px;
     text-align: center;
-    margin-top: 70px;
+    margin-top: 20px;
 }
 
 .btnEditar{
     border-radius: 5px;
-    background-color: #0076c8;
+    background-color: #9b9b9b;
     width: 60px;
     height: 30px;
     cursor: pointer;
-    color: white;
+    color: black;
 }
 
 .btnEliminar{
     border-radius: 5px;
-    background-color: red;
+    background-color: #c90b0b;
     width: 65px;
     height: 30px;
     cursor: pointer;
