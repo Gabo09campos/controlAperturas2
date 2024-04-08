@@ -1,3 +1,4 @@
+/* Estilos de inputs y botones */
 .agregarPaso{
   align-items: center;
   text-align: -webkit-center;
@@ -60,3 +61,101 @@ footer{
 .LogoChedraui{
   width: 300px;
 }
+
+/* Estilos de drop down departamentos */
+
+/* Boton de departamentos */
+.btnDep {
+  color: black;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 20px;
+  width: 260px;
+  height: 35px;
+  border-radius: 3px;
+}
+
+/* hover & focus de boton de departamento */
+.btnDep:hover, .btnDep:focus {
+  background-color: gray;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.departamentos {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 260px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.departamentos a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  background: oldlace;
+}
+
+/* Change color of dropdown links on hover */
+.departamentos a:hover {background-color: rgb(43, 188, 227);}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {display:block;}
+
+
+/* Estilos de drop down usuarios */
+/* Boton de usuarios */
+.btnUsu {
+  color: black;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 20px;
+  width: 260px;
+  height: 35px;
+  border-radius: 3px;
+}
+
+/* hover & focus de boton de departamento */
+.btnUsu:hover, .btnUsu:focus {
+  background-color: gray;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.usuarios {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 260px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.usuarios a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  background: oldlace;
+}
+
+/* Change color of dropdown links on hover */
+.usuarios a:hover {background-color: rgb(43, 188, 227);}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {display:block;}

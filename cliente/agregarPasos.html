@@ -14,11 +14,26 @@
         </div>
         <div class="inputAgregar">
             <div class="inputTexto">
-                <input type="text" placeholder="ID paso">
                 <input type="text" placeholder="Nombre de apertura">
-                <input type="text" placeholder="Departamento responsable">
-                <input type="text" placeholder="Usuario">
-                <input type="text" placeholder="Correo">
+
+                <div class="dropdown">
+                    <button onclick="verDepartamentos(event)" class="btnDep">Departamento responsable</button>
+                    <div id="myDropdownDep" class="dropdown-content departamentos">
+                        <a href="#">Departamento 1</a>
+                        <a href="#">Departamento 2</a>
+                        <a href="#">Departamento 3</a>
+                    </div>
+                </div>
+
+                <div class="dropdownU">
+                    <button onclick="verUsuarios(event)" class="btnUsu">Usuario</button>
+                    <div id="myDropdownUsu" class="dropdown-content usuarios">
+                        <a href="#">Usuario 1</a>
+                        <a href="#">Usuario 2</a>
+                        <a href="#">Usuario 3</a>
+                    </div>
+                </div>
+                
                 <div class="inputBotones">
                     <button class="btnAceptar">Aceptar</button>
                     <button class="btnCancelar">Cancelar</button>
@@ -26,10 +41,12 @@
             </div>   
         </div>
     </form>
-
+    
     <!-- Le cambio la direccion de la imagen -->
     <footer>
         <img src="assets/logos/chredraui an.png" alt="Logo Chedraui" class="LogoChedraui">
     </footer>
+
+    <script src="js/agregarPasos.js"></script>
 </body>
 </html>
