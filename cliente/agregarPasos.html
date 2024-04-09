@@ -8,37 +8,31 @@
     <!-- Le cambio la direccion del estilo -->
 </head>
 <body>
-    <form class="agregarPaso">
+    <form class="agregarPaso" id="agregarPaso">
         <div>
             <h1>Agregar paso</h1>
         </div>
         <div class="inputAgregar">
             <div class="inputTexto">
                 <input type="text" placeholder="Nombre de apertura">
-
-                <div class="dropdown">
-                    <button onclick="verDepartamentos(event)" class="btnDep">Departamento responsable</button>
-                    <div id="myDropdownDep" class="dropdown-content departamentos">
-                        <a href="#">Departamento 1</a>
-                        <a href="#">Departamento 2</a>
-                        <a href="#">Departamento 3</a>
-                    </div>
-                </div>
-
-                <div class="dropdownU">
-                    <button onclick="verUsuarios(event)" class="btnUsu">Usuario</button>
-                    <div id="myDropdownUsu" class="dropdown-content usuarios">
-                        <a href="#">Usuario 1</a>
-                        <a href="#">Usuario 2</a>
-                        <a href="#">Usuario 3</a>
-                    </div>
-                </div>
-                
-                <div class="inputBotones">
-                    <button class="btnAceptar">Aceptar</button>
-                    <button class="btnCancelar">Cancelar</button>
-                </div>
             </div>   
+            <div class="dropdown">
+                <button  class="btnDep" id="btnDep">Departamento responsable</button>
+                <select id="myDropdownDep" class="dropdown-content departamentos" name="subject">
+                    <option value="" selected="selected">Selecciona un departamento</option>
+                </select>
+            </div>
+
+            <div class="dropdownU">
+                <button  class="btnUsu" id="btnUsu">Usuario</button>
+                <select id="myDropdownUsu" class="dropdown-content usuarios">
+                    <option value="" selected="selected">Selecciona un usuario</option>
+                </select>
+            </div>
+            <div class="inputBotones">
+                <button class="btnAceptar">Aceptar</button>
+                <button class="btnCancelar">Cancelar</button>
+            </div>
         </div>
     </form>
     
