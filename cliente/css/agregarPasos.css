@@ -20,6 +20,10 @@
   align-items: center;
 }
 
+.warnings{
+  margin-top: 60px;
+}
+
 .inputBotones{
   width: 20%;
   display: flex;
@@ -69,12 +73,10 @@ footer{
   color: black;
   font-size: 14px;
   cursor: pointer;
-  margin-top: 20px;
+  margin-top: 30px;
   width: 260px;
   height: 35px;
   border-radius: 3px;
-  border: none;
-  margin-top: 30px;
 }
 
 /* hover & focus de boton de departamento */
@@ -121,11 +123,9 @@ footer{
   color: black;
   font-size: 14px;
   cursor: pointer;
-  margin-top: 20px;
   width: 260px;
   height: 35px;
   border-radius: 3px;
-  border: none;
   margin-top: 50px;
 }
 

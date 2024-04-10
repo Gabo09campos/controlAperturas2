@@ -13,34 +13,68 @@
             <h1>Agregar paso</h1>
         </div>
         <div class="inputAgregar">
+            <!-- Nombre del paso a agregar -->
             <div class="inputTexto">
-                <input type="text" placeholder="Nombre de apertura">
-            </div>   
+                <input type="text" placeholder="Nombre de apertura" id="nombrePaso">
+            </div> 
+            <!-- Seleccion del departamento responsable -->  
             <div class="dropdown">
-                <button  class="btnDep" id="btnDep">Departamento responsable</button>
+                <button onclick="botones()" class="btnDep" id="btnDep">Departamento responsable</button>
                 <select id="myDropdownDep" class="dropdown-content departamentos" name="subject">
                     <option value="" selected="selected">Selecciona un departamento</option>
                 </select>
             </div>
-
+            <!-- Seleccion del usuario -->
             <div class="dropdownU">
-                <button  class="btnUsu" id="btnUsu">Usuario</button>
+                <button onclick="botonesUsu()" class="btnUsu" id="btnUsu">Usuario</button>
                 <select id="myDropdownUsu" class="dropdown-content usuarios">
                     <option value="" selected="selected">Selecciona un usuario</option>
                 </select>
             </div>
+            <!-- Mensaje de error -->
+            <p class="warnings" id="warnings"></p>
+            <!-- Botones -->
             <div class="inputBotones">
                 <button class="btnAceptar">Aceptar</button>
-                <button class="btnCancelar">Cancelar</button>
+                <button onclick="cancelatTienda()" class="btnCancelar">Cancelar</button>
             </div>
         </div>
     </form>
-    
+    <!-- Creamos un script para realizar un confirm() en el boton de cancelar y de esta manera no borren los datos por error. -->
+    <script>
+        const formu = document.getElementById("agregarPaso")
+        function cancelatTienda() {
+          if (confirm("¿Desea borrar los datos ingresados?") == true) {
+            formu.reset();
+          } else {
+            console.log("Los datos siguen");
+          }
+        }
+
+        function botones(error){
+            var btnDep = document.getElementById('btnDep')
+           if(btnDep){
+                btnDep.style.visibility="hidden";
+            }else{
+                console.error(error);
+            }
+        }
+
+        function botonesUsu(error){
+            var btnUsu = document.getElementById('btnUsu');
+           if(btnUsu){
+                btnUsu.style.visibility="hidden";
+            }else{
+                console.error(error);
+            }
+        }
+    </script>
     <!-- Le cambio la direccion de la imagen -->
     <footer>
         <img src="assets/logos/chredraui an.png" alt="Logo Chedraui" class="LogoChedraui">
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="js/agregarPasos.js"></script>
 </body>
 </html>

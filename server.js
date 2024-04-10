@@ -93,6 +93,21 @@ app.get("/tiendas", function(pet, rest){
     }); 
 });
 
+//Back-end pasos de las tiendas por aperturar.
+app.get("/pasos", function(pet, rest){
+    //Hacemos la consulta a la base de datos de las tiendas existentes.
+    conexion.query("SELECT * FROM pasosconsecutivos", function(err, resultado){
+        if(rest){
+            //Obetenemos los resultados y los enviamos con un json hacia el cliente.
+            rest.status(200).send(resultado);
+            console.log(resultado);
+        }else{
+            console.log(err)
+            rest.status(500).send("Error en la query");
+        }
+    }); 
+});
+
 //Back-end para eliminar una tienda de la lista de aperturas.
 app.post("/borrarTienda/:id", function(req, res){
     // Aquí borramos la tienda de la base de datos.
@@ -126,7 +141,7 @@ app.put("/editarTienda/:id", function(req, res){
     }); 
 });
 
-// Back-end Agregar tiendas.
+// Back-end Agregar nuevas tiendas.
 app.use("/agregarTienda", function(pet, rest){
     //Conectamos con el front para recibir los valores del formulario.
     const {N_tienda, Nom_tienda, Fecha_prueba, Fecha_apertura} = pet.body
@@ -136,6 +151,22 @@ app.use("/agregarTienda", function(pet, rest){
         if(err){
             console.log(err)
             rest.status(500).json({error: "Hubo un error al realizar la consulta de LA BASE DE DATOS"});
+        }else{
+            console.log("Datos insertados correctamente");
+        }
+    });
+});
+
+//Back-end para agregar pasos a seguir para la apertura.
+app.use("/agregarPaso", function(pet, rest){
+    //Conectamos con el front para recibir los valores del formulario.
+    const {Nom_apertura, Departamento_responsble, Usuario} = pet.body
+    // Insertamos los datos del formulario a la base de datos.
+    const consultaSql = `INSERT INTO pasosconsecutivos (Nom_apertura, Departamento_responsble, Usuario) VALUES (?, ?, ?) `;
+    conexion.query(consultaSql, [Nom_apertura, Departamento_responsble, Usuario], function(err, resultado){
+        if(err){
+            console.log(err)
+            rest.status(500).json({error: "Hubo un error al realizar la consulta de la base de datos"});
         }else{
             console.log("Datos insertados correctamente");
         }

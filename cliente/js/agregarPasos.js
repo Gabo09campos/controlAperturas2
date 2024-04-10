@@ -1,3 +1,10 @@
+const NombrePaso = document.getElementById("nombrePaso");
+const departamento = document.getElementById("myDropdownDep");
+const usuario = document.getElementById("myDropdownUsu");
+const form = document.getElementById("agregarPaso");
+const parrafo = document.getElementById("warnings");
+
+let mensaje = "";
 /**
  * Con un fetch indicamos cual sera la url en donde nos mostrara los datos en la web.
  * Con .then recibimos la respuesta de la base de datos y con el json lo interpreta a una manera legible para el usuario.
@@ -35,4 +42,34 @@ document.addEventListener('DOMContentLoaded', (event) => {
             selectUsu.classList.toggle("show");
         });
     });
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    if(form){
+        form.addEventListener("submit", e =>{ 
+            e.preventDefault();
+            let warnings = "";
+            let entrar = true;
+            if(NombrePaso.value.length < 5 || departamento.selectedIndex === 0 || usuario.selectedIndex === 0 ){
+                warnings += 'Todos los campos deben ser llenados correctamente <br>'
+                entrar = false;
+                parrafo.innerHTML = warnings;
+                console.log(NombrePaso.value, departamento.value, usuario.value);
+            }else{
+                axios.post("agregarPaso", {
+                    Nom_apertura: NombrePaso.value,
+                    Departamento_responsble: departamento.value,
+                    Usuario: usuario.value
+                })
+                .then(function (response) {
+                    console.log(response.data);
+                })
+                .then((error) => console.log(error));
+            }
+            form.reset();
+            location.href = './Pasos.html';
+        });
+    } else {
+        console.log("El elemento 'form' no existe en el DOM");
+    }
 });
