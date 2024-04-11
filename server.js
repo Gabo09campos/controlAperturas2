@@ -100,7 +100,6 @@ app.get("/pasos", function(pet, rest){
         if(rest){
             //Obetenemos los resultados y los enviamos con un json hacia el cliente.
             rest.status(200).send(resultado);
-            console.log(resultado);
         }else{
             console.log(err)
             rest.status(500).send("Error en la query");

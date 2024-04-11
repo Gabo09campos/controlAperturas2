@@ -17,7 +17,6 @@ fetch("http://localhost:3004/pasos")
         Nom_apertura.innerHTML = aperura.Nom_apertura;
         row.appendChild(Nom_apertura);
 
-
         pasos.appendChild(row);
     });
 });

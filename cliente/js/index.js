@@ -18,7 +18,7 @@ fetch("http://localhost:3004/tiendas")
         row.appendChild(N_tienda);
 
         let Nom_tienda = document.createElement('td');
-        Nom_tienda.innerHTML = `<a href="Pasos.html">${tienda.Nom_tienda}</a>`;
+        Nom_tienda.innerHTML = `<button id="enlacePasos" onclick="verPasos(event)">${tienda.Nom_tienda}</button>`;
         row.appendChild(Nom_tienda);
 
         let Fecha_prueba = document.createElement('td');
@@ -107,4 +107,14 @@ fetch("http://localhost:3004/tiendas")
         });
     });
 });
+    
+function verPasos(event) {
+    event.preventDefault();
+    if(true){
+        location.href = 'Pasos.html';
+    }
+}
+
+
+
 

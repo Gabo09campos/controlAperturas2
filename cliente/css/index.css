@@ -32,6 +32,10 @@
     margin-left: 270px;
 }
 
+.divRelleno{
+    width: 400px;
+}
+
 .btnAgregarTienda{
     border-radius: 5px;
     width: 110px;
@@ -39,7 +43,6 @@
     background-color: #0076c8;
     cursor: pointer;
     color: white;
-    margin-left: 398px;
 }
 
 table{
