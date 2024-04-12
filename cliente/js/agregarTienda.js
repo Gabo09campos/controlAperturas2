@@ -28,7 +28,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 warnings += 'Todos los campos deben ser llenados correctamente <br>'
                 entrar = false;
                 parrafo.innerHTML = warnings;
-                console.log(numeroTienda.value, nombreTienda.value, fPruebas.value, fApertura.value);
             }else{
                 axios.post("agregarTienda", {
                     N_tienda: numeroTienda.value,

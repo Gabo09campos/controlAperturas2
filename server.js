@@ -82,7 +82,7 @@ app.post("/login", (req, res) => {
 app.get("/tiendas", function(pet, rest){
     //Hacemos la consulta a la base de datos de las tiendas existentes.
     //Utilizamos "DATE_FORMAT(Fecha_prueba, '%Y.%m.%d')" para que solo muestre la fecha del lado del cliente.
-    conexion.query("SELECT id, N_tienda, Nom_tienda, DATE_FORMAT(Fecha_prueba, '%Y.%m.%d') as Fecha_prueba, DATE_FORMAT(Fecha_apertura, '%Y.%m.%d') as Fecha_apertura FROM tiendas", function(err, resultado){
+    conexion.query("SELECT id, N_tienda, Nom_tienda, DATE_FORMAT(Fecha_prueba, '%Y.%m.%d') as Fecha_prueba, DATE_FORMAT(Fecha_apertura, '%Y.%m.%d') as Fecha_apertura, Pasos_finalizados FROM tiendas", function(err, resultado){
         if(rest){
             //Obetenemos los resultados y los enviamos con un json hacia el cliente.
             rest.status(200).send(resultado);

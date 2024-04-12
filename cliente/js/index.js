@@ -6,6 +6,8 @@ const tiendas = document.getElementById("tiendasLista");
  * Con .then recibimos la respuesta de la base de datos y con el json lo interpreta a una manera legible para el usuario.
  * En el forEach creamos una variable "tienda" y le indicamos que si encuentra algun registro nuevo se incremente la tabla con el appendChild.
  */
+// variable o arreglo para guardar los paso por cada tienda.
+let pasosPorTienda = {};
 fetch("http://localhost:3004/tiendas")
 .then(rest => rest.json())
 .then(rest => {
@@ -18,7 +20,7 @@ fetch("http://localhost:3004/tiendas")
         row.appendChild(N_tienda);
 
         let Nom_tienda = document.createElement('td');
-        Nom_tienda.innerHTML = `<button id="enlacePasos" onclick="verPasos(event)">${tienda.Nom_tienda}</button>`;
+        Nom_tienda.innerHTML = `<button id="enlacePasos">${tienda.Nom_tienda}</button>`;
         row.appendChild(Nom_tienda);
 
         let Fecha_prueba = document.createElement('td');
@@ -105,16 +107,20 @@ fetch("http://localhost:3004/tiendas")
                 console.log("No se borro nada");
             }
         });
+
+        Nom_tienda.addEventListener('click', function() {
+            // Traemos el id de la tienda y el arreglo de los pasos de este id.
+            console.log('aqui vamos');
+            let idTienda = tienda.id;
+            let pasoDeTienda = tienda.Pasos_finalizados; // Este es el arreglo de pasos
+            // Utilizamos un bucle for para recorrer cada elemento del arreglo de los pasos de esta tienda.
+            for (let i = 0; i < pasoDeTienda.length; i++) {
+                // Verificamos que pasos estan marcados con (1) y cuales con (0).
+                console.log(pasoDeTienda[i]);
+                // De acuerdo con los resultados los pasos con (1) se desabilitan y el paso con (0) es el que seguiria.
+                // Redireccionamos hacia pasos.
+                //location.href = 'Pasos.html';
+            }
+        });
     });
 });
-    
-function verPasos(event) {
-    event.preventDefault();
-    if(true){
-        location.href = 'Pasos.html';
-    }
-}
-
-
-
-
