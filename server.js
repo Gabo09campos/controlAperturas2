@@ -156,6 +156,22 @@ app.use("/agregarTienda", function(pet, rest){
     });
 });
 
+// Back-end Agregar nuevas tiendas.
+app.post("/agregarPasoFinzalizado", function(pet, rest){
+    //Conectamos con el front para recibir los valores del formulario.
+    const estadoBotones = pet.body
+    // Insertamos los datos del formulario a la base de datos.
+    const consultaSql = `INSERT INTO tiendas (Pasos_finalizados) VALUES (?) `;
+    conexion.query(consultaSql, [estadoBotones], function(err, resultado){
+        if(err){
+            console.log(err)
+            rest.status(500).json({error: "Hubo un error al realizar la consulta de LA BASE DE DATOS" + err.message});
+        }else{
+            console.log("Datos insertados correctamente");
+        }
+    });
+});
+
 //Back-end para agregar pasos a seguir para la apertura.
 app.use("/agregarPaso", function(pet, rest){
     //Conectamos con el front para recibir los valores del formulario.

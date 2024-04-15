@@ -121,6 +121,7 @@ fetch("http://localhost:3004/tiendas")
                 // Redireccionamos hacia pasos.
                 //location.href = 'Pasos.html';
             }
+            location.href = 'Pasos.html';
         });
     });
 });

@@ -25,7 +25,7 @@ form.addEventListener("submit", e => {
     if(usuario.value.length <= 3 || contra.value.length < 8){
         warnings += 'El usuario y/o la contraseña no son validos <br>'
         entrar = true;
-        parrafo.innerHTML = warnings;    
+        parrafo.innerHTML = warnings;  
     }else{
         axios.post("login", {
             //Enviamos al Back los valores de los inputs de el login.
