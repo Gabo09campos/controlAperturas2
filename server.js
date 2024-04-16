@@ -157,20 +157,27 @@ app.use("/agregarTienda", function(pet, rest){
 });
 
 // Back-end Agregar nuevas tiendas.
+
+
 app.post("/agregarPasoFinzalizado", function(pet, rest){
-    //Conectamos con el front para recibir los valores del formulario.
-    const estadoBotones = pet.body
-    // Insertamos los datos del formulario a la base de datos.
-    const consultaSql = `INSERT INTO tiendas (Pasos_finalizados) VALUES (?) `;
-    conexion.query(consultaSql, [estadoBotones], function(err, resultado){
+    // Conectamos con el front para recibir los valores del formulario.
+    //aqui esta el error.
+    const {id, Id_agregar, estado} = pet.body;
+    console.log(id, Id_agregar, estado);
+    // Convertimos el estado a un string para poder almacenarlo en la base de datos.
+    const estadoString = JSON.stringify({Id_agregar: estado});
+    // Actualizamos los datos del formulario a la base de datos.
+    const consultaSql = `UPDATE tiendas SET Pasos_finalizados = ? WHERE id = ?`;
+    conexion.query(consultaSql, [estadoString, id], function(err, resultado){
         if(err){
-            console.log(err)
+            console.log(err);
             rest.status(500).json({error: "Hubo un error al realizar la consulta de LA BASE DE DATOS" + err.message});
-        }else{
-            console.log("Datos insertados correctamente");
+        } else {
+            console.log("Datos actualizados correctamente");
         }
     });
 });
+
 
 //Back-end para agregar pasos a seguir para la apertura.
 app.use("/agregarPaso", function(pet, rest){
