@@ -156,16 +156,13 @@ app.use("/agregarTienda", function(pet, rest){
     });
 });
 
-// Back-end Agregar nuevas tiendas.
-
-
+// Back-end Agregar los pasos finalizados.
 app.post("/agregarPasoFinzalizado", function(pet, rest){
     // Conectamos con el front para recibir los valores del formulario.
     //aqui esta el error.
     const {id, Id_agregar, estado} = pet.body;
-    console.log(id, Id_agregar, estado);
     // Convertimos el estado a un string para poder almacenarlo en la base de datos.
-    const estadoString = JSON.stringify({Id_agregar: estado});
+    const estadoString = JSON.stringify(estado);
     // Actualizamos los datos del formulario a la base de datos.
     const consultaSql = `UPDATE tiendas SET Pasos_finalizados = ? WHERE id = ?`;
     conexion.query(consultaSql, [estadoString, id], function(err, resultado){
@@ -177,7 +174,6 @@ app.post("/agregarPasoFinzalizado", function(pet, rest){
         }
     });
 });
-
 
 //Back-end para agregar pasos a seguir para la apertura.
 app.use("/agregarPaso", function(pet, rest){

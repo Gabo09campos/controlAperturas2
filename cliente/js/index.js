@@ -7,7 +7,7 @@ const tiendas = document.getElementById("tiendasLista");
  * En el forEach creamos una variable "tienda" y le indicamos que si encuentra algun registro nuevo se incremente la tabla con el appendChild.
  */
 // variable o arreglo para guardar los paso por cada tienda.
-let pasosPorTienda = {};
+let pasoDeTienda = {};
 fetch("http://localhost:3004/tiendas")
 .then(rest => rest.json())
 .then(rest => {
@@ -122,6 +122,9 @@ fetch("http://localhost:3004/tiendas")
                 //location.href = 'Pasos.html';
             }
             location.href = 'Pasos.html';
+            // Tienda Actual a Usar (TAU).
+            localStorage.setItem('TAU', tienda.id);
+            console.log(idTienda);
         });
     });
 });
