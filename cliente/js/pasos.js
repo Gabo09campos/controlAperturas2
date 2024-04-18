@@ -11,6 +11,8 @@ let estadoBotones = {};
 fetch("http://localhost:3004/pasos")
 .then(rest => rest.json())
 .then(rest => {
+    let pasosDeTienda = JSON.parse(localStorage.getItem('PTAU'));
+    console.log(pasosDeTienda);
     rest.forEach((apertura, index) => {
         let row = document.createElement('div');
         
@@ -19,8 +21,22 @@ fetch("http://localhost:3004/pasos")
         row.appendChild(Nom_apertura);
         // Iniciamos elobjeto en 0 para ir guardando su valos posteriormente.
         estadoBotones[apertura.Id_agregar] = 0;
+
+        // Cambiamos el estilo del botón basándonos en el valor en localStorage.
+        let paso = pasosDeTienda[apertura.Id_agregar];
+        // Con un condicional verificamos que no se pueda marcar un paso hasta que el anterior este completado.
+        if (index === 0 || pasosDeTienda[rest[index - 1].Id_agregar] === 1) {
+            pasosDeTienda[paso] = 1; // Marcar como finalizado.
+            //console.log(estadoBotones);
+            // Al estar finalizado el paso, cambia su color.
+            Nom_apertura.style.color = "white";
+            Nom_apertura.style.backgroundColor = "green";
+        }else{
+            console.log('sigue fallando');
+        }
         
         pasos.appendChild(row);
+
         // Creamos un evento para saber cuando se dio click a un boton.
         Nom_apertura.addEventListener('click', function(e) {
             // Prevenimos que la pagina se recargue.

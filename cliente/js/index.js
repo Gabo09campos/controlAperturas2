@@ -7,7 +7,8 @@ const tiendas = document.getElementById("tiendasLista");
  * En el forEach creamos una variable "tienda" y le indicamos que si encuentra algun registro nuevo se incremente la tabla con el appendChild.
  */
 // variable o arreglo para guardar los paso por cada tienda.
-let pasoDeTienda = {};
+let pasosFinalizados = [];
+
 fetch("http://localhost:3004/tiendas")
 .then(rest => rest.json())
 .then(rest => {
@@ -110,17 +111,26 @@ fetch("http://localhost:3004/tiendas")
 
         Nom_tienda.addEventListener('click', function() {
             // Traemos el id de la tienda y el arreglo de los pasos de este id.
-            console.log('aqui vamos');
+            //console.log('aqui vamos');
             let idTienda = tienda.id;
-            let pasoDeTienda = tienda.Pasos_finalizados; // Este es el arreglo de pasos
+            let pasoDeTienda = tienda.Pasos_finalizados; // Este es el arreglo de pasos.
+            // Guardamos el arreglo en localStorage convertido en String.
+            // nombre de arreglo para localStorage = Paso de Tienda Actual a Usar (PTAU).
+            localStorage.setItem('PTAU', JSON.stringify(pasoDeTienda));
+            //pasosFinalizados = [pasoDeTienda];
+            console.log('pasos finalizados', pasoDeTienda);
             // Utilizamos un bucle for para recorrer cada elemento del arreglo de los pasos de esta tienda.
-            for (let i = 0; i < pasoDeTienda.length; i++) {
+           /* for (let i = 0; i < pasoDeTienda.length; i++) {
                 // Verificamos que pasos estan marcados con (1) y cuales con (0).
-                console.log(pasoDeTienda[i]);
+                
+                
+                    //pasosFinalizados.push(pasoDeTienda);
+                    console.log(pasoDeTienda);
+                
                 // De acuerdo con los resultados los pasos con (1) se desabilitan y el paso con (0) es el que seguiria.
                 // Redireccionamos hacia pasos.
                 //location.href = 'Pasos.html';
-            }
+            } */
             location.href = 'Pasos.html';
             // Tienda Actual a Usar (TAU).
             localStorage.setItem('TAU', tienda.id);
