@@ -116,7 +116,7 @@ fetch("http://localhost:3004/tiendas")
             let pasoDeTienda = tienda.Pasos_finalizados; // Este es el arreglo de pasos.
             // Guardamos el arreglo en localStorage convertido en String.
             // nombre de arreglo para localStorage = Paso de Tienda Actual a Usar (PTAU).
-            localStorage.setItem('PTAU', JSON.stringify(pasoDeTienda));
+            localStorage.setItem('PTAU', pasoDeTienda);
             //pasosFinalizados = [pasoDeTienda];
             console.log('pasos finalizados', pasoDeTienda);
             // Utilizamos un bucle for para recorrer cada elemento del arreglo de los pasos de esta tienda.
