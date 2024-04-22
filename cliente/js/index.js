@@ -108,33 +108,17 @@ fetch("http://localhost:3004/tiendas")
                 console.log("No se borro nada");
             }
         });
-
+        // Al hacer click al nombre de la tienda te redirige a los pasos marcando en especifico el paso en el que va.
         Nom_tienda.addEventListener('click', function() {
-            // Traemos el id de la tienda y el arreglo de los pasos de este id.
-            //console.log('aqui vamos');
+            // Traemos el id de la tienda y el objeto de los pasos de este id.
             let idTienda = tienda.id;
-            let pasoDeTienda = tienda.Pasos_finalizados; // Este es el arreglo de pasos.
-            // Guardamos el arreglo en localStorage convertido en String.
-            // nombre de arreglo para localStorage = Paso de Tienda Actual a Usar (PTAU).
-            localStorage.setItem('PTAU', pasoDeTienda);
-            //pasosFinalizados = [pasoDeTienda];
-            console.log('pasos finalizados', pasoDeTienda);
-            // Utilizamos un bucle for para recorrer cada elemento del arreglo de los pasos de esta tienda.
-           /* for (let i = 0; i < pasoDeTienda.length; i++) {
-                // Verificamos que pasos estan marcados con (1) y cuales con (0).
-                
-                
-                    //pasosFinalizados.push(pasoDeTienda);
-                    console.log(pasoDeTienda);
-                
-                // De acuerdo con los resultados los pasos con (1) se desabilitan y el paso con (0) es el que seguiria.
-                // Redireccionamos hacia pasos.
-                //location.href = 'Pasos.html';
-            } */
-            location.href = 'Pasos.html';
-            // Tienda Actual a Usar (TAU).
-            localStorage.setItem('TAU', tienda.id);
             console.log(idTienda);
+            let pasoDeTienda = tienda.Pasos_finalizados; // Este es el objeto de pasos.
+            // Guardamos el objeto en localStorage convertido en String.
+            localStorage.setItem('PTAU', pasoDeTienda); // Paso de Tienda Actual a Usar (PTAU).
+            console.log('pasos finalizados', pasoDeTienda);
+            location.href = 'Pasos.html';
+            localStorage.setItem('TAU', tienda.id); // Tienda Actual a Usar (TAU).
         });
     });
 });

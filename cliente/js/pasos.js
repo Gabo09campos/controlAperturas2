@@ -1,17 +1,16 @@
 //Obtenemos la tabla de el HTML a travez de su id para poder mandarle los datos.
 let pasos = document.getElementById("pasosApertura");
+
+let estadoBotones = []; // Creamos un objeto para almacenar los botones que ya fueron completados.
+// Al cargar la página, obtenemos los pasos guardados en localStorage y parseamos el String un Array.
+let pasosGuardados = JSON.parse(localStorage.getItem('PTAU'));
+pasosGuardados.shift(); // Quita el primer elemento del array.
 /**
  * Con un fetch indicamos cual sera la url en donde nos mostrara los datos en la web.
  * Con .then recibimos la respuesta de la base de datos y con el json lo interpreta a una manera legible para el usuario.
  * En el forEach creamos una variable "tienda" y le indicamos que si encuentra algun registro nuevo se incremente la tabla con el appendChild.
 */
-// Creamos un objeto para almacenar los botones.
-let estadoBotones = [];
-// Al cargar la página, obtenemos los pasos guardados en localStorage
-let pasosGuardados = localStorage.getItem('PTAU');
-console.log('pasos guarados en localstorage', pasosGuardados);
-//const newPasosGuardados = pasosGuardados.slice(1, -1, 2, -2);
-//console.log('pasos 2', newPasosGuardados);
+console.log('pasos guardados sin null', pasosGuardados); // Imprime el array sin el primer elemento.
 fetch("http://localhost:3004/pasos")
 .then(rest => rest.json())
 .then(rest => {
@@ -21,58 +20,22 @@ fetch("http://localhost:3004/pasos")
         let Nom_apertura = document.createElement('button');
         Nom_apertura.innerHTML = apertura.Nom_apertura;
         row.appendChild(Nom_apertura);
-/*
-        // Verificamos si el paso actual está en localStorage y si es true
-        //console.log('Verificando paso:', apertura.Id_agregar);
-        //console.log('Verificando storage:', pasosGuardados);
-        if (pasosGuardados) {
-            console.log('Paso encontrado y marcado como true');
-            // Resto del código...
-        } else {
-            console.log('Paso no encontrado o marcado como false');
-            // Resto del código...
-        }*/
-/*
-        // Verificamos si el paso actual está en localStorage y si es true
-        if (pasosGuardados && pasosGuardados[index] === 1) {
-            console.log('Paso encontrado y marcado como true');
-            Nom_apertura.style.color = "white";
-            Nom_apertura.style.backgroundColor = "green";
-            estadoBotones[apertura.Id_agregar] = 1; 
-        } else {
-            console.log('Paso no encontrado o marcado como false');
-            estadoBotones[apertura.Id_agregar] = 0; 
-        }*/
 
-        // Verificamos si el paso actual está en localStorage y si es true
-        //console.log('pasos para el if', pasosGuardados);
-        if (pasosGuardados && pasosGuardados[apertura.Id_agregar] === 1) {
-            console.log('dentro del if', pasosGuardados);
+        // Verificamos si el paso actual está en localStorage y si es true.
+        if (pasosGuardados[index] === 1) {
             console.log('Paso encontrado y marcado como true');
             Nom_apertura.style.color = "white";
             Nom_apertura.style.backgroundColor = "green";
             estadoBotones[apertura.Id_agregar] = 1; 
+            console.log('pasos terminados', estadoBotones);
         } else {
             console.log('Paso no encontrado o marcado como false');
             estadoBotones[apertura.Id_agregar] = 0; 
+            console.log('pasos sin terminar', estadoBotones);
         }
 
-        /*
-        // Verificamos si el paso actual está en localStorage y si es true
-        if (pasosGuardados[apertura.Id_agregar] === true) {
-            console.log(pasosGuardados);
-            // Cambiamos el estilo del botón
-            Nom_apertura.style.color = "white";
-            Nom_apertura.style.backgroundColor = "green";
-            estadoBotones[apertura.Id_agregar] = 1; 
-        } else {
-            estadoBotones[apertura.Id_agregar] = 0; 
-            console.log(estadoBotones);
-        }*/
-
-
         // Iniciamos elobjeto en 0 para ir guardando su valos posteriormente.
-        estadoBotones[apertura.Id_agregar] = 0; 
+        // estadoBotones[apertura.Id_agregar] = 0; 
         
         pasos.appendChild(row);
 
@@ -90,7 +53,7 @@ fetch("http://localhost:3004/pasos")
                 // Al estar finalizado el paso, cambia su color.
                 Nom_apertura.style.color = "white";
                 Nom_apertura.style.backgroundColor = "green";
-                // Treaemos el ID de la tienda en la que estamos.
+                // Traemos el ID de la tienda en la que estamos.
                 let idTiendaActual = localStorage.getItem('TAU');
                 console.log(idTiendaActual);
                     // Enviamos los datos del objeto a la tienda correspondiente.
@@ -116,6 +79,8 @@ fetch("http://localhost:3004/pasos")
                 // Si no se cumple el condicional enviamos un mensaje.
                 alert('Debes completar el paso anterior primero.');
             }
+            // Si ya finalizo en paso, se le reedirige hacia el index y se guarda el valor del boton como finalizado.
+            location.href = 'index.html';
         });
     }); 
 });

@@ -159,7 +159,6 @@ app.use("/agregarTienda", function(pet, rest){
 // Back-end Agregar los pasos finalizados.
 app.post("/agregarPasoFinzalizado", function(pet, rest){
     // Conectamos con el front para recibir los valores del formulario.
-    //aqui esta el error.
     const {id, Id_agregar, estado} = pet.body;
     // Convertimos el estado a un string para poder almacenarlo en la base de datos.
     const estadoString = JSON.stringify(estado);
