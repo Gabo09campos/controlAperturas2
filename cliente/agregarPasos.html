@@ -36,21 +36,20 @@
             <!-- Botones -->
             <div class="inputBotones">
                 <button class="btnAceptar">Aceptar</button>
-                <button onclick="cancelatTienda()" class="btnCancelar">Cancelar</button>
+                <button onclick="cancelarTienda()" class="btnCancelar">Cancelar</button>
             </div>
         </div>
     </form>
     <!-- Creamos un script para realizar un confirm() en el boton de cancelar y de esta manera no borren los datos por error. -->
     <script>
         const formu = document.getElementById("agregarPaso")
-        function cancelatTienda() {
+        function cancelarTienda() {
           if (confirm("¿Desea borrar los datos ingresados?") == true) {
             formu.reset();
           } else {
             console.log("Los datos siguen");
           }
         }
-
         function botones(error){
             var btnDep = document.getElementById('btnDep')
            if(btnDep){
@@ -59,7 +58,6 @@
                 console.error(error);
             }
         }
-
         function botonesUsu(error){
             var btnUsu = document.getElementById('btnUsu');
            if(btnUsu){

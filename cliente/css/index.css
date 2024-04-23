@@ -29,11 +29,11 @@
     flex-direction: row;
     align-items: center;
     /*justify-content: space-around;*/
-    margin-left: 270px;
+    margin-left: 390px;
 }
 
 .divRelleno{
-    width: 400px;
+    width: 276px;
 }
 
 .btnAgregarTienda{

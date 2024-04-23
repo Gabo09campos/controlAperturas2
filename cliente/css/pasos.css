@@ -46,6 +46,7 @@
 
 .pasosLista{
     display: flex;
+    flex-wrap: wrap;
 }
 
 button{

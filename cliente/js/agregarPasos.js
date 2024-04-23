@@ -3,7 +3,6 @@ const departamento = document.getElementById("myDropdownDep");
 const usuario = document.getElementById("myDropdownUsu");
 const form = document.getElementById("agregarPaso");
 const parrafo = document.getElementById("warnings");
-
 let mensaje = "";
 /**
  * Con un fetch indicamos cual sera la url en donde nos mostrara los datos en la web.
@@ -54,7 +53,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 warnings += 'Todos los campos deben ser llenados correctamente <br>'
                 entrar = false;
                 parrafo.innerHTML = warnings;
-                console.log(NombrePaso.value, departamento.value, usuario.value);
             }else{
                 axios.post("agregarPaso", {
                     Nom_apertura: NombrePaso.value,

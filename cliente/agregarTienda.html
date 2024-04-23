@@ -23,7 +23,7 @@
                 <p class="warnings" id="warnings"></p>
                 <div class="inputBotones">
                     <button class="btnAceptar" id="btnAceptar" type="submit">Aceptar</button>
-                    <button class="btnCancelar" id="btnCancelar" onclick="cancelatTienda()">Cancelar</button>
+                    <button class="btnCancelar" id="btnCancelar" onclick="cancelarTienda()">Cancelar</button>
                     <p class="warnings" id="warnings"></p>
                 </div>
             </div>   
@@ -32,7 +32,7 @@
     <!-- Creamos un script para realizar un confirm() en el boton de cancelar y de esta manera no borren los datos por error. -->
     <script>
         const formu = document.getElementById("formAgregarTienda")
-        function cancelatTienda() {
+        function cancelarTienda() {
           if (confirm("¿Desea borrar los datos ingresados?") == true) {
             formu.reset();
           } else {

@@ -6,7 +6,7 @@ const form = document.getElementById('formAgregarTienda');
 const parrafo = document.getElementById("warnings");
 const botonAceptar = document.getElementById("btnAceptar");
 const botonCancelar = document.getElementById("btnCancelar");
-
+const pasosFinalizados = []; // Creamos un objeto que enviaremos vacio a la BD para posterior llenarlo con los pasos de apertura.
 let mensaje = "";
 /**
      * A travez del form estaremos escuchando todo lo que sucede en el login con el "addEventListener" (linea 25).
@@ -33,7 +33,8 @@ document.addEventListener("DOMContentLoaded", function() {
                     N_tienda: numeroTienda.value,
                     Nom_tienda: nombreTienda.value,
                     Fecha_prueba: fPruebas.value,
-                    Fecha_apertura: fApertura.value
+                    Fecha_apertura: fApertura.value,
+                    Pasos_finalizados: pasosFinalizados
                 })
                 .then(function (response) {
                     console.log(response.data);

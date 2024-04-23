@@ -6,16 +6,10 @@ const app = express();
 const bcrypt = require('bcrypt');
 app.use(express.json());
 app.use(express.static("./cliente"));
-
 /** 
  * requerimos a express y creamos un servodor con http
  * creamos una constante para la aplicacion de express donde express es un servidor web http.
  * creamos una funcion de peticion(pet) y respuesta(rest).
- * 
- 
- app.use("/", function(pet, rest){
-     return rest.json({resultado : "exito"});
- });
 */
 
 /**
@@ -25,15 +19,12 @@ app.use(express.static("./cliente"));
 
 //Este es de prueba.
 app.use("/usuarios", function(pet, rest){
-    
     conexion.query("SELECT * FROM usuarios", function(err, resultado){
-        
         if(err){
             console.log(err);
             rest.status(500).json({error: "Hubo un error al realizar la consulta"});
             return;
         }
-
         return rest.json({resultado : resultado}); 
     }); 
 });
@@ -143,10 +134,11 @@ app.put("/editarTienda/:id", function(req, res){
 // Back-end Agregar nuevas tiendas.
 app.use("/agregarTienda", function(pet, rest){
     //Conectamos con el front para recibir los valores del formulario.
-    const {N_tienda, Nom_tienda, Fecha_prueba, Fecha_apertura} = pet.body
+    const {N_tienda, Nom_tienda, Fecha_prueba, Fecha_apertura, Pasos_finalizados} = pet.body
     // Insertamos los datos del formulario a la base de datos.
-    const consultaSql = `INSERT INTO tiendas (N_tienda, Nom_tienda, Fecha_prueba, Fecha_apertura) VALUES (?, ?, ?, ?) `;
-    conexion.query(consultaSql, [N_tienda, Nom_tienda, Fecha_prueba, Fecha_apertura], function(err, resultado){
+    const consultaSql = `INSERT INTO tiendas (N_tienda, Nom_tienda, Fecha_prueba, Fecha_apertura, Pasos_finalizados) VALUES (?, ?, ?, ?, ?) `;
+    // Convertimos el arreglo en string con JSON.stringify para oder guardarlo en la base de datos.
+    conexion.query(consultaSql, [N_tienda, Nom_tienda, Fecha_prueba, Fecha_apertura,  JSON.stringify(Pasos_finalizados)], function(err, resultado){
         if(err){
             console.log(err)
             rest.status(500).json({error: "Hubo un error al realizar la consulta de LA BASE DE DATOS"});
@@ -199,5 +191,3 @@ let servidor = http.createServer(app);
 servidor.listen(3004, function(){
     console.log("Te estoy escuchando");
 });
-
-

@@ -1,6 +1,5 @@
 //Obtenemos la tabla de el HTML a travez de su id para poder mandarle los datos.
 const tiendas = document.getElementById("tiendasLista");
-
 /**
  * Con un fetch indicamos cual sera la url en donde nos mostrara los datos en la web.
  * Con .then recibimos la respuesta de la base de datos y con el json lo interpreta a una manera legible para el usuario.
@@ -112,11 +111,9 @@ fetch("http://localhost:3004/tiendas")
         Nom_tienda.addEventListener('click', function() {
             // Traemos el id de la tienda y el objeto de los pasos de este id.
             let idTienda = tienda.id;
-            console.log(idTienda);
             let pasoDeTienda = tienda.Pasos_finalizados; // Este es el objeto de pasos.
             // Guardamos el objeto en localStorage convertido en String.
             localStorage.setItem('PTAU', pasoDeTienda); // Paso de Tienda Actual a Usar (PTAU).
-            console.log('pasos finalizados', pasoDeTienda);
             location.href = 'Pasos.html';
             localStorage.setItem('TAU', tienda.id); // Tienda Actual a Usar (TAU).
         });
