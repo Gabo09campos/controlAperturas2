@@ -4,17 +4,17 @@ const logout = document.getElementById('btnCerrarSesion').addEventListener('clic
 //Funcion para cerrar sesion.
 function cerrarSesion() {
     // Eliminar el token de localStorage para que al cerrar sesion no se pueda utulzar la pagina.
-    localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
     localStorage.removeItem('nombreUsuario');
     localStorage.removeItem('TAU');     
     localStorage.removeItem('PTAU');     
     // Redirigir al usuario a la página de inicio de sesión.
-    location.href = "./login.html";
+    window.location.href = "./login.html";
 }
 //Funcion para verificar si el usuario esta activo o ya fue eliminado el token.
 function estaLogueado() {
     // Obtener el token de localStorage.
-    var token = localStorage.getItem('token');
+    var token = sessionStorage.getItem('token');
     //Validacion del token.
     if (token) {
         // El usuario está logueado y puede seguir navegado.

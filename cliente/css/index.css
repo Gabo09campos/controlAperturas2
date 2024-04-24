@@ -5,7 +5,17 @@
     margin-left: 10px;
     margin-right: 10px;
     background: silver;
-    display: ruby-text;
+    padding: 10px;
+}
+
+.navLink{
+    width: 300px;
+    display: contents;
+}
+
+.navBtnTitulo{
+    width: 400px;
+    display: flex;
 }
 
 .btnCerrarSesion{
@@ -30,6 +40,7 @@
     align-items: center;
     /*justify-content: space-around;*/
     margin-left: 390px;
+    width: 265;
 }
 
 .divRelleno{

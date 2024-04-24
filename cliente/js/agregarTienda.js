@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 .then((error) => console.log(error));
             }
             form.reset();
-            location.href = './index.html';
+            window.location.href = './index.html';
         });
     } else {
         console.log("El elemento 'form' no existe en el DOM");
@@ -50,8 +50,8 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 //Funcion para saber si la sesion del usuario esta activa.
 function estaLogueado() {
-    // Obtener el token de localStorage.
-    var token = localStorage.getItem('token');
+    // Obtener el token de sessionStorage.
+    var token = sessionStorage.getItem('token');
     //Validacion del token.
     if (token) {
         // El usuario está logueado y puede seguir navegado.

@@ -119,3 +119,23 @@ fetch("http://localhost:3004/tiendas")
         });
     });
 });
+//Funcion para saber si la sesion del usuario esta activa.
+function estaLogueado() {
+    // Obtener el token de sessionStorage.
+    var token = sessionStorage.getItem('token');
+    //Validacion del token.
+    if (token) {
+        // El usuario está logueado y puede seguir navegado.
+        return true;
+    } else {
+        // El usuario no está logueado se finaliza la sesion con "window.onload".
+        return false;
+    }
+}
+// Verificar autenticación en cada página con la funcion anterior.
+window.onload = function() {
+    if (!estaLogueado()) {
+        // Si el usuario no está logueado, redirigir a la página de inicio de sesión.
+        window.location.replace('./login.html');
+    }
+}

@@ -41,7 +41,7 @@ form.addEventListener("submit", e => {
             const usuario = resultado.data.resultado[0];
             const token = resultado.data.token;
             //Guardamos en el navegador el token para verificar si esta iniciada la sesion y el nombre para la bienvenida en el navbar.
-            localStorage.setItem('token', token);
+            sessionStorage.setItem('token', token);
             localStorage.setItem('nombreUsuario', usuario.Nombre);
             switch(usuario.T_usuario){
                 //redireccionar
