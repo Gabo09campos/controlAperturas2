@@ -7,7 +7,36 @@
     margin-left: 10px;
     margin-right: 10px;
     background: silver;
-    display: ruby-text;
+    padding: 10px;
+}
+
+.navLink{
+    width: 300px;
+    display: contents;
+}
+
+.linkPNav{
+    font-size: 21px;
+    color: black;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.linkPNav:hover{
+    font-size: 24px;
+    color: blue;
+}
+
+.navBtnTitulo{
+    width: 580px;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+
+}
+
+.tituloNav{
+    margin-right: 30px;
 }
 
 .btnCerrarSesion{
@@ -17,7 +46,6 @@
     background-color: #0076c8;
     cursor: pointer;
     color: white;
-    margin-left: 405px;
 }
 
 .seccionPasos{
@@ -30,18 +58,23 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
-    margin-top: 30px;
+    margin-left: 390px;
+    width: 265;
 }
 
-.TituloPasos{
-    width: 55%;
-    text-align: right;
+.divRelleno{
+    width: 276px;
 }
 
-.divBotones{
-    width: 40%;
-    text-align: right;
+.btnAgregarPaso{
+    border-radius: 5px;
+    text-align: center;
+    width: 110px;
+    height: 30px;
+    background-color: #0076c8;
+    margin-left: auto;
+    cursor: pointer;
+    color: white;
 }
 
 .pasosLista{
@@ -54,18 +87,7 @@ button{
     text-align: center;
     width: 150px;
     height: 90px;
-    margin: 30px 20px 50px 20px;
-}
-
-.btnAgregarPaso{
-    border-radius: 5px;
-    text-align: center;
-    width: 115px;
-    height: 40px;
-    background-color: #0076c8;
-    margin-left: auto;
-    cursor: pointer;
-    color: white;
+    /*margin: 30px 20px 50px 20px;*/
 }
 
 footer{

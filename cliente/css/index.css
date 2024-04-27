@@ -13,9 +13,28 @@
     display: contents;
 }
 
+.linkPNav{
+    font-size: 21px;
+    color: black;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.linkPNav:hover{
+    font-size: 24px;
+    color: blue;
+}
+
 .navBtnTitulo{
-    width: 400px;
+    width: 580px;
     display: flex;
+    align-items: center;
+    justify-content: right;
+
+}
+
+.tituloNav{
+    margin-right: 30px;
 }
 
 .btnCerrarSesion{
@@ -25,7 +44,6 @@
     background-color: #0076c8;
     cursor: pointer;
     color: white;
-    margin-left: 405px;
 }
 
 .listasTiendas{

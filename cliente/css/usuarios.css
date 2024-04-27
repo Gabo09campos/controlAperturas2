@@ -13,6 +13,18 @@
     display: contents;
 }
 
+.linkPNav{
+    font-size: 21px;
+    color: black;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.linkPNav:hover{
+    font-size: 24px;
+    color: blue;
+}
+
 .navBtnTitulo{
     width: 580px;
     display: flex;
@@ -34,58 +46,56 @@
     color: white;
 }
 
-.agregarUsuario{
+.listasUsuarios{
     align-items: center;
     text-align: -webkit-center;
-    margin-top: 5%;
+    margin-top: 3%;
 }
 
-.inputAgregar{
+.divTitulo{
     display: flex;
-    flex-direction: column;
-    margin-top: 40px;
+    flex-direction: row;
     align-items: center;
+    /*justify-content: space-around;*/
+    margin-left: 390px;
+    width: 265;
 }
 
-.inputTexto{
-    display: flex;
-    justify-content: space-evenly;
-    width: 100%;
+.divRelleno{
+    width: 276px;
 }
 
-.inputCorreo{
-    width: 20%;
-}
-
-.inputBotones{
-    width: 20%;
-    display: flex;
-    justify-content: space-around;
-    margin-top: 25px;
-}
-
-input{
-    width: 250px;
-    height: 30px;
-    margin-top: 40px;
-}
-
-.btnAceptar{
+.btnAgregarUsuarios{
     border-radius: 5px;
-    width: 85px;
-    height: 35px;
+    width: 115px;
+    height: 30px;
     background-color: #0076c8;
-    margin-top: 20px;
     cursor: pointer;
     color: white;
 }
 
-.btnCancelar{
-    border-radius: 5px;
-    width: 85px;
-    height: 35px;
-    background-color: red;
+table{
+    border:2rem;
+    width: 1000px;
+    height: 200px;
+    text-align: center;
     margin-top: 20px;
+}
+
+.btnEditar{
+    border-radius: 5px;
+    background-color: #9b9b9b;
+    width: 60px;
+    height: 30px;
+    cursor: pointer;
+    color: black;
+}
+
+.btnEliminar{
+    border-radius: 5px;
+    background-color: #c90b0b;
+    width: 65px;
+    height: 30px;
     cursor: pointer;
     color: white;
 }

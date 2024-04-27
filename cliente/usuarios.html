@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/index.css">
-    <title>Lista Aperturas</title>
+    <link rel="stylesheet" href="css/usuarios.css">
+    <title>Usuarios</title>
 </head>
 <header>
     <nav class="navIndex">
@@ -21,22 +21,26 @@
     </nav>
 </header>
 <body>
-    <section class="listasTiendas">
+    <section class="listasUsuarios">
         <div class="divTitulo">
-            <h1 class="listaAperturas">Lista de aperturas</h1>
+            <h1 class="listaUsuarios">Lista de colaboradores</h1>
             <div class="divRelleno"></div>
             <!-- Utilizamos la etiqueta <a> para agregar una direccion interna en HTML -->
-            <a href="agregarTienda.html">
+            <a href="agregarUusarios.html">
                 <!-- Con el boton se manda a la seccion de agregar tienda -->
-                <button class="btnAgregarTienda">Agregar tienda</button>
-            </a>   
+                <button class="btnAgregarUsuarios">Agregar usuario</button>
+            </a>
+            
         </div>
-        <table class="table" border="1" id="tiendasLista">
+        
+        <table class="table" border="1" id="usuariosLista">
             <tr>
-                <th>Numero tienda</th>
-                <th>Nombre tienda</th>
-                <th>Fecha pruebas</th>
-                <th>Fecha apertura</th>
+                <th>Nombre</th>
+                <th>Apellidos</th>
+                <th>Numero de empleado</th>
+                <th>Tipo de usuario</th>
+                <th>Departamento</th>
+                <th>Contraseña</th>
                 <th>Opciones</th>
             </tr>
         </table>
@@ -45,7 +49,7 @@
         <img src="assets/logos/chredraui an.png" alt="Logo Chedraui" class="LogoChedraui">
     </footer>
 
-    <script src="js/index.js"></script>
+   
     <script src="js/navbar.js"></script>
 </body>
 </html>

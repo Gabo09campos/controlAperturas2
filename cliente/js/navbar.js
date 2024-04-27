@@ -34,6 +34,6 @@ window.onload = function() {
         var elementoNavbar = document.getElementById('tituloNav');
         // Obtenemos el nombre del usuario del almacenamiento local y lo mostramos en el nav.
         var nombreUsuario = localStorage.getItem('nombreUsuario'); 
-        elementoNavbar.innerHTML = 'Bienvenido, ' + nombreUsuario;
+        elementoNavbar.innerHTML = nombreUsuario;
     }
 } 

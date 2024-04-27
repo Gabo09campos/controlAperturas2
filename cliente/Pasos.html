@@ -7,25 +7,29 @@
     <link rel="stylesheet" href="css/pasos.css">
     <title>Pasos</title>
 </head>
-
-<body>
+<header>
     <nav class="navIndex">
-        <h1 class="tituloNav" id="tituloNav">Welcome to the Chedraui</h1>
-        <button id="btnCerrarSesion" class="btnCerrarSesion" type="button">cerrar sesion</button>
+        <h1>Control de aperturas</h1>
+        <div class="navLink">
+            <a href="index.html" class="linkPNav">Tiendas</a>
+            <a href="Pasos.html" class="linkPNav">Pasos</a> 
+            <a href="usuarios.html" class="linkPNav">Usuarios</a>
+        </div>
+        <div class="navBtnTitulo">
+            <h1 class="tituloNav" id="tituloNav"></h1>
+            <button id="btnCerrarSesion" class="btnCerrarSesion" type="button">cerrar sesion</button>
+        </div>
     </nav>
+</header>
+<body>
     <section class="seccionPasos">
         <div class="divTitulo">
             <h1 class="TituloPasos">Pasos consecutivos</h1>
-            <div class="divBotones">
-                <a href="agregarPasos.html">
-                    <!-- Con este boton se redirecciona hacia la pestalla de agregar pasos -->
-                    <button class="btnAgregarPaso">Agregar paso</button>
-                </a>
-                <a href="agregarUsuarios.html">
-                    <!-- Con este boton se redirecciona hacia la pestalla de agregar pasos -->
-                    <button class="btnAgregarPaso">Agregar usuario</button>
-                </a>
-            </div>  
+            <div class="divRelleno"></div>
+            <a href="agregarPasos.html">
+                <!-- Con este boton se redirecciona hacia la pestalla de agregar pasos -->
+                <button class="btnAgregarPaso">Agregar paso</button>
+            </a> 
         </div>
         <!-- En este form se muestran los pasos -->
         <form id="pasosApertura" class="pasosLista">
