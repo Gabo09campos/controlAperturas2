@@ -19,13 +19,13 @@ app.use(express.static("./cliente"));
 
 //Este es de prueba.
 app.use("/usuarios", function(pet, rest){
-    conexion.query("SELECT * FROM usuarios", function(err, resultado){
+    conexion.query("SELECT Nombre, Apellidos, Correo_electrónico, N_empleados, T_usuario, Departamento, Contrasena FROM usuarios", function(err, resultado){
         if(err){
             console.log(err);
             rest.status(500).json({error: "Hubo un error al realizar la consulta"});
             return;
         }
-        return rest.json({resultado : resultado}); 
+        return rest.json(resultado); 
     }); 
 });
 
@@ -144,6 +144,7 @@ app.use("/agregarTienda", function(pet, rest){
             rest.status(500).json({error: "Hubo un error al realizar la consulta de LA BASE DE DATOS"});
         }else{
             console.log("Datos insertados correctamente");
+            rest.status(200).send({message: 'Tienda agregada exitosamente'});
         }
     });
 });
@@ -162,6 +163,7 @@ app.post("/agregarPasoFinzalizado", function(pet, rest){
             rest.status(500).json({error: "Hubo un error al realizar la consulta de LA BASE DE DATOS" + err.message});
         } else {
             console.log("Datos actualizados correctamente");
+            rest.status(200).send({message: 'Paso finalizado agregado exitosamente'});
         }
     });
 });
@@ -178,6 +180,7 @@ app.use("/agregarPaso", function(pet, rest){
             rest.status(500).json({error: "Hubo un error al realizar la consulta de la base de datos"});
         }else{
             console.log("Datos insertados correctamente");
+            rest.status(200).send({message: 'Paso agregado exitosamente'});
         }
     });
 });
