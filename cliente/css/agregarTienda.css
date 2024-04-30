@@ -1,16 +1,17 @@
+/* Estilos de todo el form. */
 .agregarTienda{
     align-items: center;
     text-align: -webkit-center;
     margin-top: 3%;
 }
-
+/* Estilos del div que contiene os inputs. */
 .inputAgregar{
     display: flex;
     flex-direction: column;
     margin-top: 30px;
     align-items: center;
 }
-
+/* Estilos de los inputs. */
 .inputTexto{
     display: flex;
     justify-content: space-evenly;
@@ -18,7 +19,7 @@
     flex-direction: column;
     align-items: center;
 }
-
+/* Div que contiene los botones para aceptar o cancelar. */
 .inputBotones{
     width: 20%;
     display: flex;
@@ -50,7 +51,7 @@ input{
     cursor: pointer;
     color: white;
 }
-
+/* El footer. */
 footer{
     text-align: center;
     margin-top: 50px;

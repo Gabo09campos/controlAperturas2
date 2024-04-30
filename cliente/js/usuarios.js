@@ -49,6 +49,82 @@ fetch("http://localhost:3004/usuarios")
 
         usuarios.appendChild(row);
 
+        // Código para editar el usuario.
+        opciones.querySelector('.btnEditar').addEventListener('click', function() {
+            // Solicitamos al usuario los nuevos datos de la tienda.
+            let nuevoNombre = prompt("Por favor ingresa el nuevo nombre del usuario", usuario.Nombre);
+            let nuevoApellido = prompt("Por favor ingresa el nuevo apellido del usuario", usuario.Apellidos);
+            let nuevaCorreo = prompt("Por favor ingresa el nuevo correo del usuario", usuario.Correo_electrónico);
+            let nuevoNumeroEmpleado = prompt("Por favor ingresa el nuevo numero de empleado", usuario.N_empleados);
+            let nuevoTipoUsuario = prompt("Por favor ingresa el nuevo tipo de usuario", usuario.T_usuario);
+            let nuevoDepartamento = prompt("Por favor ingresa el nuevo departamento", usuario.Departamento);
+            let nuevaContrasena = prompt("Por favor ingresa la nueva contraseña", usuario.Contrasena);
+            //Validamos que los campos esten llenos.
+            if(nuevoNombre !== null && nuevoApellido !== null && nuevaCorreo !== null && nuevoNumeroEmpleado !== null && nuevoTipoUsuario !== null && nuevoDepartamento !== null && nuevaContrasena !== null){
+                //En esta parte es en donde se actualizan los valores en la base de datos.
+                //Utilizamos fetch con el metodo "PUT" para actualizar los valores en el servidor.
+                const myDataObject = {
+                    Nombre: nuevoNombre,
+                    Apellidos: nuevoApellido,
+                    Correo_electrónico: nuevaCorreo,
+                    N_empleados: nuevoNumeroEmpleado,
+                    T_usuario: nuevoTipoUsuario,
+                    Departamento: nuevoDepartamento,
+                    Contrasena: nuevaContrasena
+                }
+                fetch(`http://localhost:3004/editarUsuario/${usuario.id}`,
+                { 
+                    method: 'PUT',
+                    headers: {
+                        'Content-type': 'application/json'
+                    },
+                    body: JSON.stringify(myDataObject)
+                })
+                .then(response => response.json())
+                .then(() => {
+                    console.log('tienda actualizada');
+                    // Actualiza los datos en la tabla.
+                    Nombre.innerHTML = nuevoNombre;
+                    Apellidos.innerHTML = nuevoApellido;
+                    Correo_electrónico.innerHTML = nuevaCorreo;
+                    N_empleados.innerHTML = nuevoNumeroEmpleado;
+                    T_usuario.innerHTML = nuevoTipoUsuario;
+                    Departamento.innerHTML = nuevoDepartamento;
+                    Contrasena.innerHTML = nuevaContrasena;
+                })
+                .catch(error => console.error('error:', error));
+            }
+        });
+
+        // Código para eliminar la tienda
+        opciones.querySelector('.btnEliminar').addEventListener('click', function() {
+            /**
+             * Tenemos un dato adicional en "myDataObject" que enviarems con nuestro pedido DELETE.
+             * Ponemos la url hacia donde enviaremos el DELETE
+             * Describimos el pedido y enviamos datos adicionales usando "applicacion/json"
+             * Dentro de "body" utilizamos la funcion json.stringify() del objeto stringify de js.
+             * Por ultimo esperamos la respuesta, 'tienda eliminada' o el error que se encuentre.
+             * Utilizamos un confirm() dentro de un condicional para asegurar que el usuario desea eliminar esa tienda y no que sea por error.
+             */
+            const myDataObject = {usuario: 1}
+            if(confirm('¿Estas seguro de eliminar este usuario?') == true){
+                fetch(`http://localhost:3004/borrarTienda/${usuario.id}`,
+                { 
+                    method: 'POST',
+                        headers: {
+                            'Content-type': 'application/json'
+                        },
+                        body: JSON.stringify(myDataObject)
+                })
+                .then(response => response.json())
+                .then(() => {
+                    row.remove();
+                })
+                .catch(error => console.error('error:', error));
+            }else{
+                console.log("No se borro nada");
+            }
+        });
         
     });
 });

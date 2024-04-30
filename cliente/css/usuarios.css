@@ -1,3 +1,4 @@
+/* Estilos del navbar. */
 .navIndex{
     display: flex;
     align-items: center;
@@ -7,12 +8,12 @@
     background: silver;
     padding: 10px;
 }
-
+/* Estilos de div que contiene los links. */
 .navLink{
     width: 300px;
     display: contents;
 }
-
+/* Estilos de los links. */
 .linkPNav{
     font-size: 21px;
     color: black;
@@ -24,7 +25,7 @@
     font-size: 24px;
     color: blue;
 }
-
+/* Estilos del div que contiene el nombre de usuarios y el boton. */
 .navBtnTitulo{
     width: 280px;
     display: flex;
@@ -32,7 +33,7 @@
     justify-content: right;
 
 }
-
+/* Estilos del nombre del usuario. */
 .tituloNav{
     margin-right: 30px;
 }
@@ -45,13 +46,13 @@
     cursor: pointer;
     color: white;
 }
-
+/* Estilos de la seccion en donde se muestra la tabla de los usuarios. */
 .listasUsuarios{
     align-items: center;
     text-align: -webkit-center;
     margin-top: 3%;
 }
-
+/* Estilos del div que contiene el nombre de la pestaña y un boton. */
 .divTitulo{
     display: flex;
     flex-direction: row;
@@ -60,7 +61,7 @@
     margin-left: 365px;
     width: 265;
 }
-
+/* Div para ajustar los elementos. */
 .divRelleno{
     width: 276px;
 }
@@ -73,7 +74,7 @@
     cursor: pointer;
     color: white;
 }
-
+/* Estilos de la tabla que contiene a los usuarios. */
 table{
     border:2rem;
     width: 1000px;
@@ -99,7 +100,7 @@ table{
     cursor: pointer;
     color: white;
 }
-
+/* El footer. */
 footer{
     text-align: center;
     margin-top: 50px;

@@ -1,9 +1,10 @@
+/* Estilos del header en donde esta el logo. */
 .headerLogin{
     align-items: center;
     margin-top: 5%;
     margin-left: 350px;
 }
-
+/* Estilos del formulario para inicio de sesion. */
 .formLogin{
     align-items: center;
     text-align: center;
@@ -11,7 +12,7 @@
     flex-direction: column;
     margin-top: 3%;
 }
-
+/* Titulo de la pestaña. */
 .tituloLogin{
     margin-top: 50px;
 }
@@ -19,7 +20,7 @@
 .LogoChedrauiLogin{
     width: 300px;
 }
-
+/* Estilo de los inputs. */
 input{
     margin-top: 30px;
     width: 250px;
@@ -27,7 +28,7 @@ input{
     text-align: center;
     border-radius: 5px;
 }
-
+/* Boton para iniciar sesion. */
 button{
     margin-top: 30px;
     width: 150px;

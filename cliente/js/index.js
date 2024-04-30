@@ -20,7 +20,7 @@ fetch("http://localhost:3004/tiendas")
         row.appendChild(N_tienda);
 
         let Nom_tienda = document.createElement('td');
-        Nom_tienda.innerHTML = `${tienda.Nom_tienda}<button id="enlacePasos">Pasos</button>`;
+        Nom_tienda.innerHTML = tienda.Nom_tienda;
         row.appendChild(Nom_tienda);
 
         let Fecha_prueba = document.createElement('td');
@@ -30,11 +30,25 @@ fetch("http://localhost:3004/tiendas")
         let Fecha_apertura = document.createElement('td');
         Fecha_apertura.innerHTML = tienda.Fecha_apertura;
         row.appendChild(Fecha_apertura);
-
+        // Creamos ls botones para editar, eliminar y pasos finalizados de las tiendas.
+        // Con 'abbr' ponemos texto emergente a los botones.
         let opciones = document.createElement('td');
         opciones.innerHTML = `
-            <button class="btnEditar">Editar</button>
-            <button class="btnEliminar">Eliminar</button>
+        <abbr title="Editar tienda">
+            <button class="btnEditar">
+                <img src="./assets/logos/edit.svg" alt="editar" class="imgEditar" tittle="Editar tienda">
+            </button>
+        </abbr>
+        <abbr title="Eliminar tienda">
+            <button class="btnEliminar">
+                <img src="./assets/logos/trash.svg" alt="eliminar" class="imgEliminar">
+            </button>
+        </abbr>    
+        <abbr title="Ver pasos finalizados">
+            <button id="enlacePasos" class="btnPasos">
+                <img src="./assets/logos/tasks.svg" alt="pasos" class="imgPasos">
+            </button>
+        </abbr>  
         `;
         row.appendChild(opciones);
 
@@ -70,7 +84,7 @@ fetch("http://localhost:3004/tiendas")
                     console.log('tienda actualizada');
                     // Actualiza los datos en la tabla.
                     N_tienda.innerHTML = nuevoNumero;
-                    Nom_tienda.innerHTML = `<a href="Pasos.html">${nuevoNombre}</a>`;
+                    Nom_tienda.innerHTML = nuevoNombre;
                     Fecha_prueba.innerHTML = nuevaFechaPrueba;
                     Fecha_apertura.innerHTML = nuevaFechaApertura;
                 })
@@ -108,7 +122,7 @@ fetch("http://localhost:3004/tiendas")
             }
         });
         // Al hacer click al nombre de la tienda te redirige a los pasos marcando en especifico el paso en el que va.
-        Nom_tienda.addEventListener('click', function() {
+        opciones.querySelector('.btnPasos').addEventListener('click', function() {
             // Traemos el id de la tienda y el objeto de los pasos de este id.
             let idTienda = tienda.id;
             let pasoDeTienda = tienda.Pasos_finalizados; // Este es el objeto de pasos.

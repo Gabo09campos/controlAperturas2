@@ -1,5 +1,5 @@
 /* Esta hoja esta enlazada con Pasos.html y pasosUsuario.html, por lo que al modificarla se modifican ambas.*/
-
+/* Estilos del bavbar. */
 .navIndex{
     display: flex;
     align-items: center;
@@ -9,12 +9,12 @@
     background: silver;
     padding: 10px;
 }
-
+/* Estilo del div que contiene los links. */
 .navLink{
     width: 300px;
     display: contents;
 }
-
+/* Estilo de los links. */
 .linkPNav{
     font-size: 21px;
     color: black;
@@ -26,7 +26,7 @@
     font-size: 24px;
     color: blue;
 }
-
+/* Estilos del div que contiene el nombre del ususario y el boton. */
 .navBtnTitulo{
     width: 295px;
     display: flex;
@@ -34,7 +34,7 @@
     justify-content: right;
 
 }
-
+/* Estilo del nombre de usuario. */
 .tituloNav{
     margin-right: 30px;
 }
@@ -47,13 +47,13 @@
     cursor: pointer;
     color: white;
 }
-
+/* Estilos de la seccion en donde se muestran los pasos. */
 .seccionPasos{
     align-items: center;
     text-align: center;
     
 }
-
+/* Estilos del titulo de la pestaña. */
 .divTitulo{
     display: flex;
     flex-direction: row;
@@ -61,7 +61,7 @@
     margin-left: 384px;
     width: 265;
 }
-
+/* Div para ajustar los elementos. */
 .divRelleno{
     width: 276px;
 }
@@ -76,12 +76,12 @@
     cursor: pointer;
     color: white;
 }
-
+/* Estilos del form en donde se muestran los pasos. */
 .pasosLista{
     display: flex;
     flex-wrap: wrap;
 }
-
+/* Cada boton es un paso a seguir. */
 button{
     border-radius: 100%;
     text-align: center;
@@ -89,7 +89,7 @@ button{
     height: 90px;
     margin: 20px 10px 20px 5px;
 }
-
+/* El footer. */
 footer{
     text-align: center;
 }

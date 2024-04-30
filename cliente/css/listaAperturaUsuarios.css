@@ -1,3 +1,4 @@
+/* Estlos del navbar. */
 .navIndex{
     display: flex;
     align-items: center;
@@ -5,7 +6,37 @@
     margin-left: 10px;
     margin-right: 10px;
     background: silver;
-    display: ruby-text;
+    padding: 10px;
+
+}
+/* Estilo del div de los links hacias las pestañas del sistema. */
+.navLink{
+    width: 300px;
+    display: contents;
+}
+/* Estilos de los enlaces. */
+.linkPNav{
+    font-size: 21px;
+    color: black;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.linkPNav:hover{
+    font-size: 24px;
+    color: blue;
+}
+/* Estilos del div donde esta el titulo y el boton de cerrar ssion. */
+.navBtnTitulo{
+    width: 295px;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+
+}
+/* Estilos del titulo o nombre del usuario que ingreso. */
+.tituloNav{
+    margin-right: 30px;
 }
 
 .btnCerrarSesion{
@@ -15,22 +46,21 @@
     background-color: #0076c8;
     cursor: pointer;
     color: white;
-    margin-left: 405px;
 }
-
+/* Estilos de la tabla de las tiendas. */
 .listasTiendas{
     align-items: center;
     text-align: -webkit-center;
     margin-top: 5%;
 }
-
+/* Titulo de la pestaña en donde estamos.*/
 .divTitulo{
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
 }
-
+/* Estilos de la tabla. */
 table{
     border:2rem;
     width: 1000px;
@@ -38,7 +68,20 @@ table{
     text-align: center;
     margin-top: 20px;
 }
-
+/* Boton que esta en js y es el enlace hacia los pasos de cada tienda. */
+#enlacePasos{
+    float: right;
+    border-radius: 3px;
+    cursor: pointer;
+    background: #0076c8;
+}
+/* Icono de el boton de pasos. */
+.imgPasos{
+    width: 50px;
+    height: 28px;
+    filter: invert(1);
+}
+/* El footer. */
 footer{
     text-align: center;
     margin-top: 50px;

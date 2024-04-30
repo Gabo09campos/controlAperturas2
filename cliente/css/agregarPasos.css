@@ -1,17 +1,18 @@
 /* Estilos de inputs y botones */
+/* Estilo de todo el form. */
 .agregarPaso{
   align-items: center;
   text-align: -webkit-center;
   margin-top: 3%;
 }
-
+/* Div que contiene todos los campos del form. */
 .inputAgregar{
   display: flex;
   flex-direction: column;
   margin-top: 30px;
   align-items: center;
 }
-
+/* Input para agregar nombre del paso. */
 .inputTexto{
   display: flex;
   justify-content: space-evenly;
@@ -19,11 +20,11 @@
   flex-direction: column;
   align-items: center;
 }
-
+/* Mensaje de error. */
 .warnings{
   margin-top: 60px;
 }
-
+/* Botones de aceptar y cancelar el agregado. */
 .inputBotones{
   width: 20%;
   display: flex;
@@ -56,7 +57,7 @@ input{
   cursor: pointer;
   color: white;
 }
-
+/* El footer. */
 footer{
   text-align: center;
   margin-top: 50px;
