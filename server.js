@@ -19,13 +19,13 @@ app.use(express.static("./cliente"));
 
 //Este es de prueba.
 app.use("/usuarios", function(pet, rest){
-    conexion.query("SELECT Nombre, Apellidos, Correo_electrónico, N_empleados, T_usuario, Departamento, Contrasena FROM usuarios", function(err, resultado){
+    conexion.query("SELECT id, Nombre, Apellidos, Correo_electrónico, N_empleados, T_usuario, Departamento, Contrasena FROM usuarios", function(err, resultado){
         if(err){
             console.log(err);
             rest.status(500).json({error: "Hubo un error al realizar la consulta"});
             return;
         }
-        return rest.json(resultado); 
+        return rest.json(resultado);
     }); 
 });
 
@@ -124,6 +124,37 @@ app.put("/editarTienda/:id", function(req, res){
             // Envía una respuesta al cliente para indicar que la tienda fue actualizada exitosamente.
             res.status(200).send({message: 'Tienda actualizada exitosamente'});
             //conexion.end();
+        }else{
+            console.log(err)
+            res.status(500).send("Error en la query");
+        }
+    }); 
+});
+
+//Back-end para eliminar un usuario de la lista de aperturas.
+app.post("/borrarUsuario/:id", function(req, res){
+    // Aquí borramos la tienda de la base de datos.
+    // Utilizamos req.params.id para obtener el ID de la tienda a borrar.
+    conexion.query("DELETE FROM usuarios WHERE id = ?", [req.params.id], function(err, resultado){
+        if(res){
+            // Se envía una respuesta al cliente para indicar que la tienda fue borrada exitosamente.
+            res.status(200).send({message: 'Usuario eliminada exitosamente'});
+        }else{
+            console.log(err)
+            res.status(500).send("Error en la query");
+        }
+    }); 
+});
+
+//Back-end para editar un usuario de la lista de aperturas.
+app.put("/editarUsuario/:id", function(req, res){
+    // Aquí es donde actualizamos los datos de la tienda en la base de datos.
+    // Utilizaríamos req.params.id para obtener el ID de la tienda a actualizar.
+    // Utilizaríamos req.body para obtener los nuevos datos de la tienda.
+    conexion.query("UPDATE usuarios SET Nombre = ?, Apellidos = ?, Correo_electrónico = ?, N_empleados = ?, T_usuario = ?, Departamento = ?, Contrasena = ?, WHERE id = ?", [req.body.Nombre,  req.body.Apellidos, req.body.Correo_electrónico, req.body.N_empleados, req.body.T_usuario, req.body.Departamento, req.body.Contrasena, req.params.id], function(err, resultado){
+        if(res){
+            // Envía una respuesta al cliente para indicar que la tienda fue actualizada exitosamente.
+            res.status(200).send({message: 'Tienda actualizada exitosamente'});
         }else{
             console.log(err)
             res.status(500).send("Error en la query");

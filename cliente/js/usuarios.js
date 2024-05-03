@@ -82,7 +82,7 @@ fetch("http://localhost:3004/usuarios")
                 })
                 .then(response => response.json())
                 .then(() => {
-                    console.log('tienda actualizada');
+                    console.log('Usuario actualizado');
                     // Actualiza los datos en la tabla.
                     Nombre.innerHTML = nuevoNombre;
                     Apellidos.innerHTML = nuevoApellido;
@@ -108,7 +108,7 @@ fetch("http://localhost:3004/usuarios")
              */
             const myDataObject = {usuario: 1}
             if(confirm('¿Estas seguro de eliminar este usuario?') == true){
-                fetch(`http://localhost:3004/borrarTienda/${usuario.id}`,
+                fetch(`http://localhost:3004/borrarUsuario/${usuario.id}`,
                 { 
                     method: 'POST',
                         headers: {
