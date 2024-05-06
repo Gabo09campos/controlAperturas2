@@ -7,7 +7,6 @@ const tiendas = document.getElementById("tiendasLista");
  */
 // variable o arreglo para guardar los paso por cada tienda.
 let pasosFinalizados = [];
-
 fetch("http://localhost:3004/tiendas")
 .then(rest => rest.json())
 .then(rest => {
@@ -30,7 +29,7 @@ fetch("http://localhost:3004/tiendas")
         let Fecha_apertura = document.createElement('td');
         Fecha_apertura.innerHTML = tienda.Fecha_apertura;
         row.appendChild(Fecha_apertura);
-        // Creamos ls botones para editar, eliminar y pasos finalizados de las tiendas.
+        // Creamos los botones para editar, eliminar y pasos finalizados de las tiendas.
         // Con 'abbr' ponemos texto emergente a los botones.
         let opciones = document.createElement('td');
         opciones.innerHTML = `

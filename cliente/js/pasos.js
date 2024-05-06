@@ -3,7 +3,7 @@ let pasos = document.getElementById("pasosApertura");
 let estadoBotones = []; // Creamos un objeto para almacenar los botones que ya fueron completados.
 // Al cargar la página, obtenemos los pasos guardados en localStorage y parseamos el String un Array.
 let pasosGuardados = JSON.parse(localStorage.getItem('PTAU'));
-console.log(pasosGuardados);
+//console.log(pasosGuardados);
 pasosGuardados.shift(); // Quita el primer elemento del array.
 /**
  * Con un fetch indicamos cual sera la url en donde nos mostrara los datos en la web.
@@ -41,7 +41,6 @@ fetch("http://localhost:3004/pasos")
             // Con un condicional verificamos que no se pueda marcar un paso hasta que el anterior este completado.
             if (index === 0 || estadoBotones[rest[index - 1].Id_agregar] === 1) {
                 estadoBotones[idPaso] = 1; // Marcar como finalizado.
-                //console.log(estadoBotones);
                 // Al estar finalizado el paso, cambia su color.
                 Nom_apertura.style.color = "white";
                 Nom_apertura.style.backgroundColor = "green";
@@ -70,6 +69,7 @@ fetch("http://localhost:3004/pasos")
                 alert('Debes completar el paso anterior primero.');
             }
             // Si ya finalizo en paso, se le reedirige hacia el index y se guarda el valor del boton como finalizado.
+            alert('Buen trabajo equipo');
             location.href = 'index.html';
         });
     }); 
