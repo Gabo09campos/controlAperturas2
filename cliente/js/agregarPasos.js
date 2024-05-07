@@ -28,16 +28,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
             optionUsu.text = usuario.Nombre; // El nombre del usuario se muestra en el menú desplegable.
             selectUsu.appendChild(optionUsu);
         });
-        
-        document.getElementById('btnDep').addEventListener('click', function(e) {
-            e.preventDefault();
-            selectDep.classList.toggle("show");
-        });
-       
-        document.getElementById('btnUsu').addEventListener('click', function(e) {
-            e.preventDefault();
-            selectUsu.classList.toggle("show");
-        });
     });
 });
 
@@ -63,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 .then((error) => console.log(error));
             }
             form.reset();
-            window.location.href = './Pasos.html';
+            window.location.href = './pasosNavbar.html';
         });
     } else {
         console.log("El elemento 'form' no existe en el DOM");

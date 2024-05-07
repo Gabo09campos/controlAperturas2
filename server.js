@@ -4,6 +4,7 @@ const conexion = require("./conexion.js");
 const jwt = require('jsonwebtoken');
 const app = express();
 const bcrypt = require('bcrypt');
+const { log } = require("node:console");
 app.use(express.json());
 app.use(express.static("./cliente"));
 /** 
@@ -203,6 +204,7 @@ app.post("/agregarPasoFinzalizado", function(pet, rest){
 app.use("/agregarPaso", function(pet, rest){
     //Conectamos con el front para recibir los valores del formulario.
     const {Nom_apertura, Departamento_responsble, Usuario} = pet.body
+    console.log(pet.body);
     // Insertamos los datos del formulario a la base de datos.
     const consultaSql = `INSERT INTO pasosconsecutivos (Nom_apertura, Departamento_responsble, Usuario) VALUES (?, ?, ?) `;
     conexion.query(consultaSql, [Nom_apertura, Departamento_responsble, Usuario], function(err, resultado){

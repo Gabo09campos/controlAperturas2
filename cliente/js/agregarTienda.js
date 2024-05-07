@@ -23,7 +23,6 @@ document.addEventListener("DOMContentLoaded", function() {
             e.preventDefault();
             let warnings = "";
             let entrar = true;
-            
             if(numeroTienda.value.length < 3 || nombreTienda.value.length < 10 || fPruebas.value.length < 8 || fApertura.value.length < 8 ){
                 warnings += 'Todos los campos deben ser llenados correctamente <br>'
                 entrar = false;

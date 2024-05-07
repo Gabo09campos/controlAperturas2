@@ -3,8 +3,6 @@ let pasos = document.getElementById("pasosApertura");
 let estadoBotones = []; // Creamos un objeto para almacenar los botones que ya fueron completados.
 // Al cargar la página, obtenemos los pasos guardados en localStorage y parseamos el String un Array.
 let pasosGuardados = JSON.parse(localStorage.getItem('PTAU'));
-//console.log(pasosGuardados);
-pasosGuardados.shift(); // Quita el primer elemento del array.
 /**
  * Con un fetch indicamos cual sera la url en donde nos mostrara los datos en la web.
  * Con .then recibimos la respuesta de la base de datos y con el json lo interpreta a una manera legible para el usuario.
@@ -15,7 +13,7 @@ fetch("http://localhost:3004/pasos")
 .then(rest => {
     rest.forEach((apertura, index) => {
         let row = document.createElement('div');
-        
+
         let Nom_apertura = document.createElement('button');
         Nom_apertura.innerHTML = apertura.Nom_apertura;
         row.appendChild(Nom_apertura);
@@ -48,6 +46,8 @@ fetch("http://localhost:3004/pasos")
                 let idTiendaActual = localStorage.getItem('TAU');
                     // Enviamos los datos del objeto a la tienda correspondiente.
                     if(idTiendaActual){
+                        // Filtramos todos los valores que no sean booleano
+                        let nuevoEstado = estadoBotones.filter(value => value !== null && value !== "null" && value !== undefined && value !== "" && (value === 0 || value === 1));
                         // Enviar el estado de los botones a la base de datos.
                         fetch('http://localhost:3004/agregarPasoFinzalizado', {
                             method: 'POST',
@@ -57,7 +57,7 @@ fetch("http://localhost:3004/pasos")
                             body: JSON.stringify({
                                 id: idTiendaActual,
                                 Id_agregar: idPaso,
-                                estado: estadoBotones // Enviamos todo el objeto.
+                                estado: nuevoEstado // Enviamos todo el objeto.
                             }),
                         })
                         .then(response => response.json())
