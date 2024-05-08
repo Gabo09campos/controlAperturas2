@@ -125,7 +125,22 @@ fetch("http://localhost:3004/usuarios")
                 console.log("No se borro nada");
             }
         });
-        
+        /* funcion para buscar un usuario por su nombre. */
+        // funcion para buscar un usuario por su nombre.
+        document.addEventListener("keyup", e => {
+            // Verifica si el evento se originó en el elemento con el ID "inputBuscar".
+            if (e.target.matches("#inputBuscar")) {
+                // Si el usuario presiona la tecla "Escape", borra el contenido del campo de búsqueda.
+                if (e.key === "Escape") e.target.value = "";
+                // Selecciona todas las filas de la tabla.
+                document.querySelectorAll("tr").forEach(row => {
+                    // Verifica si el texto de la fila incluye el valor de búsqueda (ignorando mayúsculas y minúsculas).
+                    row.textContent.toLowerCase().includes(e.target.value.toLowerCase())
+                        ? row.style.display = ""  // Muestra la fila si la búsqueda coincide.
+                        : row.style.display = "none";  // Oculta la fila si la búsqueda no coincide.
+                });
+            }
+        });
     });
 });
 //Funcion para saber si la sesion del usuario esta activa.

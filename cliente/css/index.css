@@ -5,7 +5,7 @@
     justify-content: space-between;
     margin-left: 10px;
     margin-right: 10px;
-    background: silver;
+    background: lavender;
     padding: 10px;
 }
 /* Estilo del div de los links hacias las pestañas del sistema. */
@@ -27,11 +27,20 @@
 }
 /* Estilos del div donde esta el titulo y el boton de cerrar ssion. */
 .navBtnTitulo{
-    width: 300px;
+    width: 330px;
     display: flex;
     align-items: center;
     justify-content: right;
 
+}
+/* Estilos del buscados */
+.formInput{
+    margin-right: 20px;
+    width: 120px;
+    height: 30px;
+    background: lavenderblush;
+    border-radius: 4px;
+    text-align: center;
 }
 /* Estilos del titulo o nombre del usuario que ingreso. */
 .tituloNav{

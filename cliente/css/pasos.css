@@ -6,7 +6,7 @@
     justify-content: space-between;
     margin-left: 10px;
     margin-right: 10px;
-    background: silver;
+    background: lavender;
     padding: 10px;
 }
 /* Estilo del div que contiene los links. */
@@ -28,11 +28,19 @@
 }
 /* Estilos del div que contiene el nombre del ususario y el boton. */
 .navBtnTitulo{
-    width: 295px;
+    width: 330px;
     display: flex;
     align-items: center;
     justify-content: right;
 
+}
+
+.formInput{
+    width: 120px;
+    height: 30px;
+    background: lavenderblush;
+    border-radius: 4px;
+    margin-right: 20px;
 }
 /* Estilo del nombre de usuario. */
 .tituloNav{
