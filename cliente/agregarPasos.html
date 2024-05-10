@@ -8,22 +8,23 @@
     <!-- Le cambio la direccion del estilo -->
 </head>
 <body>
-    <form class="agregarPaso" id="agregarPaso">
+    <form class="agregarPaso" id="agregarPaso"> 
         <div>
             <h1>Agregar paso</h1>
         </div>
         <div class="inputAgregar">
             <!-- Nombre del paso a agregar -->
-                <input type="text" placeholder="Nombre de apertura" id="nombrePaso">
+            <input type="text" placeholder="Nombre de apertura" id="nombrePaso">
             <!-- Seleccion del departamento responsable -->  
-                <select name="choice" class="btnDep" id="myDropdownDep">
-                    <option value="second" selected="selected">Departamento responsable</option>
-                </select>
+            <select name="choice" class="btnDep" id="myDropdownDep">
+                <option value="second" selected="selected">Departamento responsable</option>
+            </select>
             <!-- Seleccion del usuario -->
-                <select name="choice" class="btnUsu" id="myDropdownUsu">
-                    <option value="second" selected="selected">Selecciona un usuario</option>
-                </select>
-            
+            <select name="choice" class="btnUsu" id="myDropdownUsu">
+                <option value="second" selected="selected">Selecciona un usuario</option>
+            </select>
+            <!-- Selecciona la posicion del nuevo paso -->
+            <input type="number" placeholder="Posicion del nuevo paso" id="posicion" min="0">
             <!-- Mensaje de error -->
             <p class="warnings" id="warnings"></p>
             <!-- Botones -->

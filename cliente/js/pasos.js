@@ -12,7 +12,7 @@ fetch("http://localhost:3004/pasos")
 .then(rest => rest.json())
 .then(rest => {
     rest.forEach((apertura, index) => {
-        let row = document.createElement('div');
+        let row = document.createElement('li');
 
         let Nom_apertura = document.createElement('button');
         Nom_apertura.innerHTML = apertura.Nom_apertura;
