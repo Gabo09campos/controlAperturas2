@@ -21,6 +21,7 @@ fetch("http://localhost:3004/pasos")
     // fALTA ORDENAR LOS BOTONES SEGUN A EL NUMERO DE PASO QUE TENGA.
     rest.forEach((apertura, index) => {
         let row = document.createElement('div');
+
         let Nom_apertura = document.createElement('button');
         Nom_apertura.innerHTML = apertura.Nom_apertura;
         row.appendChild(Nom_apertura);

@@ -10,7 +10,7 @@ let mensaje = "";
  * Con .then recibimos la respuesta de la base de datos y con el json lo interpreta a una manera legible para el usuario.
  * En el forEach creamos una variable "tienda" y le indicamos que si encuentra algun registro nuevo se incremente la tabla con el appendChild.
 */
-
+// Dropdown de usuario y departamento responsable del paso.
 document.addEventListener('DOMContentLoaded', (event) => {
     fetch("http://localhost:3004/usuarios")
     .then(rest => rest.json())
@@ -28,6 +28,21 @@ document.addEventListener('DOMContentLoaded', (event) => {
             optionUsu.href = "#"; // El nombre del usuario se usa como valor.
             optionUsu.text = usuario.Nombre; // El nombre del usuario se muestra en el menú desplegable.
             selectUsu.appendChild(optionUsu);
+        });
+    });
+});
+//
+document.addEventListener('DOMContentLoaded', (event) => {
+    fetch("http://localhost:3004/pasos")
+    .then(rest => rest.json())
+    .then(rest => {
+        let selectPaso = document.getElementById('myDropdownPaso'); // Menú desplegable de paso nuevo.
+        rest.forEach(pasos => { 
+            // Código para el botón de pasos nuevos.
+            let optionPas = document.createElement('option');
+            optionPas.href = "#"; // El nombre de los pasos se usan como valor.
+            optionPas.text = pasos.Nom_apertura; // El nombre de los pasos se muestran en el menú desplegable.
+            selectPaso.appendChild(optionPas);
         });
     });
 });
@@ -61,6 +76,8 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log("El elemento 'form' no existe en el DOM");
     }
 });
+
+/************************************************************************** */
 //Funcion para saber si la sesion del usuario esta activa.
 function estaLogueado() {
     // Obtener el token de sessionStorage.
