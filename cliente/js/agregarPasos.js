@@ -1,6 +1,7 @@
 const NombrePaso = document.getElementById("nombrePaso");
 const departamento = document.getElementById("myDropdownDep");
 const usuario = document.getElementById("myDropdownUsu");
+const posicion = document.getElementById("posicion");
 const form = document.getElementById("agregarPaso");
 const parrafo = document.getElementById("warnings");
 let mensaje = "";
@@ -45,7 +46,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 axios.post("agregarPaso", {
                     Nom_apertura: NombrePaso.value,
                     Departamento_responsble: departamento.value,
-                    Usuario: usuario.value
+                    Usuario: usuario.value,
+                    Num_paso: posicion.value
                 })
                 .then(function (response) {
                     console.log(response.data);

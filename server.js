@@ -203,11 +203,11 @@ app.post("/agregarPasoFinzalizado", function(pet, rest){
 //Back-end para agregar pasos a seguir para la apertura.
 app.use("/agregarPaso", function(pet, rest){
     //Conectamos con el front para recibir los valores del formulario.
-    const {Nom_apertura, Departamento_responsble, Usuario} = pet.body
-    console.log(pet.body);
+    const {Nom_apertura, Departamento_responsble, Usuario, Num_paso} = pet.body
+    //console.log(pet.body);
     // Insertamos los datos del formulario a la base de datos.
-    const consultaSql = `INSERT INTO pasosconsecutivos (Nom_apertura, Departamento_responsble, Usuario) VALUES (?, ?, ?) `;
-    conexion.query(consultaSql, [Nom_apertura, Departamento_responsble, Usuario], function(err, resultado){
+    const consultaSql = `INSERT INTO pasosconsecutivos (Nom_apertura, Departamento_responsble, Usuario, Num_paso) VALUES (?, ?, ?, ?) `;
+    conexion.query(consultaSql, [Nom_apertura, Departamento_responsble, Usuario, Num_paso], function(err, resultado){
         if(err){
             console.log(err)
             rest.status(500).json({error: "Hubo un error al realizar la consulta de la base de datos"});
