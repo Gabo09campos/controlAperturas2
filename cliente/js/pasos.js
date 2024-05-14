@@ -8,17 +8,9 @@ let pasosGuardados = JSON.parse(localStorage.getItem('PTAU'));
  * Con .then recibimos la respuesta de la base de datos y con el json lo interpreta a una manera legible para el usuario.
  * En el forEach creamos una variable "tienda" y le indicamos que si encuentra algun registro nuevo se incremente la tabla con el appendChild.
 */
-let numeroPasos = [];
 fetch("http://localhost:3004/pasos")
 .then(rest => rest.json())
 .then(rest => {
-    rest.forEach((apertura, index) => {
-        // Agrega el Num_paso al arreglo pasos
-        numeroPasos.push({paso: parseFloat(apertura.Num_paso), nombre: apertura.Nom_apertura});
-    });
-    // Ordena el array numeroPasos
-    numeroPasos.sort((a, b) => a.paso - b.paso);
-    // fALTA ORDENAR LOS BOTONES SEGUN A EL NUMERO DE PASO QUE TENGA.
     rest.forEach((apertura, index) => {
         let row = document.createElement('div');
 
@@ -26,21 +18,9 @@ fetch("http://localhost:3004/pasos")
         Nom_apertura.innerHTML = apertura.Nom_apertura;
         row.appendChild(Nom_apertura);
 
-        
-        //numeroPaos.push(Num_paso);
-        //console.log(numeroPaos);
         let Num_paso = document.createElement('p');
         Num_paso.innerHTML = apertura.Num_paso;
         row.appendChild(Num_paso);
-        //console.log(Num_paso);
-
-        // Agrega el Num_paso al arreglo pasos
-        //numeroPasos.push(parseFloat(apertura.Num_paso));
-        //numeroPasos.sort((a, b) => a - b);
-        // Convierte cada elemento del array a número y luego ordena
-        //numeroPasos = numeroPasos.map(Number).sort((a, b) => a - b);
-
-        console.log(numeroPasos);
 
         // Verificamos si el paso actual está en localStorage y si es true.
         if (pasosGuardados[index] === 1) {

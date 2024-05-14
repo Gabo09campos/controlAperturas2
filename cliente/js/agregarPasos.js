@@ -31,21 +31,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
         });
     });
 });
-//
-document.addEventListener('DOMContentLoaded', (event) => {
-    fetch("http://localhost:3004/pasos")
-    .then(rest => rest.json())
-    .then(rest => {
-        let selectPaso = document.getElementById('myDropdownPaso'); // Menú desplegable de paso nuevo.
-        rest.forEach(pasos => { 
-            // Código para el botón de pasos nuevos.
-            let optionPas = document.createElement('option');
-            optionPas.href = "#"; // El nombre de los pasos se usan como valor.
-            optionPas.text = pasos.Nom_apertura; // El nombre de los pasos se muestran en el menú desplegable.
-            selectPaso.appendChild(optionPas);
-        });
-    });
-});
 
 document.addEventListener("DOMContentLoaded", function() {
     if(form){
@@ -58,19 +43,65 @@ document.addEventListener("DOMContentLoaded", function() {
                 entrar = false;
                 parrafo.innerHTML = warnings;
             }else{
-                axios.post("agregarPaso", {
-                    Nom_apertura: NombrePaso.value,
-                    Departamento_responsble: departamento.value,
-                    Usuario: usuario.value,
-                    Num_paso: posicion.value
-                })
+                // Primero, necesitas obtener todos los pasos existentes.
+                axios.get("/pasos")
                 .then(function (response) {
-                    console.log(response.data);
+                    let pasos = response.data;
+                    console.log(pasos);
+                    console.log(posicion.value);
+                    // Luego, debes verificar si el número de paso ya existe.
+                    //let pasoExistente = pasos.find(paso => paso.Num_paso === posicion.value);
+                    let pasoExistente = pasos.find(paso => Number(paso.Num_paso) === Number(posicion.value));
+                    console.log(pasoExistente);
+                    // El error anda por aqui.
+                    if (pasoExistente) {
+                        const actualizarPaso = async () => {
+                            for (let paso of pasos) {
+                                if (Number(paso.Num_paso) >= Number(posicion.value)) {
+                                    paso.Num_paso++;
+                                    try {
+                                        console.log(paso);
+                                        const response = await axios.put(`actualizarPaso/${paso.id}`, paso);
+                                        console.log(response.data);
+                                    } catch (error) {
+                                        console.log(error);
+                                    }
+                                }
+                            }
+                        };
+                        actualizarPaso();
+                    }
+                    
+                    // Si el paso ya existe, debes incrementar en 1 el número de todos los pasos siguientes.
+                   /* if (pasoExistente) {
+                        pasos.forEach(paso => {
+                            if (paso.Num_paso >= posicion.value) {
+                                paso.Num_paso++;
+                                // Aquí debes actualizar el paso en la base de datos.
+                                axios.put(`actualizarPaso/${paso.id}`, paso)
+                                .then((response) => console.log(response.data))
+                                .catch((error) => console.log(error));
+                            }
+                        });
+                    }
+*/
+                    // Finalmente, puedes agregar el nuevo paso.
+                    axios.post("agregarPaso", {
+                        Nom_apertura: NombrePaso.value,
+                        Departamento_responsble: departamento.value,
+                        Usuario: usuario.value,
+                        Num_paso: posicion.value
+                    })
+                    .then(function (response) {
+                        console.log(response.data);
+                    })
+                    .catch((error) => console.log(error));
                 })
-                .then((error) => console.log(error));
+                .catch((error) => console.log(error));
+
             }
-            form.reset();
-            window.location.href = './pasosNavbar.html';
+            //form.reset();
+            //window.location.href = './pasosNavbar.html';
         });
     } else {
         console.log("El elemento 'form' no existe en el DOM");

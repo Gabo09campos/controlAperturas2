@@ -131,6 +131,27 @@ app.put("/editarTienda/:id", function(req, res){
         }
     }); 
 });
+// pendiente para postman.
+//Back-end para actualizar un numero de paso.
+app.put("/actualizarPaso/:id", function(req, res){
+    // Aquí es donde actualizamos los datos de la tienda en la base de datos.
+    // Utilizaríamos req.params.id para obtener el ID de la tienda a actualizar.
+    // Utilizaríamos req.body para obtener los nuevos datos de la tienda.
+    conexion.query("UPDATE pasosconsecutivos SET Num_paso = ? WHERE id = ?", [req.body.paso,  req.params.id], function(err, resultado){
+        // No llegan los valores, hay que revisar si estan correctos o porque no llegan.
+        console.log(req.body.paso);
+        console.log(req.params.id);
+        if(res){
+            // Envía una respuesta al cliente para indicar que la tienda fue actualizada exitosamente.
+            res.status(200).send({message: 'Numero de paso actualizado exitosamente'});
+            console.log('actualizacion al 100');
+            //conexion.end();
+        }else{
+            console.log(err)
+            res.status(500).send("Error en la query");
+        }
+    }); 
+});
 
 //Back-end para eliminar un usuario de la lista de aperturas.
 app.post("/borrarUsuario/:id", function(req, res){
