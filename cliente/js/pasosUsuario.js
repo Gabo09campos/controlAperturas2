@@ -12,6 +12,9 @@ pasosGuardados.shift(); // Quita el primer elemento del array.
 fetch("http://localhost:3004/pasos")
 .then(rest => rest.json())
 .then(rest => {
+    // Ordena el array 'rest' según el número de paso
+    rest.sort((a, b) => a.Num_paso - b.Num_paso);
+    // Creamos unas variables ue uyilizaremos para usar los datos de la API.
     rest.forEach((apertura, index) => {
         let row = document.createElement('div');
         
@@ -23,10 +26,10 @@ fetch("http://localhost:3004/pasos")
             Nom_apertura.style.color = "white";
             Nom_apertura.style.backgroundColor = "green";
             // Si el objeto de localstorage trae pasos completados, los agregamos a botones para que no se vuelvan a marcar.
-            estadoBotones[apertura.Id_agregar] = 1; 
+            estadoBotones[apertura.Num_paso] = 1; 
         } else {
             // Si el objeto de localstorage no trae pasos completados, lo guardamos en 0 para ir guardando su valor.
-            estadoBotones[apertura.Id_agregar] = 0; 
+            estadoBotones[apertura.Num_paso] = 0; 
         }
         
         pasos.appendChild(row);
@@ -35,10 +38,10 @@ fetch("http://localhost:3004/pasos")
         Nom_apertura.addEventListener('click', function(e) {
             // Prevenimos que la pagina se recargue.
             e.preventDefault();
-            // En una variable llamamos el id de los pasos.
-            let idPaso = apertura.Id_agregar;
+            // En una variable llamamos el id de los pasos (los datos fueron cambiados de Id_agregar a Num_paso, sin embargo la variable se deja con el mismo nombre por practicidad).
+            let idPaso = apertura.Num_paso;
             // Con un condicional verificamos que no se pueda marcar un paso hasta que el anterior este completado.
-            if (index === 0 || estadoBotones[rest[index - 1].Id_agregar] === 1) {
+            if (index === 0 || estadoBotones[rest[index - 1].Num_paso] === 1) {
                 estadoBotones[idPaso] = 1; // Marcar como finalizado.
                 //console.log(estadoBotones);
                 // Al estar finalizado el paso, cambia su color.
@@ -70,6 +73,21 @@ fetch("http://localhost:3004/pasos")
             }
             // Si ya finalizo en paso, se le reedirige hacia el index y se guarda el valor del boton como finalizado.
             location.href = 'index.html';
+        });
+        // Funcion para buscar pasos por su nombre.
+        document.addEventListener("keyup", e => {
+            // Verifica si el evento se originó en el elemento con el ID "inputBuscar".
+            if (e.target.matches("#inputBuscar")) {
+                // Si el usuario presiona la tecla "Escape", borra el contenido del campo de búsqueda.
+                if (e.key === "Escape") e.target.value = "";
+                // Selecciona todas las filas de la tabla.
+                document.querySelectorAll("div button").forEach(row => {
+                    // Verifica si el texto de la fila incluye el valor de búsqueda (ignorando mayúsculas y minúsculas).
+                    row.textContent.toLowerCase().includes(e.target.value.toLowerCase())
+                        ? row.style.display = ""  // Muestra la fila si la búsqueda coincide.
+                        : row.style.display = "none";  // Oculta la fila si la búsqueda no coincide.
+                });
+            }
         });
     }); 
 });

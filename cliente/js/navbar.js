@@ -31,9 +31,9 @@ window.onload = function() {
         window.location.replace('./login.html');
     }else{
         // Si el usuario está logueado, mostrar su nombre en la barra de navegación.
-        var elementoNavbar = document.getElementById('tituloNav');
+        //var elementoNavbar = document.getElementById('tituloNav');
         // Obtenemos el nombre del usuario del almacenamiento local y lo mostramos en el nav.
-        var nombreUsuario = localStorage.getItem('nombreUsuario'); 
-        elementoNavbar.innerHTML = nombreUsuario;
+        //var nombreUsuario = localStorage.getItem('nombreUsuario'); 
+        //elementoNavbar.innerHTML = nombreUsuario;
     }
 } 

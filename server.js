@@ -8,7 +8,7 @@ const { log } = require("node:console");
 app.use(express.json());
 app.use(express.static("./cliente"));
 /** 
- * requerimos a express y creamos un servodor con http
+ * requerimos a express y creamos un servodor con http.
  * creamos una constante para la aplicacion de express donde express es un servidor web http.
  * creamos una funcion de peticion(pet) y respuesta(rest).
 */
@@ -18,7 +18,7 @@ app.use(express.static("./cliente"));
  * esta funcion le dice a la aplicacion de express que use o cree una nueva ruta que seria la cadena en el primer parametro, en este caso "/usuarios", cuando llegue una peticion http a la ruta usuarios va a correr la funcion en el segundo parametro de la funcion use.
 */
 
-//Este es de prueba.
+//Back-end de usuarios.
 app.use("/usuarios", function(pet, rest){
     conexion.query("SELECT id, Nombre, Apellidos, Correo_electrónico, N_empleados, T_usuario, Departamento, Contrasena FROM usuarios", function(err, resultado){
         if(err){
@@ -131,21 +131,15 @@ app.put("/editarTienda/:id", function(req, res){
         }
     }); 
 });
-// pendiente para postman.
 //Back-end para actualizar un numero de paso.
-app.put("/actualizarPaso/:id", function(req, res){
+app.put("/actualizarPaso/:Id_agregar", function(req, res){
     // Aquí es donde actualizamos los datos de la tienda en la base de datos.
-    // Utilizaríamos req.params.id para obtener el ID del paso a actualizar.
-    // Utilizaríamos req.body para obtener los nuevos datos del paso.
-    conexion.query("UPDATE pasosconsecutivos SET Num_paso = ? WHERE id = ?", [req.body.Num_paso,  req.params.id], function(err, resultado){
-        // No llegan los valores, hay que revisar si estan correctos o porque no llegan.
-        //console.log(req.body.paso);
-        //console.log(req.params.id);
+    // Utilizaríamos req.params.Id_agregar para obtener el ID del paso a actualizar.
+    // Utilizaríamos req.body.Num_paso para obtener los nuevos datos del paso.
+    conexion.query("UPDATE pasosconsecutivos SET Num_paso = ? WHERE Id_agregar = ?", [req.body.Num_paso,  req.params.Id_agregar], function(err, resultado){
         if(res){
             // Envía una respuesta al cliente para indicar que la tienda fue actualizada exitosamente.
             res.status(200).send({message: 'Numero de paso actualizado exitosamente'});
-            console.log('actualizacion al 100');
-            //console.log(resultado);
             //conexion.end();
         }else{
             console.log(err)
@@ -242,8 +236,8 @@ app.use("/agregarPaso", function(pet, rest){
 
 /**
  * creamos un servidor http de node.js para acelerar el funcionanmiento.
- * le decimos el puerto en donde estara
- * creamos una function que nos muestre en consola si saliio bien
+ * le decimos el puerto en donde estara.
+ * creamos una function que nos muestre en consola si saliio bien.
 */
 let servidor = http.createServer(app);
 servidor.listen(3004, function(){

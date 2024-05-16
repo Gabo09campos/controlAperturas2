@@ -38,103 +38,55 @@ document.addEventListener("DOMContentLoaded", function() {
             e.preventDefault();
             let warnings = "";
             let entrar = true;
-            if(NombrePaso.value.length < 5 || departamento.selectedIndex === 0 || usuario.selectedIndex === 0 ){
+            if(NombrePaso.value.length < 5 || departamento.selectedIndex === 0 || usuario.selectedIndex === 0 || posicion.selectedIndex === 0){
                 warnings += 'Todos los campos deben ser llenados correctamente <br>'
                 entrar = false;
                 parrafo.innerHTML = warnings;
             }else{
-                // Primero, necesitas obtener todos los pasos existentes.
-                axios.get("/pasos")
-                .then(function (response) {
-                    let pasos = response.data;
-                    for (let paso of pasos) {
-                        //console.log(paso.Num_paso); // Ahora deberías ver el Num_paso de cada paso
-                    }
-                    let pasoExistente = pasos.find(paso => Number(paso.Num_paso) === Number(posicion.value));
-                    console.log(posicion.value);
-                    if (pasoExistente) {
-                        console.log(pasoExistente.Num_paso); // Imprime el Num_paso del pasoExistente
-                    } else {
-                        console.log('No se encontró ningún paso con ese Num_paso');
-                    }
-                    // El error anda por aqui.
-                   /* if (pasoExistente) {
-                        const actualizarPaso = async () => { 
-                            for (let paso of pasos) {
-                                console.log('Num_paso:', paso.Num_paso); // Imprime el Num_paso de cada paso
-                                console.log('posicion.value:', posicion.value); // Imprime el valor de posicion.value
-                                if (paso && Number(paso.Num_paso) >= Number(posicion.value)) {
-                                    paso.Num_paso++;
-                                    try {
-                                        if (paso.id) {
-                                            const response = await fetch(`actualizarPaso/${paso.id}`, {
-                                                method: 'PUT',
-                                                headers: {
-                                                    'Content-Type': 'application/json',
-                                                },
-                                                body: JSON.stringify(paso),
-                                            });
-                                            const data = await response.json();
-                                            console.log(data);
-                                        } else {
-                                            console.log('El paso no tiene id');
-                                        }
-                                    } catch (error) {
-                                        console.log(error);
-                                    }
-                                }
-                            }
-                        };
-                        actualizarPaso();
-                    }
-                    */
-                    if (pasoExistente) {
-                        const actualizarPaso = async () => { 
-                            for (let paso of pasos) {
-                                console.log('Num_paso:', paso.Num_paso); // Imprime el Num_paso de cada paso
-                                console.log('posicion.value:', posicion.value); // Imprime el valor de posicion.value
-                                console.log('no se que pasa chico');
-                                // Por aqui va el error.
-                                if (paso && paso.id && Number(paso.Num_paso) >= Number(posicion.value)) {
-                                    console.log('Incrementando Num_paso para el paso con id:', paso.id);
-                                    paso.Num_paso++;
-                                    console.log(paso.Num_paso);
-                                    try {
-                                        const response = await fetch(`actualizarPaso/${paso.id}`, {
-                                            method: 'PUT',
-                                            headers: {
-                                                'Content-Type': 'application/json',
-                                            },
-                                            body: JSON.stringify(paso),
-                                        });
-                                        const data = await response.json();
-                                        console.log('Respuesta de la actualización:', data);
-                                    } catch (error) {
-                                        console.log('Error al actualizar el paso:', error);
-                                    }
-                                }
-                                console.log('No entro');
-                            }
-                        };
-                        actualizarPaso();
-                    }
-                    /*
-                    // Finalmente, puedes agregar el nuevo paso.
-                    axios.post("agregarPaso", {
+                // Solicitamos todos lo pasos de la API con una solicitud GET.
+                fetch("http://localhost:3004/pasos")
+                .then(rest => rest.json()) // Convertimos larespuesta en un objeto JSON.
+                .then(rest => {
+                    // Mapeamos cada paso a una promesa de solicitud fetch.
+                    let promesas = rest.map((apertura) => {
+                        let paso = apertura.Num_paso; // En una variable ponemos los pasos actuales.
+                        let nuevo = Number(posicion.value); // En otra variable ponemos el paso nuevo que se ingresara.
+                        // Si el número del paso actual es mayor o igual al nuevo número del paso...
+                        if(paso >= nuevo){
+                            paso++; // ...se incrementamos de 1 en 1.
+                            // Retorna la promesa de la solicitud fetch para que pueda ser manejada más adelante.
+                            // El id debe ser el mismo que esta en la bae de datos y enla solicu¿itud que recibe el back.
+                            return fetch(`http://localhost:3004/actualizarPaso/${apertura.Id_agregar}`,
+                            { 
+                                method: 'PUT',
+                                headers: {
+                                    'Content-type': 'application/json'
+                                },
+                                body: JSON.stringify({Num_paso: paso}) // Envia el nuevo número del paso en el cuerpo de la solicitud.
+                            });
+                        }
+                    });
+                    // Espera a que todas las solicitudes fetch se completen.
+                    return Promise.all(promesas);
+                })
+                .then(() => {
+                    console.log('pasos actualizados');
+                    // Finalmente, podemos agregar el nuevo paso.
+                    // Se realiza una solicitud POST a la API para agregar un nuevo paso con los campos requeridos.
+                    return axios.post("agregarPaso", {
                         Nom_apertura: NombrePaso.value,
                         Departamento_responsble: departamento.value,
                         Usuario: usuario.value,
                         Num_paso: posicion.value
-                    })
-                    .then(function (response) {
-                        console.log(response.data);
-                    })
-                    .catch((error) => console.log(error)); */
+                    });
                 })
-                .catch((error) => console.log(error));
+                .then(function (response) {
+                    console.log(response.data); // Imprime la respuesta de la API.
+                })
+                .catch((error) => console.log(error)); // Maneja cualquier error que pueda ocurrir.
             }
-            //form.reset();
-            //window.location.href = './pasosNavbar.html';
+            form.reset();
+            window.location.href = './pasosNavbar.html';
         });
     } else {
         console.log("El elemento 'form' no existe en el DOM");

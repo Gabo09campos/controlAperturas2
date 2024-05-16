@@ -12,7 +12,7 @@
 /* Estilo del div de los links hacias las pestañas del sistema. */
 .navLink{
     width: 300px;
-    display: contents;
+    display: contents; 
 }
 /* Estilos de los enlaces. */
 .linkPNav{
@@ -33,6 +33,15 @@
     align-items: center;
     justify-content: right;
 
+}
+/* Estilos del buscados */
+.formInput{
+    margin-right: 20px;
+    width: 120px;
+    height: 30px;
+    background: lavenderblush;
+    border-radius: 4px;
+    text-align: center;
 }
 /* Estilos del titulo o nombre del usuario que ingreso. */
 .tituloNav{

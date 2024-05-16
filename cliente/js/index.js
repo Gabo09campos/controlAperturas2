@@ -54,7 +54,7 @@ fetch("http://localhost:3004/tiendas")
 
         tiendas.appendChild(row);
 
-        // Código para editar la tienda
+        // Código para editar la tienda.
         opciones.querySelector('.btnEditar').addEventListener('click', function() {
             // Solicitamos al usuario los nuevos datos de la tienda.
             let nuevoNumero = prompt("Por favor ingresa el nuevo numero de la tienda", tienda.N_tienda);
@@ -92,7 +92,7 @@ fetch("http://localhost:3004/tiendas")
             }
         });
 
-        // Código para eliminar la tienda
+        // Código para eliminar la tienda.
         opciones.querySelector('.btnEliminar').addEventListener('click', function() {
             /**
              * Tenemos un dato adicional en "myDataObject" que enviarems con nuestro pedido DELETE.
@@ -121,7 +121,7 @@ fetch("http://localhost:3004/tiendas")
                 console.log("No se borro nada");
             }
         });
-        // Al hacer click al nombre de la tienda te redirige a los pasos marcando en especifico el paso en el que va.
+        // Al hacer click al boton de la tienda te redirige a los pasos marcando en especifico el paso en el que va.
         opciones.querySelector('.btnPasos').addEventListener('click', function() {
             // Traemos el id de la tienda y el objeto de los pasos de este id.
             let idTienda = tienda.id;
