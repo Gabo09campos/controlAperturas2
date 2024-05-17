@@ -1,75 +1,30 @@
-.navIndex{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-left: 10px;
-    margin-right: 10px;
-    background: silver;
-    padding: 10px;
-}
-
-.navLink{
-    width: 300px;
-    display: contents;
-}
-
-.navBtnTitulo{
-    width: 280px;
-    display: flex;
-    align-items: center;
-    justify-content: right;
-
-}
-
-.tituloNav{
-    margin-right: 30px;
-}
-
-.btnCerrarSesion{
-    border-radius: 5px;
-    width: 110px;
-    height: 30px;
-    background-color: #0076c8;
-    cursor: pointer;
-    color: white;
-}
-
+/* Estilos de todo el form */
 .agregarUsuario{
     align-items: center;
     text-align: -webkit-center;
     margin-top: 5%;
 }
-
+/* Estilo del div que contiene los inputs */
 .inputAgregar{
     display: flex;
     flex-direction: column;
-    margin-top: 40px;
+    margin-top: 20px;
     align-items: center;
 }
-
-.inputTexto{
-    display: flex;
-    justify-content: space-evenly;
-    width: 100%;
-}
-
-.inputCorreo{
-    width: 20%;
-}
-
+/* Estilos del div de los botones */
 .inputBotones{
     width: 20%;
     display: flex;
     justify-content: space-around;
-    margin-top: 25px;
+    margin-top: 10px;
 }
-
+/* Estilo de los inputs el form */
 input{
     width: 250px;
     height: 30px;
-    margin-top: 40px;
+    margin-top: 15px; 
 }
-
+/* Estilos del boton de aceptar */
 .btnAceptar{
     border-radius: 5px;
     width: 85px;
@@ -79,7 +34,7 @@ input{
     cursor: pointer;
     color: white;
 }
-
+/* Estilos del boton de cancelar */
 .btnCancelar{
     border-radius: 5px;
     width: 85px;
@@ -89,12 +44,33 @@ input{
     cursor: pointer;
     color: white;
 }
-
+/* Mensaje de error. */
+.warnings{
+    margin-top: 50px;
+  }
+/* El footer */
 footer{
     text-align: center;
     margin-top: 50px;
 }
-
+/* Logo de pie */
 .LogoChedraui{
     width: 300px;
 }
+/* Estilos de drop down departamentos */
+
+/* Boton de tipo de usuario */
+.btnTipo {
+    color: black;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 15px;
+    width: 260px;
+    height: 35px;
+    border-radius: 3px;
+  }
+  
+  /* hover & focus de boton de departamento */
+  .btnTipo:hover, .btnTipo:focus {
+    background-color: #0076c8;
+  }

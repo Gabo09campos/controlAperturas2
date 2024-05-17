@@ -14,33 +14,32 @@
         </div>
         <div class="inputAgregar">
             <!-- Nombre del paso a agregar -->
-            <input type="text" placeholder="Nombre de apertura" id="nombrePaso">
+            <input type="text" placeholder="Nombre de apertura" id="nombrePaso" required>
             <!-- Seleccion del departamento responsable -->  
-            <select name="choice" class="btnDep" id="myDropdownDep">
-                <option value="second" selected="selected">Departamento responsable</option>
+            <select name="choice" class="btnDep" id="myDropdownDep" required>
+                <option value="" selected="selected">Departamento responsable</option>
             </select>
             <!-- Seleccion del usuario -->
-            <select name="choice" class="btnUsu" id="myDropdownUsu">
-                <option value="second" selected="selected">Selecciona un usuario</option>
+            <select name="choice" class="btnUsu" id="myDropdownUsu" required>
+                <option value="" selected="selected">Selecciona un usuario</option>
             </select>
             <!-- Selecciona el numero del nuevo paso -->
-            <input type="number" placeholder="Numero de paso" id="posicion" min="0">
+            <input type="number" placeholder="Numero de paso" id="posicion" min="0" required>
             <!-- Mensaje de error -->
             <p class="warnings" id="warnings"></p>
             <!-- Botones -->
             <div class="inputBotones">
                 <button class="btnAceptar">Aceptar</button>
-                <button type="button" class="btnCancelar" onclick="cancelarTienda()">Cancelar</button>
+                <button type="button" class="btnCancelar" onclick="cancelarPaso()">Cancelar</button>
             </div>
         </div>
     </form>
     <!-- Creamos un script para realizar un confirm() en el boton de cancelar y de esta manera no borren los datos por error. -->
     <script>
         const formu = document.getElementById("agregarPaso");
-        function cancelarTienda() {
+        function cancelarPaso() {
           if (confirm("¿Desea borrar los datos ingresados?") == true) {
             formu.reset();
-            //window.location.href = 'Pasos.html'
           } else {
             console.log("Los datos siguen");
           }

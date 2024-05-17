@@ -215,7 +215,7 @@ app.post("/agregarPasoFinzalizado", function(pet, rest){
         }
     });
 });
-
+// pendiente de error.
 //Back-end para agregar pasos a seguir para la apertura.
 app.use("/agregarPaso", function(pet, rest){
     //Conectamos con el front para recibir los valores del formulario.
@@ -230,6 +230,24 @@ app.use("/agregarPaso", function(pet, rest){
         }else{
             console.log("Datos insertados correctamente");
             rest.status(200).send({message: 'Paso agregado exitosamente'});
+            console.log(consultaSql);
+        }
+    });
+});
+// pendiente de postman.
+//Back-end para agregar nuevos usuarios.
+app.use("/agregarUsuario", function(pet, rest){
+    //Conectamos con el front para recibir los valores del formulario.
+    const {Nombre, Apellidos, Correo_electrónico, N_empleados, T_usuario, Departamento, Contrasena} = pet.body
+    // Insertamos los datos del formulario a la base de datos.
+    const consultaSql = `INSERT INTO usuarios (Nombre, Apellidos, Correo_electrónico, N_empleados, T_usuario, Departamento, Contrasena) VALUES (?, ?, ?, ?, ?, ?, ?) `;
+    conexion.query(consultaSql, [Nombre, Apellidos, Correo_electrónico, N_empleados, T_usuario, Departamento, Contrasena], function(err, resultado){
+        if(err){
+            console.log(err)
+            rest.status(500).json({error: "Hubo un error al realizar la consulta de la base de datos"});
+        }else{
+            console.log("Datos insertados correctamente");
+            rest.status(200).send({message: 'Usuario agregado exitosamente'});
         }
     });
 });

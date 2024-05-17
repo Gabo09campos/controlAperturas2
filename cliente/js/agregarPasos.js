@@ -37,12 +37,13 @@ document.addEventListener("DOMContentLoaded", function() {
         form.addEventListener("submit", e =>{ 
             e.preventDefault();
             let warnings = "";
-            let entrar = true;
-            if(NombrePaso.value.length < 5 || departamento.selectedIndex === 0 || usuario.selectedIndex === 0 || posicion.selectedIndex === 0){
+            let entrar = true; 
+            if(NombrePaso.value.length < 5 || departamento.selectedIndex === 0 || usuario.selectedIndex === 0){
                 warnings += 'Todos los campos deben ser llenados correctamente <br>'
                 entrar = false;
                 parrafo.innerHTML = warnings;
             }else{
+                // El problema esta en que al borrar un paso, no se regren los numeros por lo cual al agregar uno nuevo se siguen sumando y desaparecen los primeros numeros.
                 // Solicitamos todos lo pasos de la API con una solicitud GET.
                 fetch("http://localhost:3004/pasos")
                 .then(rest => rest.json()) // Convertimos larespuesta en un objeto JSON.
@@ -68,9 +69,8 @@ document.addEventListener("DOMContentLoaded", function() {
                     });
                     // Espera a que todas las solicitudes fetch se completen.
                     return Promise.all(promesas);
-                })
+                }) 
                 .then(() => {
-                    console.log('pasos actualizados');
                     // Finalmente, podemos agregar el nuevo paso.
                     // Se realiza una solicitud POST a la API para agregar un nuevo paso con los campos requeridos.
                     return axios.post("agregarPaso", {
@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 .then(function (response) {
                     console.log(response.data); // Imprime la respuesta de la API.
                 })
-                .catch((error) => console.log(error)); // Maneja cualquier error que pueda ocurrir.
+                .catch((error) => console.log(error)); // Maneja cualquier error que pueda ocurrir. */
             }
             form.reset();
             window.location.href = './pasosNavbar.html';
