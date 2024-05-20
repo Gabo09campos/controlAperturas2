@@ -220,7 +220,7 @@ app.post("/agregarPasoFinzalizado", function(pet, rest){
 app.use("/agregarPaso", function(pet, rest){
     //Conectamos con el front para recibir los valores del formulario.
     const {Nom_apertura, Departamento_responsble, Usuario, Num_paso} = pet.body
-    //console.log(pet.body);
+    console.log(pet.body);
     // Insertamos los datos del formulario a la base de datos.
     const consultaSql = `INSERT INTO pasosconsecutivos (Nom_apertura, Departamento_responsble, Usuario, Num_paso) VALUES (?, ?, ?, ?) `;
     conexion.query(consultaSql, [Nom_apertura, Departamento_responsble, Usuario, Num_paso], function(err, resultado){
@@ -230,7 +230,7 @@ app.use("/agregarPaso", function(pet, rest){
         }else{
             console.log("Datos insertados correctamente");
             rest.status(200).send({message: 'Paso agregado exitosamente'});
-            console.log(consultaSql);
+            //console.log(consultaSql);
         }
     });
 });

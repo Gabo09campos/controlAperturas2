@@ -46,29 +46,35 @@ document.addEventListener("DOMContentLoaded", function() {
                 // El problema esta en que al borrar un paso, no se regren los numeros por lo cual al agregar uno nuevo se siguen sumando y desaparecen los primeros numeros.
                 // Solicitamos todos lo pasos de la API con una solicitud GET.
                 fetch("http://localhost:3004/pasos")
-                .then(rest => rest.json()) // Convertimos larespuesta en un objeto JSON.
+                .then(rest => rest.json()) // Convertimos la respuesta en un objeto JSON.
                 .then(rest => {
-                    // Mapeamos cada paso a una promesa de solicitud fetch.
-                    let promesas = rest.map((apertura) => {
-                        let paso = apertura.Num_paso; // En una variable ponemos los pasos actuales.
-                        let nuevo = Number(posicion.value); // En otra variable ponemos el paso nuevo que se ingresara.
-                        // Si el número del paso actual es mayor o igual al nuevo número del paso...
-                        if(paso >= nuevo){
-                            paso++; // ...se incrementamos de 1 en 1.
-                            // Retorna la promesa de la solicitud fetch para que pueda ser manejada más adelante.
-                            // El id debe ser el mismo que esta en la bae de datos y enla solicu¿itud que recibe el back.
-                            return fetch(`http://localhost:3004/actualizarPaso/${apertura.Id_agregar}`,
-                            { 
-                                method: 'PUT',
-                                headers: {
-                                    'Content-type': 'application/json'
-                                },
-                                body: JSON.stringify({Num_paso: paso}) // Envia el nuevo número del paso en el cuerpo de la solicitud.
-                            });
-                        }
-                    });
-                    // Espera a que todas las solicitudes fetch se completen.
-                    return Promise.all(promesas);
+                    // Verificamos si hay pasos en la base de datos.
+                    if(rest.length > 0){
+                        // Mapeamos cada paso a una promesa de solicitud fetch.
+                        let promesas = rest.map((apertura) => {
+                            let paso = apertura.Num_paso; // En una variable ponemos los pasos actuales.
+                            let nuevo = Number(posicion.value); // En otra variable ponemos el paso nuevo que se ingresara.
+                            // Si el número del paso actual es mayor o igual al nuevo número del paso...
+                            if(paso >= nuevo){
+                                paso++; // ...se incrementamos de 1 en 1.
+                                // Retorna la promesa de la solicitud fetch para que pueda ser manejada más adelante.
+                                // El id debe ser el mismo que esta en la bae de datos y enla solicu¿itud que recibe el back.
+                                return fetch(`http://localhost:3004/actualizarPaso/${apertura.Id_agregar}`,
+                                { 
+                                    method: 'PUT',
+                                    headers: {
+                                        'Content-type': 'application/json'
+                                    },
+                                    body: JSON.stringify({Num_paso: paso}) // Envia el nuevo número del paso en el cuerpo de la solicitud.
+                                }); 
+                            }
+                        });
+                        // Espera a que todas las solicitudes fetch se completen.
+                        return Promise.all(promesas);
+                    }else{
+                        // Si no hay pasos, resuelve la promesa inmediatamente para que puedas agregar el nuevo paso.
+                        return Promise.resolve();
+                    }
                 }) 
                 .then(() => {
                     // Finalmente, podemos agregar el nuevo paso.
@@ -83,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 .then(function (response) {
                     console.log(response.data); // Imprime la respuesta de la API.
                 })
-                .catch((error) => console.log(error)); // Maneja cualquier error que pueda ocurrir. */
+                .catch((error) => console.log(error)); // Maneja cualquier error que pueda ocurrir.
             }
             form.reset();
             window.location.href = './pasosNavbar.html';
