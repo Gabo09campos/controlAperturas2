@@ -30,8 +30,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
             selectUsu.appendChild(optionUsu);
         });
     });
-});
-
+}); 
+/* Estas linea son las originales, las comentamos para experimentar con las otras.
 document.addEventListener("DOMContentLoaded", function() {
     if(form){
         form.addEventListener("submit", e =>{ 
@@ -43,22 +43,38 @@ document.addEventListener("DOMContentLoaded", function() {
                 entrar = false;
                 parrafo.innerHTML = warnings;
             }else{
+                console.log(NombrePaso.value);
+                console.log(departamento.value);
+                console.log(usuario.value);
+                console.log(posicion.value);
                 // El problema esta en que al borrar un paso, no se regren los numeros por lo cual al agregar uno nuevo se siguen sumando y desaparecen los primeros numeros.
                 // Solicitamos todos lo pasos de la API con una solicitud GET.
+                console.log('antes del fetch');
                 fetch("http://localhost:3004/pasos")
                 .then(rest => rest.json()) // Convertimos la respuesta en un objeto JSON.
                 .then(rest => {
+                    console.log('Dentro del fetch', rest);
+                    console.log(NombrePaso.value);
+                    console.log(departamento.value);
+                    console.log(usuario.value);
+                    console.log(posicion.value);
                     // Verificamos si hay pasos en la base de datos.
-                    if(rest.length > 0){
+                    if(rest.length > 0){ 
                         // Mapeamos cada paso a una promesa de solicitud fetch.
                         let promesas = rest.map((apertura) => {
                             let paso = apertura.Num_paso; // En una variable ponemos los pasos actuales.
                             let nuevo = Number(posicion.value); // En otra variable ponemos el paso nuevo que se ingresara.
+                            console.log(nuevo);
                             // Si el número del paso actual es mayor o igual al nuevo número del paso...
                             if(paso >= nuevo){
                                 paso++; // ...se incrementamos de 1 en 1.
                                 // Retorna la promesa de la solicitud fetch para que pueda ser manejada más adelante.
                                 // El id debe ser el mismo que esta en la bae de datos y enla solicu¿itud que recibe el back.
+                                console.log(NombrePaso.value);
+                                console.log(departamento.value);
+                                console.log(usuario.value);
+                                console.log(posicion.value);
+                                console.log('Vamos al back de actualizar');
                                 return fetch(`http://localhost:3004/actualizarPaso/${apertura.Id_agregar}`,
                                 { 
                                     method: 'PUT',
@@ -77,6 +93,11 @@ document.addEventListener("DOMContentLoaded", function() {
                     }
                 }) 
                 .then(() => {
+                    console.log('vamos al back de agregar');
+                    console.log(NombrePaso.value);
+                    console.log(departamento.value);
+                    console.log(usuario.value);
+                    console.log(posicion.value);
                     // Finalmente, podemos agregar el nuevo paso.
                     // Se realiza una solicitud POST a la API para agregar un nuevo paso con los campos requeridos.
                     return axios.post("agregarPaso", {
@@ -92,13 +113,100 @@ document.addEventListener("DOMContentLoaded", function() {
                 .catch((error) => console.log(error)); // Maneja cualquier error que pueda ocurrir.
             }
             form.reset();
-            window.location.href = './pasosNavbar.html';
+            //window.location.href = './pasosNavbar.html';
         });
     } else {
         console.log("El elemento 'form' no existe en el DOM");
     }
 });
-
+/*************************************************************************** */
+document.addEventListener("DOMContentLoaded", function() {
+    if(form){
+        form.addEventListener("submit", e =>{ 
+            e.preventDefault();
+            let warnings = "";
+            let entrar = true; 
+            if(NombrePaso.value.length < 5 || departamento.selectedIndex === 0 || usuario.selectedIndex === 0){
+                warnings += 'Todos los campos deben ser llenados correctamente <br>'
+                entrar = false;
+                parrafo.innerHTML = warnings;
+            }else{
+                console.log(NombrePaso.value);
+                console.log(departamento.value);
+                console.log(usuario.value);
+                console.log(posicion.value);
+                // El problema esta en que al borrar un paso, no se regren los numeros por lo cual al agregar uno nuevo se siguen sumando y desaparecen los primeros numeros.
+                // Solicitamos todos lo pasos de la API con una solicitud GET.
+                console.log('antes del fetch');
+                fetch("http://localhost:3004/pasos")
+                .then(rest => rest.json()) // Convertimos la respuesta en un objeto JSON.
+                .then(rest => {
+                    console.log('Dentro del fetch', rest);
+                    console.log(NombrePaso.value);
+                    console.log(departamento.value);
+                    console.log(usuario.value);
+                    console.log(posicion.value);
+                    // Verificamos si hay pasos en la base de datos.
+                   /* if(rest.length > 0){ 
+                        // Mapeamos cada paso a una promesa de solicitud fetch.
+                        let promesas = rest.map((apertura) => {
+                            let paso = apertura.Num_paso; // En una variable ponemos los pasos actuales.
+                            let nuevo = Number(posicion.value); // En otra variable ponemos el paso nuevo que se ingresara.
+                            console.log(nuevo);
+                            // Si el número del paso actual es mayor o igual al nuevo número del paso...
+                          /*  if(paso >= nuevo){
+                                paso++; // ...se incrementamos de 1 en 1.
+                                // Retorna la promesa de la solicitud fetch para que pueda ser manejada más adelante.
+                                // El id debe ser el mismo que esta en la bae de datos y enla solicu¿itud que recibe el back.
+                                console.log(NombrePaso.value);
+                                console.log(departamento.value);
+                                console.log(usuario.value);
+                                console.log(posicion.value);
+                                console.log('Vamos al back de actualizar');
+                                return fetch(`http://localhost:3004/actualizarPaso/${apertura.Id_agregar}`,
+                                { 
+                                    method: 'PUT',
+                                    headers: {
+                                        'Content-type': 'application/json'
+                                    },
+                                    body: JSON.stringify({Num_paso: paso}) // Envia el nuevo número del paso en el cuerpo de la solicitud.
+                                }); 
+                            }
+                        });
+                        // Espera a que todas las solicitudes fetch se completen.
+                        return Promise.all(promesas);
+                    }else{
+                        // Si no hay pasos, resuelve la promesa inmediatamente para que puedas agregar el nuevo paso.
+                        return Promise.resolve();
+                    }*/
+                }) 
+                .then(() => {
+                    console.log('vamos al back de agregar');
+                    console.log(NombrePaso.value);
+                    console.log(departamento.value);
+                    console.log(usuario.value);
+                    console.log(posicion.value);
+                    // Finalmente, podemos agregar el nuevo paso.
+                    // Se realiza una solicitud POST a la API para agregar un nuevo paso con los campos requeridos.
+                    return axios.post("agregarPaso", {
+                        Nom_apertura: NombrePaso.value,
+                        Departamento_responsble: departamento.value,
+                        Usuario: usuario.value,
+                        Num_paso: posicion.value
+                    });
+                })
+                .then(function (response) {
+                    console.log(response.data); // Imprime la respuesta de la API.
+                })
+                .catch((error) => console.log(error)); // Maneja cualquier error que pueda ocurrir.
+            }
+            form.reset();
+            //window.location.href = './pasosNavbar.html';
+        });
+    } else {
+        console.log("El elemento 'form' no existe en el DOM");
+    }
+});
 /************************************************************************** */
 //Funcion para saber si la sesion del usuario esta activa.
 function estaLogueado() {
