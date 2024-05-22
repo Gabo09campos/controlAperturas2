@@ -72,13 +72,25 @@ fetch("http://localhost:3004/pasos")
                         .then(data => console.log('Success:', data))
                         .catch((error) => console.error('Error:', error)); 
                     }
+                    // Si ya finalizo en paso, se le reedirige hacia el index y se guarda el valor del boton como finalizado.
+                    Swal.fire({
+                        icon: "success",
+                        title: "Buen trabajo equipo",
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then((result) => {
+                        // Redirige solo después de que se cierre la alerta.
+                        location.href = 'index.html';
+                    });
             } else {
                 // Si no se cumple el condicional enviamos un mensaje.
-                alert('Debes completar el paso anterior primero.');
+                Swal.fire({
+                    icon: "error",
+                    title: 'Error!',
+                    text: 'Debes completar el paso anterior',
+                    confirmButtonText: 'Continuar',
+                })
             }
-            // Si ya finalizo en paso, se le reedirige hacia el index y se guarda el valor del boton como finalizado.
-            alert('Buen trabajo equipo');
-            location.href = 'index.html';
         });
         // Funcion para buscar pasos por su nombre.
         document.addEventListener("keyup", e => {

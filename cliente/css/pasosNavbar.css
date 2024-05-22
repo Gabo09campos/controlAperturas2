@@ -1,0 +1,35 @@
+/* Icono de el boton de editar. */
+.imgEditar{
+    width: 25px;
+    height: 15px;
+    filter: invert(1);
+}
+/* Icono de el boton de eliminar. */
+.imgEliminar{
+    width: 25px;
+    height: 20px;
+    filter: invert(1);
+}
+
+.btnEditar{
+    border-radius: 5px;
+    width: 40px;
+    height: 30px;
+    background: #20ab20;
+    cursor: pointer;
+    color: black;
+}
+
+.btnEliminar{
+    border-radius: 5px;
+    width: 40px;
+    height: 30px;
+    background: #c73131;
+    cursor: pointer;
+    color: white;
+}
+
+.div{
+    display: flex;
+    justify-content: space-between;
+}

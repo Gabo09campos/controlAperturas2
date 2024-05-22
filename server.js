@@ -230,7 +230,6 @@ app.use("/agregarPaso", function(pet, rest){
         }else{
             console.log("Datos insertados correctamente");
             rest.status(200).send({message: 'Paso agregado exitosamente'});
-            console.log(consultaSql);
         }
     });
 });
