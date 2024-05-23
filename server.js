@@ -168,10 +168,10 @@ app.put("/editarUsuario/:id", function(req, res){
     // Aquí es donde actualizamos los datos de la tienda en la base de datos.
     // Utilizaríamos req.params.id para obtener el ID de la tienda a actualizar.
     // Utilizaríamos req.body para obtener los nuevos datos de la tienda.
-    conexion.query("UPDATE usuarios SET Nombre = ?, Apellidos = ?, Correo_electrónico = ?, N_empleados = ?, T_usuario = ?, Departamento = ?, Contrasena = ?, WHERE id = ?", [req.body.Nombre,  req.body.Apellidos, req.body.Correo_electrónico, req.body.N_empleados, req.body.T_usuario, req.body.Departamento, req.body.Contrasena, req.params.id], function(err, resultado){
+    conexion.query("UPDATE usuarios SET Nombre = ?, Apellidos = ?, Correo_electrónico = ?, N_empleados = ?, T_usuario = ?, Departamento = ?, Contrasena = ? WHERE id = ?", [req.body.Nombre,  req.body.Apellidos, req.body.Correo_electrónico, req.body.N_empleados, req.body.T_usuario, req.body.Departamento, req.body.Contrasena, req.params.id], function(err, resultado){
         if(res){
-            // Envía una respuesta al cliente para indicar que la tienda fue actualizada exitosamente.
-            res.status(200).send({message: 'Tienda actualizada exitosamente'});
+            // Envía una respuesta al cliente para indicar que el usuario fue actualizado exitosamente.
+            res.status(200).send({message: 'Usuario actualizado exitosamente'});
         }else{
             console.log(err)
             res.status(500).send("Error en la query");

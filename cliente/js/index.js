@@ -53,26 +53,42 @@ fetch("http://localhost:3004/tiendas")
         row.appendChild(opciones);
 
         tiendas.appendChild(row);
-
+        /******************************************************************************* */
         // Código para editar la tienda.
-        opciones.querySelector('.btnEditar').addEventListener('click', function() {
-            // Solicitamos al usuario los nuevos datos de la tienda.
-            let nuevoNumero = prompt("Por favor ingresa el nuevo numero de la tienda", tienda.N_tienda);
-            let nuevoNombre = prompt("Por favor ingresa el nuevo nombre de la tienda", tienda.Nom_tienda);
-            let nuevaFechaPrueba = prompt("Por favor ingresa la nueva fecha de prueba", tienda.Fecha_prueba);
-            let nuevaFechaApertura = prompt("Por favor ingresa la nueva fecha de apertura", tienda.Fecha_apertura);
-            //Validamos que los campos esten llenos.
-            if(nuevoNumero !== null && nuevoNombre !== null && nuevaFechaPrueba !== null && nuevaFechaApertura !== null){
-                //En esta parte es en donde se actualizan los valores en la base de datos.
-                //Utilizamos fetch con el metodo "PUT" para actualizar los valores en el servidor.
+        opciones.querySelector('.btnEditar').addEventListener('click', async function() {
+            // Mostramos un formulario SweetAlert2 con los valores actuales de la tienda.
+            const { value: formValues } = await Swal.fire({
+                title: "Multiple inputs",
+                html: `
+                    <input id="swal-input1" class="swal2-input" value="${tienda.N_tienda}">
+                    <input id="swal-input2" class="swal2-input" value="${tienda.Nom_tienda}">
+                    <input id="swal-input3" class="swal2-input" value="${tienda.Fecha_prueba}">
+                    <input id="swal-input4" class="swal2-input" value="${tienda.Fecha_apertura}">
+                `,
+                focusConfirm: false,
+                preConfirm: () => {
+                    // Recogemos los valores del formulario.
+                    return [
+                        document.getElementById("swal-input1").value,
+                        document.getElementById("swal-input2").value,
+                        document.getElementById("swal-input3").value,
+                        document.getElementById("swal-input4").value
+                    ];
+                }
+            });
+            // Si el usuario confirmó el formulario...
+            if (formValues) {
+                // Desestructuramos los valores del formulario.
+                const [nuevoNumero, nuevoNombre, nuevaFechaPrueba, nuevaFechaApertura] = formValues;
+                // Creamos un objeto con los nuevos datos de la tienda.
                 const myDataObject = {
                     N_tienda: nuevoNumero,
                     Nom_tienda: nuevoNombre,
                     Fecha_prueba: nuevaFechaPrueba,
                     Fecha_apertura: nuevaFechaApertura
                 }
-                fetch(`http://localhost:3004/editarTienda/${tienda.id}`,
-                { 
+                // Hacemos una petición PUT para actualizar la tienda en el servidor.
+                fetch(`http://localhost:3004/editarTienda/${tienda.id}`, { 
                     method: 'PUT',
                     headers: {
                         'Content-type': 'application/json'
@@ -82,7 +98,7 @@ fetch("http://localhost:3004/tiendas")
                 .then(response => response.json())
                 .then(() => {
                     console.log('tienda actualizada');
-                    // Actualiza los datos en la tabla.
+                    // Finalmente actualiza los datos en la tabla.
                     N_tienda.innerHTML = nuevoNumero;
                     Nom_tienda.innerHTML = nuevoNombre;
                     Fecha_prueba.innerHTML = nuevaFechaPrueba;
@@ -101,25 +117,40 @@ fetch("http://localhost:3004/tiendas")
              * Dentro de "body" utilizamos la funcion json.stringify() del objeto stringify de js.
              * Por ultimo esperamos la respuesta, 'tienda eliminada' o el error que se encuentre.
              * Utilizamos un confirm() dentro de un condicional para asegurar que el usuario desea eliminar esa tienda y no que sea por error.
-             */
+            */
             const myDataObject = {tienda: 1}
-            if(confirm('¿Estas seguro de eliminar esta tienda?') == true){
-                fetch(`http://localhost:3004/borrarTienda/${tienda.id}`,
-                { 
-                    method: 'POST',
-                        headers: {
-                            'Content-type': 'application/json'
-                        },
-                        body: JSON.stringify(myDataObject)
-                })
-                .then(response => response.json())
-                .then(() => {
-                    row.remove();
-                })
-                .catch(error => console.error('error:', error));
-            }else{
-                console.log("No se borro nada");
-            }
+            Swal.fire({
+                title: "¿Estas seguro de eliminar esta tienda?",
+                text: "La tienda se eliminara definitivamente!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Si, Borrar!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "Borrada!",
+                        text: "La tienda ha sido eliminada.",
+                        icon: "success"
+                    });
+                    fetch(`http://localhost:3004/borrarTienda/${tienda.id}`,
+                    { 
+                        method: 'POST',
+                            headers: {
+                                'Content-type': 'application/json'
+                            },
+                            body: JSON.stringify(myDataObject)
+                    })
+                    .then(response => response.json())
+                    .then(() => {
+                        row.remove();
+                    })
+                    .catch(error => console.error('error:', error));
+                }else{
+                    console.log("No se borro nada");
+                }
+            })
         });
         // Al hacer click al boton de la tienda te redirige a los pasos marcando en especifico el paso en el que va.
         opciones.querySelector('.btnPasos').addEventListener('click', function() {
@@ -149,6 +180,7 @@ fetch("http://localhost:3004/tiendas")
         });
     });
 });
+/**************************************************************** */
 //Funcion para saber si la sesion del usuario esta activa.
 function estaLogueado() {
     // Obtener el token de sessionStorage.

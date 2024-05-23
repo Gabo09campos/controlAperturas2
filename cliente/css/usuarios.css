@@ -90,24 +90,37 @@ table{
     text-align: center;
     margin-top: 20px;
 }
+/* Icono de el boton de editar. */
+.imgEditar{
+    width: 25px;
+    height: 30px;
+    filter: invert(1);
+}
+/* Icono de el boton de eliminar. */
+.imgEliminar{
+    width: 45px;
+    height: 30px;
+    filter: invert(1);
+}
 
 .btnEditar{
     border-radius: 5px;
-    background-color: #9b9b9b;
-    width: 60px;
-    height: 30px;
+    width: 55px;
+    height: 38px;
+    background: #20ab20;
     cursor: pointer;
     color: black;
 }
 
 .btnEliminar{
     border-radius: 5px;
-    background-color: #c90b0b;
-    width: 65px;
-    height: 30px;
+    width: 60px;
+    height: 38px;
+    background: #c73131;
     cursor: pointer;
     color: white;
 }
+
 /* El footer. */
 footer{
     text-align: center;
@@ -116,4 +129,4 @@ footer{
 
 .LogoChedraui{
     width: 300px;
-}
+} 

@@ -42,27 +42,54 @@ fetch("http://localhost:3004/usuarios")
 
         let opciones = document.createElement('td');
         opciones.innerHTML = `
-            <button class="btnEditar">Editar</button>
-            <button class="btnEliminar">Eliminar</button>
+        <abbr title="Editar usuario">
+        <button class="btnEditar">
+            <img src="./assets/logos/edit.svg" alt="editar" class="imgEditar" tittle="Editar usuario">
+        </button>
+        </abbr>
+        <abbr title="Eliminar usuario">
+            <button class="btnEliminar">
+                <img src="./assets/logos/trash.svg" alt="eliminar" class="imgEliminar">
+            </button>
+        </abbr>  
         `;
         row.appendChild(opciones);
 
         usuarios.appendChild(row);
-
+        /**************************************************** */
         // Código para editar el usuario.
-        opciones.querySelector('.btnEditar').addEventListener('click', function() {
-            // Solicitamos al usuario los nuevos datos de la tienda.
-            let nuevoNombre = prompt("Por favor ingresa el nuevo nombre del usuario", usuario.Nombre);
-            let nuevoApellido = prompt("Por favor ingresa el nuevo apellido del usuario", usuario.Apellidos);
-            let nuevaCorreo = prompt("Por favor ingresa el nuevo correo del usuario", usuario.Correo_electrónico);
-            let nuevoNumeroEmpleado = prompt("Por favor ingresa el nuevo numero de empleado", usuario.N_empleados);
-            let nuevoTipoUsuario = prompt("Por favor ingresa el nuevo tipo de usuario", usuario.T_usuario);
-            let nuevoDepartamento = prompt("Por favor ingresa el nuevo departamento", usuario.Departamento);
-            let nuevaContrasena = prompt("Por favor ingresa la nueva contraseña", usuario.Contrasena);
-            //Validamos que los campos esten llenos.
-            if(nuevoNombre !== null && nuevoApellido !== null && nuevaCorreo !== null && nuevoNumeroEmpleado !== null && nuevoTipoUsuario !== null && nuevoDepartamento !== null && nuevaContrasena !== null){
-                //En esta parte es en donde se actualizan los valores en la base de datos.
-                //Utilizamos fetch con el metodo "PUT" para actualizar los valores en el servidor.
+        opciones.querySelector('.btnEditar').addEventListener('click', async function() {
+            // Mostramos un formulario SweetAlert2 con los valores actuales del usuario.
+            const { value: formValues } = await Swal.fire({
+                title: "Multiple inputs",
+                html: `
+                    <input id="swal-input1" class="swal2-input" value="${usuario.Nombre}">
+                    <input id="swal-input2" class="swal2-input" value="${usuario.Apellidos}">
+                    <input id="swal-input3" class="swal2-input" value="${usuario.Correo_electrónico}">
+                    <input id="swal-input4" class="swal2-input" value="${usuario.N_empleados}">
+                    <input id="swal-input5" class="swal2-input" value="${usuario.T_usuario}">
+                    <input id="swal-input6" class="swal2-input" value="${usuario.Departamento}">
+                    <input id="swal-input7" class="swal2-input" value="${usuario.Contrasena}">
+                `,
+                focusConfirm: false,
+                preConfirm: () => {
+                    // Recogemos los valores del formulario.
+                    return [
+                        document.getElementById("swal-input1").value,
+                        document.getElementById("swal-input2").value,
+                        document.getElementById("swal-input3").value,
+                        document.getElementById("swal-input4").value,
+                        document.getElementById("swal-input5").value,
+                        document.getElementById("swal-input6").value,
+                        document.getElementById("swal-input7").value
+                    ];
+                }
+            });
+            // Si el usuario confirmó el formulario...
+            if (formValues) {
+                // Desestructuramos los valores del formulario.
+                const [nuevoNombre, nuevoApellido, nuevaCorreo, nuevoNumeroEmpleado, nuevoTipoUsuario, nuevoDepartamento, nuevaContrasena] = formValues;
+                // Creamos un objeto con los nuevos datos del usuario.
                 const myDataObject = {
                     Nombre: nuevoNombre,
                     Apellidos: nuevoApellido,
@@ -72,8 +99,8 @@ fetch("http://localhost:3004/usuarios")
                     Departamento: nuevoDepartamento,
                     Contrasena: nuevaContrasena
                 }
-                fetch(`http://localhost:3004/editarUsuario/${usuario.id}`,
-                { 
+                // Hacemos una petición PUT para actualizar el usuario en el servidor.
+                fetch(`http://localhost:3004/editarUsuario/${usuario.id}`, { 
                     method: 'PUT',
                     headers: {
                         'Content-type': 'application/json'
@@ -107,23 +134,38 @@ fetch("http://localhost:3004/usuarios")
              * Utilizamos un confirm() dentro de un condicional para asegurar que el usuario desea eliminar esa tienda y no que sea por error.
              */
             const myDataObject = {usuario: 1}
-            if(confirm('¿Estas seguro de eliminar este usuario?') == true){
-                fetch(`http://localhost:3004/borrarUsuario/${usuario.id}`,
-                { 
-                    method: 'POST',
-                        headers: {
-                            'Content-type': 'application/json'
-                        },
-                        body: JSON.stringify(myDataObject)
-                })
-                .then(response => response.json())
-                .then(() => {
-                    row.remove();
-                })
-                .catch(error => console.error('error:', error));
-            }else{
-                console.log("No se borro nada");
-            }
+            Swal.fire({
+                title: "¿Estas seguro de eliminar este usuario?",
+                text: "El usuario se eliminara definitivamente!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Si, Borrar!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "Borrado!",
+                        text: "El usuario ha sido eliminado.",
+                        icon: "success"
+                    });
+                    fetch(`http://localhost:3004/borrarUsuario/${usuario.id}`,
+                    { 
+                        method: 'POST',
+                            headers: {
+                                'Content-type': 'application/json'
+                            },
+                            body: JSON.stringify(myDataObject)
+                    })
+                    .then(response => response.json())
+                    .then(() => {
+                        row.remove();
+                    })
+                    .catch(error => console.error('error:', error));
+                }else{
+                    console.log("No se borro nada");
+                }
+            })
         });
         /* funcion para buscar un usuario por su nombre. */
         // funcion para buscar un usuario por su nombre.
@@ -143,6 +185,7 @@ fetch("http://localhost:3004/usuarios")
         });
     });
 });
+/*************************************************************** */
 //Funcion para saber si la sesion del usuario esta activa.
 function estaLogueado() {
     // Obtener el token de sessionStorage.
