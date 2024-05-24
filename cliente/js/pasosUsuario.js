@@ -3,7 +3,6 @@ let pasos = document.getElementById("pasosApertura");
 let estadoBotones = []; // Creamos un objeto para almacenar los botones que ya fueron completados.
 // Al cargar la página, obtenemos los pasos guardados en localStorage y parseamos el String un Array.
 let pasosGuardados = JSON.parse(localStorage.getItem('PTAU'));
-pasosGuardados.shift(); // Quita el primer elemento del array.
 /**
  * Con un fetch indicamos cual sera la url en donde nos mostrara los datos en la web.
  * Con .then recibimos la respuesta de la base de datos y con el json lo interpreta a una manera legible para el usuario.

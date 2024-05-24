@@ -99,6 +99,18 @@ app.get("/pasos", function(pet, rest){
     }); 
 });
 
+//Back-end de departamentos.
+app.get("/departamentos", function(pet, rest){
+    conexion.query("SELECT * FROM departamentos", function(err, resultado){
+        if(err){
+            console.log(err);
+            rest.status(500).json({error: "Hubo un error al realizar la consulta"});
+            return;
+        }
+        return rest.json(resultado);
+    }); 
+});
+
 //Back-end para eliminar una tienda de la lista de aperturas.
 app.post("/borrarTienda/:id", function(req, res){
     // Aquí borramos la tienda de la base de datos.

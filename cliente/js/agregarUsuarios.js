@@ -1,6 +1,6 @@
 const nombreUsuario = document.getElementById("nombreUsuario");
 const apellidoUsuario = document.getElementById("apellidoUsuario");
-const departamentoUsuario = document.getElementById("departamentoUsuario");
+const departamentoUsuario = document.getElementById("myDropdownDep");
 const numeroUsuario = document.getElementById("numeroUsuario");
 const tipoUsuario = document.getElementById("myDropdownTipo");
 const contrasenaUsuario = document.getElementById("contrasenaUsuario");
@@ -10,26 +10,38 @@ const parrafo = document.getElementById("warnings");
 const botonAceptar = document.getElementById("btnAceptar");
 const botonCancelar = document.getElementById("btnCancelar");
 let mensaje = "";
-/**
-     * A travez del form estaremos escuchando todo lo que sucede en el login con el "addEventListener".
-     * Con el "preventDefault" evitamos que se envie el formulario al dar clic al boton sin antes obtener lo datos.
-     * Creamos una variable "warnings" para mandar el mensaje de input no valido.
-     * Agregamos un booleano para saber si se mostrara el mensaje de warning o no.
-     * Finalmente redirigimos hacia una nueva pantalla despues de dar clic al boton y haber validado que todo este correcto esto con "href".
-     * Y utilizamos una funcion "reset" para limpiar el formulario despues de ingresar.
-     * Con el 'DOMContentLoaded, controlamos que carge todo el HTML anted de que se ejecute el JS y evitar errores.
-*/
+// Dropdown de departamento responsable del usuario.
+document.addEventListener('DOMContentLoaded', (event) => {
+    fetch("http://localhost:3004/departamentos")
+    .then(rest => rest.json())
+    .then(rest => {
+        let selectDep = document.getElementById('myDropdownDep'); // Menú desplegable de departamentos.
+        rest.forEach(departamento => { 
+            // Código para el botón de departamentos.
+            let optionDep = document.createElement('option');
+            optionDep.href = "#"; // El departamento del usuario se usa como valor.
+            optionDep.text = departamento.Nombre; // El departamento del usuario se muestra en el menú desplegable.
+            selectDep.appendChild(optionDep);
+        });
+    });
+});
+/******************************************************************* */
+// Con el 'DOMContentLoaded, controlamos que carge todo el HTML anted de que se ejecute el JS y evitar errores.
 document.addEventListener("DOMContentLoaded", function() {
+    // Comprobamos que primero se ejecute el html y despues el JS.
     if(form){
+        // Agregamos un evento de escucha al formulario.
         form.addEventListener("submit", e =>{ 
-            e.preventDefault();
-            let warnings = "";
-            let entrar = true;
-            if(nombreUsuario.value.length < 3 || apellidoUsuario.value.length < 3 || departamentoUsuario.value.length < 2 || numeroUsuario.value.length < 4 || tipoUsuario.selectedIndex === 0 || contrasenaUsuario.value.length < 8 || correoUsuario.value.length < 4){
+            e.preventDefault(); // Prevenimos que se envie solito.
+            let warnings = ""; //Creamos una variable "warnings" para mandar el mensaje de input no valido.
+            let entrar = true; //Agregamos un booleano para saber si se mostrara el mensaje de warning o no.
+            // Validamos que los campos no esten vacios para enviar el form.
+            if(nombreUsuario.value.length < 3 || apellidoUsuario.value.length < 3 || departamentoUsuario.selectedIndex === 0 || numeroUsuario.value.length < 4 || tipoUsuario.selectedIndex === 0 || contrasenaUsuario.value.length < 8 || correoUsuario.value.length < 4){
                 warnings += 'Todos los campos deben ser llenados correctamente <br>'
                 entrar = false;
                 parrafo.innerHTML = warnings;
             }else{
+                // Enviamos una solicitud POST  a la API para agregar el nuevo usuario.
                 axios.post("agregarUsuario", {
                     Nombre: nombreUsuario.value,
                     Apellidos: apellidoUsuario.value,
@@ -42,9 +54,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 .then(function (response) {
                     console.log(response.data);
                 })
-                .then((error) => console.log(error)); 
+                .then((error) => console.log(error));  // Manejamos los errores que puedan ocurrir en el codigo.
             }
-            form.reset();
+            form.reset(); //Utilizamos una funcion "reset" para limpiar el formulario despues de ingresar.
             window.location.href = './usuarios.html';
         });
     } else {

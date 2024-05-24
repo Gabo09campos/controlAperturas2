@@ -14,9 +14,12 @@
         <div class="inputAgregar">
             <input type="text" placeholder="Nombre(s)" id="nombreUsuario">
             <input type="text" placeholder="Apellidos" id="apellidoUsuario">
-            <input type="text" placeholder="Departamento" id="departamentoUsuario">
-            <input type="text" placeholder="Numero de empleado" id="numeroUsuario">
             <!-- Seleccion del departamento responsable -->  
+            <select name="choice" class="btnDep" id="myDropdownDep" required>
+                <option value="" selected="selected">Departamento responsable</option>
+            </select>
+            <input type="text" placeholder="Numero de empleado" id="numeroUsuario">
+            <!-- Seleccion del tipo de usuario -->  
             <select name="choice" class="btnTipo" id="myDropdownTipo" required>
                 <option value="Administrador" selected="selected">Administrador</option>
                 <option value="Usuario" selected="selected">Usuario</option>

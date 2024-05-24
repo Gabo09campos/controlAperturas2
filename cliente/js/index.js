@@ -39,11 +39,6 @@ fetch("http://localhost:3004/tiendas")
                 <img src="./assets/logos/edit.svg" alt="editar" class="imgEditar" tittle="Editar tienda">
             </button>
         </abbr>
-        <abbr title="Eliminar tienda">
-            <button class="btnEliminar">
-                <img src="./assets/logos/trash.svg" alt="eliminar" class="imgEliminar">
-            </button>
-        </abbr>    
         <abbr title="Ver pasos finalizados">
             <button id="enlacePasos" class="btnPasos">
                 <img src="./assets/logos/tasks.svg" alt="pasos" class="imgPasos">
@@ -108,50 +103,6 @@ fetch("http://localhost:3004/tiendas")
             }
         });
 
-        // Código para eliminar la tienda.
-        opciones.querySelector('.btnEliminar').addEventListener('click', function() {
-            /**
-             * Tenemos un dato adicional en "myDataObject" que enviarems con nuestro pedido DELETE.
-             * Ponemos la url hacia donde enviaremos el DELETE
-             * Describimos el pedido y enviamos datos adicionales usando "applicacion/json"
-             * Dentro de "body" utilizamos la funcion json.stringify() del objeto stringify de js.
-             * Por ultimo esperamos la respuesta, 'tienda eliminada' o el error que se encuentre.
-             * Utilizamos un confirm() dentro de un condicional para asegurar que el usuario desea eliminar esa tienda y no que sea por error.
-            */
-            const myDataObject = {tienda: 1}
-            Swal.fire({
-                title: "¿Estas seguro de eliminar esta tienda?",
-                text: "La tienda se eliminara definitivamente!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Si, Borrar!"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Swal.fire({
-                        title: "Borrada!",
-                        text: "La tienda ha sido eliminada.",
-                        icon: "success"
-                    });
-                    fetch(`http://localhost:3004/borrarTienda/${tienda.id}`,
-                    { 
-                        method: 'POST',
-                            headers: {
-                                'Content-type': 'application/json'
-                            },
-                            body: JSON.stringify(myDataObject)
-                    })
-                    .then(response => response.json())
-                    .then(() => {
-                        row.remove();
-                    })
-                    .catch(error => console.error('error:', error));
-                }else{
-                    console.log("No se borro nada");
-                }
-            })
-        });
         // Al hacer click al boton de la tienda te redirige a los pasos marcando en especifico el paso en el que va.
         opciones.querySelector('.btnPasos').addEventListener('click', function() {
             // Traemos el id de la tienda y el objeto de los pasos de este id.

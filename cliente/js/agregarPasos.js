@@ -1,6 +1,6 @@
 const NombrePaso = document.getElementById("nombrePaso");
 const departamento = document.getElementById("myDropdownDep");
-const usuario = document.getElementById("myDropdownUsu");
+const usuario = document.getElementById("nombreUsuario");
 const posicion = document.getElementById("posicion");
 const form = document.getElementById("agregarPaso");
 const parrafo = document.getElementById("warnings");
@@ -12,25 +12,19 @@ let mensaje = "";
 */
 // Dropdown de usuario y departamento responsable del paso.
 document.addEventListener('DOMContentLoaded', (event) => {
-    fetch("http://localhost:3004/usuarios")
+    fetch("http://localhost:3004/departamentos")
     .then(rest => rest.json())
     .then(rest => {
         let selectDep = document.getElementById('myDropdownDep'); // Menú desplegable de departamentos.
-        let selectUsu = document.getElementById('myDropdownUsu'); // Menú desplegable de usuarios.
-        rest.forEach(usuario => { 
+        rest.forEach(departamento => { 
             // Código para el botón de departamentos.
             let optionDep = document.createElement('option');
             optionDep.href = "#"; // El departamento del usuario se usa como valor.
-            optionDep.text = usuario.Departamento; // El departamento del usuario se muestra en el menú desplegable.
+            optionDep.text = departamento.Nombre; // El departamento del usuario se muestra en el menú desplegable.
             selectDep.appendChild(optionDep);
-            // Código para el botón de usuarios.
-            let optionUsu = document.createElement('option');
-            optionUsu.href = "#"; // El nombre del usuario se usa como valor.
-            optionUsu.text = usuario.Nombre; // El nombre del usuario se muestra en el menú desplegable.
-            selectUsu.appendChild(optionUsu);
         });
     });
-}); 
+});  
 /*************************************************************************** */
 document.addEventListener("DOMContentLoaded", function() {
     // Comprobamos que primero se ejecute el html y despues el JS.
@@ -41,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function() {
             let warning = "";
             let entrar = true;
             // Validamos que los campos no esten vacios para enviar el form.
-            if(NombrePaso.value.length < 5 || departamento.selectedIndex === 0 || usuario.selectedIndex === 0 || posicion.value === ''){
+            if(NombrePaso.value.length < 5 || departamento.selectedIndex === 0 || usuario.value.length < 3 || posicion.value === ''){
                 warning += 'Todos los campos debens ser llenados <br>'
                 entrar = false;
                 parrafo.innerHTML = warning;

@@ -30,11 +30,6 @@ fetch("http://localhost:3004/pasos")
                     <img src="./assets/logos/edit.svg" alt="editar" class="imgEditar" tittle="Editar paso">
                 </button>
             </abbr>
-            <abbr title="Eliminar paso">
-                <button class="btnEliminar">
-                    <img src="./assets/logos/trash.svg" alt="eliminar" class="imgEliminar">
-                </button>
-            </abbr>
             `;
             numOpciones.appendChild(opciones);
         

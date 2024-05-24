@@ -37,7 +37,7 @@ fetch("http://localhost:3004/pasos")
         }
         
         pasos.appendChild(row);
-/************************************************************************************* */
+        /*********************************************************** */
         // Creamos un evento para saber cuando se dio click a un boton.
         Nom_apertura.addEventListener('click', function(e) {
             // Prevenimos que la pagina se recargue.
