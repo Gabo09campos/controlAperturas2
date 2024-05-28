@@ -10,7 +10,7 @@ let mensaje = "";
  * Con .then recibimos la respuesta de la base de datos y con el json lo interpreta a una manera legible para el usuario.
  * En el forEach creamos una variable "tienda" y le indicamos que si encuentra algun registro nuevo se incremente la tabla con el appendChild.
 */
-// Dropdown de usuario y departamento responsable del paso.
+// Dropdown de departamento responsable del paso.
 document.addEventListener('DOMContentLoaded', (event) => {
     fetch("http://localhost:3004/departamentos")
     .then(rest => rest.json())

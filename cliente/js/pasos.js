@@ -3,6 +3,17 @@ let pasos = document.getElementById("pasosApertura");
 let estadoBotones = []; // Creamos un objeto para almacenar los botones que ya fueron completados.
 // Al cargar la página, obtenemos los pasos guardados en localStorage y parseamos el String un Array.
 let pasosGuardados = JSON.parse(localStorage.getItem('PTAU'));
+/******************************************************************* */
+// Esto es para que solo el departamento pueda finalizar su paso, pero esta en proceso.
+let depUsuario = [];
+fetch("http://localhost:3004/usuarios")
+.then(rest => rest.json())
+.then(rest => {
+    rest.forEach((usuario) => {
+        depUsuario = [usuario.Departamento];
+        console.log('depas de usuarios', depUsuario);
+    })
+})
 /**
  * Con un fetch indicamos cual sera la url en donde nos mostrara los datos en la web.
  * Con .then recibimos la respuesta de la base de datos y con el json lo interpreta a una manera legible para el usuario.
@@ -13,7 +24,7 @@ fetch("http://localhost:3004/pasos")
 .then(rest => {
     // Ordena el array 'rest' según el número de paso.
     rest.sort((a, b) => a.Num_paso - b.Num_paso);
-    // Creamos unas variables ue uyilizaremos para usar los datos de la API.
+    // Creamos unas variables que utilizaremos para usar los datos de la API.
     rest.forEach((apertura, index) => {
         let row = document.createElement('div');
 
@@ -38,10 +49,20 @@ fetch("http://localhost:3004/pasos")
         
         pasos.appendChild(row);
         /*********************************************************** */
+        //Esto es de prueba en proceso.
+        let depResponsable = [apertura.Departamento_responsble];
+        console.log('depas de paso', depResponsable);
+        if(depUsuario === depResponsable){
+            console.log('son iguales');
+        }else{
+            console.log('No se que pasa aqui');
+        }
+        // hasta aqui
         // Creamos un evento para saber cuando se dio click a un boton.
         Nom_apertura.addEventListener('click', function(e) {
             // Prevenimos que la pagina se recargue.
             e.preventDefault();
+            /*
             // En una variable llamamos el id de los pasos (los datos fueron cambiados de Id_agregar a Num_paso, sin embargo la variable se deja con el mismo nombre por practicidad).
             let idPaso = apertura.Num_paso;
             // Con un condicional verificamos que no se pueda marcar un paso hasta que el anterior este completado.
@@ -90,7 +111,7 @@ fetch("http://localhost:3004/pasos")
                     text: 'Debes completar el paso anterior',
                     confirmButtonText: 'Continuar',
                 })
-            }
+            } */
         });
         // Funcion para buscar pasos por su nombre.
         document.addEventListener("keyup", e => {
