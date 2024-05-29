@@ -11,7 +11,7 @@ fetch("http://localhost:3004/usuarios")
 .then(rest => {
     rest.forEach((usuario) => {
         depUsuario = [usuario.Departamento];
-        console.log('depas de usuarios', depUsuario);
+        //console.log('depas de usuarios', depUsuario);
     })
 })
 /**
@@ -51,12 +51,185 @@ fetch("http://localhost:3004/pasos")
         /*********************************************************** */
         //Esto es de prueba en proceso.
         let depResponsable = [apertura.Departamento_responsble];
-        console.log('depas de paso', depResponsable);
-        if(depUsuario === depResponsable){
-            console.log('son iguales');
-        }else{
-            console.log('No se que pasa aqui');
+        //console.log('depas de paso', depResponsable);
+        /*function compararArreglos(depResponsable, depUsuario) {
+            if (depResponsable.length !== depUsuario.length) {
+                console.log('Los arreglos no tienen la misma longitud.');
+                return;
+            }
+        
+            for (let i = 0; i < depResponsable.length; i++) {
+                if (depResponsable[i] === depUsuario[i]) {
+                    // Realiza acciones específicas para elementos iguales
+                    console.log(`Elemento ${i}: ${depResponsable[i]} es igual en ambos arreglos.`);
+                    // Aquí puedes agregar más lógica según tus necesidades
+                } else {
+                    // Realiza acciones específicas para elementos diferentes
+                    console.log(`Elemento ${i}: ${depResponsable[i]} es diferente en ambos arreglos.`);
+                    // Aquí también puedes agregar más lógica según tus necesidades
+                }
+            }
         }
+        // Ejemplo de arreglos con valores desde la base de datos
+        depUsuario; // Reemplaza con tus valores reales
+        depResponsable; // Reemplaza con tus valores reales
+
+        compararArreglos(depResponsable, depUsuario);
+        function compararArreglos(depResponsable, depUsuario) {
+            if (depResponsable.length !== depUsuario.length) {
+                console.log('Los arreglos no tienen la misma longitud.');
+                return;
+            }
+        
+            for (let i = 0; i < depResponsable.length; i++) {
+                if (depResponsable[i] === depUsuario[i]) {
+                    //console.log(`Elemento ${i}: ${arr1[i]} es igual en ambos arreglos.`);
+                    // Realiza acciones específicas para elementos iguales
+                    // Por ejemplo, puedes llamar a una función específica aquí
+                    Nom_apertura.addEventListener('click', function(e) {
+                        // Prevenimos que la pagina se recargue.
+                        e.preventDefault();
+                        
+                        // En una variable llamamos el id de los pasos (los datos fueron cambiados de Id_agregar a Num_paso, sin embargo la variable se deja con el mismo nombre por practicidad).
+                        let idPaso = apertura.Num_paso;
+                        // Con un condicional verificamos que no se pueda marcar un paso hasta que el anterior este completado.
+                        if (index === 0 || estadoBotones[rest[index - 1].Num_paso] === 1) {
+                            estadoBotones[idPaso] = 1; // Marcar como finalizado.
+                            // Al estar finalizado el paso, cambia su color.
+                            Nom_apertura.style.color = "white";
+                            Nom_apertura.style.backgroundColor = "green";
+                            // Traemos el ID de la tienda en la que estamos.
+                            let idTiendaActual = localStorage.getItem('TAU');
+                                // Enviamos los datos del objeto a la tienda correspondiente.
+                                if(idTiendaActual){
+                                    // Filtramos todos los valores que no sean booleano.
+                                    let nuevoEstado = estadoBotones.filter(value => value !== null && value !== "null" && value !== undefined && value !== "" && (value === 0 || value === 1));
+                                    // Enviar el estado de los botones a la base de datos.
+                                    fetch('http://localhost:3004/agregarPasoFinzalizado', {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                        },
+                                        body: JSON.stringify({
+                                            id: idTiendaActual,
+                                            Id_agregar: idPaso,
+                                            estado: nuevoEstado // Enviamos todo el objeto.
+                                        }),
+                                    })
+                                    .then(response => response.json())
+                                    .then(data => console.log('Success:', data))
+                                    .catch((error) => console.error('Error:', error)); 
+                                }
+                                // Si ya finalizo en paso, se le reedirige hacia el index y se guarda el valor del boton como finalizado.
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "Buen trabajo equipo",
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                }).then((result) => {
+                                    // Redirige solo después de que se cierre la alerta.
+                                    location.href = 'index.html';
+                                });
+                        } else {
+                            // Si no se cumple el condicional enviamos un mensaje.
+                            Swal.fire({
+                                icon: "error",
+                                title: 'Error!',
+                                text: 'Debes completar el paso anterior',
+                                confirmButtonText: 'Continuar',
+                            })
+                        } 
+                    });
+                } else {
+                    console.log(`Elemento ${i}: ${depResponsable[i]} es diferente en ambos arreglos.`);
+                    // Realiza acciones específicas para elementos diferentes
+                    // Por ejemplo, puedes bloquear acceso o ejecutar otra lógica aquí
+                    const btnPaso = document.getElementsByTagName('button')
+                    btnPaso.disabled = true; 
+                    console.log('boton desactivado');
+                }
+            }
+        }*/
+        
+        //compararArreglos(depUsuario, depResponsable);
+        function compararArreglos(depUsuario, depResponsable) {
+            // Convierte los arreglos a cadenas de texto
+            const strArr1 = JSON.stringify(depUsuario);
+            const strArr2 = JSON.stringify(depResponsable);
+        
+            if (strArr1 === strArr2) {
+                console.log('Los arreglos son equivalentes.');
+                // Aquí puedes agregar más lógica según tus necesidades
+                Nom_apertura.addEventListener('click', function(e) {
+                    // Prevenimos que la pagina se recargue.
+                    e.preventDefault();
+                    
+                    // En una variable llamamos el id de los pasos (los datos fueron cambiados de Id_agregar a Num_paso, sin embargo la variable se deja con el mismo nombre por practicidad).
+                    let idPaso = apertura.Num_paso;
+                    // Con un condicional verificamos que no se pueda marcar un paso hasta que el anterior este completado.
+                    if (index === 0 || estadoBotones[rest[index - 1].Num_paso] === 1) {
+                        estadoBotones[idPaso] = 1; // Marcar como finalizado.
+                        // Al estar finalizado el paso, cambia su color.
+                        Nom_apertura.style.color = "white";
+                        Nom_apertura.style.backgroundColor = "green";
+                        // Traemos el ID de la tienda en la que estamos.
+                        let idTiendaActual = localStorage.getItem('TAU');
+                            // Enviamos los datos del objeto a la tienda correspondiente.
+                            if(idTiendaActual){
+                                // Filtramos todos los valores que no sean booleano.
+                                let nuevoEstado = estadoBotones.filter(value => value !== null && value !== "null" && value !== undefined && value !== "" && (value === 0 || value === 1));
+                                // Enviar el estado de los botones a la base de datos.
+                                fetch('http://localhost:3004/agregarPasoFinzalizado', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({
+                                        id: idTiendaActual,
+                                        Id_agregar: idPaso,
+                                        estado: nuevoEstado // Enviamos todo el objeto.
+                                    }),
+                                })
+                                .then(response => response.json())
+                                .then(data => console.log('Success:', data))
+                                .catch((error) => console.error('Error:', error)); 
+                            }
+                            // Si ya finalizo en paso, se le reedirige hacia el index y se guarda el valor del boton como finalizado.
+                            Swal.fire({
+                                icon: "success",
+                                title: "Buen trabajo equipo",
+                                showConfirmButton: false,
+                                timer: 1500
+                            }).then((result) => {
+                                // Redirige solo después de que se cierre la alerta.
+                                location.href = 'index.html';
+                            });
+                    } else {
+                        // Si no se cumple el condicional enviamos un mensaje.
+                        Swal.fire({
+                            icon: "error",
+                            title: 'Error!',
+                            text: 'Debes completar el paso anterior',
+                            confirmButtonText: 'Continuar',
+                        })
+                    } 
+                });
+            } else {
+                console.log('Los arreglos son diferentes.');
+                // Aquí también puedes agregar más lógica según tus necesidades.
+                const btnPaso = document.getElementsByTagName('button')
+                btnPaso.disabled = true; 
+                console.log('boton desactivado');
+            }
+        } 
+        
+        // Ejemplo de arreglos con valores desde la base de datos
+        //const depUsuario = [usuario.Departamento]; // Reemplaza con tus valores reales
+        //const depResponsable = [apertura.Departamento_responsble]; // Reemplaza con tus valores reales
+        
+        // Llama a la función para comparar los arreglos
+        compararArreglos(depUsuario, depResponsable);
+
         // hasta aqui
         // Creamos un evento para saber cuando se dio click a un boton.
         Nom_apertura.addEventListener('click', function(e) {
