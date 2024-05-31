@@ -3,11 +3,12 @@ const logout = document.getElementById('btnCerrarSesion').addEventListener('clic
 
 //Funcion para cerrar sesion.
 function cerrarSesion() {
-    // Eliminar el token de localStorage para que al cerrar sesion no se pueda utulzar la pagina.
+    // Eliminar el token y demas datos de localStorage para que al cerrar sesion no se pueda utulzar la pagina.
     sessionStorage.removeItem('token');
     localStorage.removeItem('nombreUsuario');
     localStorage.removeItem('TAU');     
     localStorage.removeItem('PTAU');     
+    localStorage.removeItem('DUA');     
     // Redirigir al usuario a la página de inicio de sesión.
     window.location.href = "./login.html";
 }

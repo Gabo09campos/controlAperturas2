@@ -36,7 +36,7 @@ app.post("/login", (req, res) => {
     let body = req.body;
     const {usuario, contrasena} = req.body;
     //Realizamos la consulta a la base de datos para comprobar que el usuario ingresado existe.
-    const consultaSql = `SELECT Nombre, T_usuario, Contrasena FROM usuarios WHERE Nombre = ? AND  Contrasena = ? `;
+    const consultaSql = `SELECT Nombre, T_usuario, Contrasena, Departamento FROM usuarios WHERE Nombre = ? AND  Contrasena = ? `;
     conexion.query(consultaSql, [usuario, contrasena], function(err, resultado){   
         if(err){
             console.log(err)
@@ -111,22 +111,6 @@ app.get("/departamentos", function(pet, rest){
     }); 
 });
 
-//Back-end para eliminar una tienda de la lista de aperturas.
-app.post("/borrarTienda/:id", function(req, res){
-    // Aquí borramos la tienda de la base de datos.
-    // Utilizamos req.params.id para obtener el ID de la tienda a borrar.
-    conexion.query("DELETE FROM tiendas WHERE id = ?", [req.params.id], function(err, resultado){
-        if(res){
-            // Se envía una respuesta al cliente para indicar que la tienda fue borrada exitosamente.
-            res.status(200).send({message: 'Tienda eliminada exitosamente'});
-            //conexion.end();
-        }else{
-            console.log(err)
-            res.status(500).send("Error en la query");
-        }
-    }); 
-});
-
 //Back-end para editar una tienda de la lista de aperturas.
 app.put("/editarTienda/:id", function(req, res){
     // Aquí es donde actualizamos los datos de la tienda en la base de datos.
@@ -143,6 +127,7 @@ app.put("/editarTienda/:id", function(req, res){
         }
     }); 
 });
+
 //Back-end para actualizar un numero de paso.
 app.put("/actualizarPaso/:Id_agregar", function(req, res){
     // Aquí es donde actualizamos los datos de la tienda en la base de datos.
@@ -227,7 +212,7 @@ app.post("/agregarPasoFinzalizado", function(pet, rest){
         }
     });
 });
-// pendiente de error.
+
 //Back-end para agregar pasos a seguir para la apertura.
 app.use("/agregarPaso", function(pet, rest){
     //Conectamos con el front para recibir los valores del formulario.

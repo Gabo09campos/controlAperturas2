@@ -24,6 +24,17 @@ input{
     height: 30px;
     margin-top: 15px; 
 }
+/* Estilos del div del checkbox para permisos */
+.checkdiv{
+    width: 280px;
+    text-align: start;
+}
+/* Estilos del input del checkbox de los permisos */
+.permisos{
+    width: 50px;
+    height: 20px;
+    margin-top: 15px;
+}
 /* Estilos del boton de aceptar */
 .btnAceptar{
     border-radius: 5px;

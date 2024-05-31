@@ -5,6 +5,7 @@ const numeroUsuario = document.getElementById("numeroUsuario");
 const tipoUsuario = document.getElementById("myDropdownTipo");
 const contrasenaUsuario = document.getElementById("contrasenaUsuario");
 const correoUsuario = document.getElementById("correoUsuario");
+const permisos = document.getElementById("permisos"); // Pendiente de agregar al form y darle sus funciones.
 const form = document.getElementById('agregarUsuario');
 const parrafo = document.getElementById("warnings");
 const botonAceptar = document.getElementById("btnAceptar");

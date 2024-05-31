@@ -122,7 +122,6 @@ fetch("http://localhost:3004/usuarios")
                 .catch(error => console.error('error:', error));
             }
         });
-
         // Código para eliminar la tienda
         opciones.querySelector('.btnEliminar').addEventListener('click', function() {
             /**
@@ -167,7 +166,6 @@ fetch("http://localhost:3004/usuarios")
                 }
             })
         });
-        /* funcion para buscar un usuario por su nombre. */
         // funcion para buscar un usuario por su nombre.
         document.addEventListener("keyup", e => {
             // Verifica si el evento se originó en el elemento con el ID "inputBuscar".

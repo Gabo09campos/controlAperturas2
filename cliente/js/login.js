@@ -1,5 +1,5 @@
 /**
-     * Creamos una constante de nombre para obtener su valor a travez de ID  
+     * Creamos una constante de nombre para obtener su valor a travez de ID. 
      * Tambien se crean constantes de los demas valores en el login.
  */
 const usuario = document.getElementById("usuario");
@@ -19,8 +19,8 @@ form.addEventListener("submit", e => {
     let warnings = "";
     let entrar = true;
     /**
-     * Importamos en el front a "axios" que es una libreria para hacer peticiones http
-     * Con un objeto enviamos a travez de la ruta los valores del login para revisar que se encuentren en la BD
+     * Importamos en el front a "axios" que es una libreria para hacer peticiones http.
+     * Con un objeto enviamos a travez de la ruta los valores del login para revisar que se encuentren en la BD.
      */
     if(usuario.value.length <= 3 || contra.value.length < 8){
         warnings += 'El usuario y/o la contraseña no son validos <br>'
@@ -40,9 +40,10 @@ form.addEventListener("submit", e => {
             }
             const usuario = resultado.data.resultado[0];
             const token = resultado.data.token;
-            //Guardamos en el navegador el token para verificar si esta iniciada la sesion y el nombre para la bienvenida en el navbar.
+            //Guardamos en el navegador el token para verificar si esta iniciada la sesion y el departamento para saber los permisos que tiene el usuario.
             sessionStorage.setItem('token', token);
             localStorage.setItem('nombreUsuario', usuario.Nombre);
+            localStorage.setItem('DUA', usuario.Departamento); // Departamento de Usuario Actual.
             switch(usuario.T_usuario){
                 //redireccionar
                 case 'Administrador':
