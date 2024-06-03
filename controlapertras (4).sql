@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-05-2024 a las 21:59:21
--- Versión del servidor: 10.4.28-MariaDB
--- Versión de PHP: 8.2.4
+-- Tiempo de generación: 03-06-2024 a las 21:53:56
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.1.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -117,19 +117,21 @@ CREATE TABLE `usuarios` (
   `N_empleados` int(10) NOT NULL,
   `T_usuario` varchar(30) NOT NULL,
   `Departamento` varchar(30) NOT NULL,
-  `Contrasena` varchar(30) NOT NULL
+  `Contrasena` varchar(30) NOT NULL,
+  `Permiso` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `Nombre`, `Apellidos`, `Correo_electrónico`, `N_empleados`, `T_usuario`, `Departamento`, `Contrasena`) VALUES
-(1, 'Miguel Angel', 'Perez', 'MangelP@chedraui.com', 1023, 'Administrador', 'Direccion TI', '123456789'),
-(2, 'Gabriel', 'Campos', 'Gabo@chedraui.com', 1045, 'Usuario', 'Direccion TI', '987654321'),
-(6, 'Juan', 'Marquez', 'Jmaz@chedraui.com', 1027, 'Usuario', 'Direccion TI', '12345676543'),
-(7, 'Pedro', 'Martinez', 'PeMa@chedraui.com', 1028, 'Usuario', 'Ventas', '9876513245'),
-(9, 'Fernando', 'Hernandez', 'Fher@chedraui.com', 1429, 'Usuario', 'Cobranza', '13216565e1fw1e');
+INSERT INTO `usuarios` (`id`, `Nombre`, `Apellidos`, `Correo_electrónico`, `N_empleados`, `T_usuario`, `Departamento`, `Contrasena`, `Permiso`) VALUES
+(1, 'Miguel Angel', 'Perez', 'MangelP@chedraui.com', 1023, 'Administrador', 'Direccion TI', '123456789', 1),
+(2, 'Gabriel', 'Campos', 'Gabo@chedraui.com', 1045, 'Usuario', 'Direccion TI', '987654321', 0),
+(6, 'Juan', 'Marquez', 'Jmaz@chedraui.com', 1027, 'Usuario', 'Direccion TI', '12345676543', 0),
+(7, 'Pedro', 'Martinez', 'PeMa@chedraui.com', 1028, 'Usuario', 'Ventas', '9876513245', 1),
+(9, 'Fernando', 'Hernandez', 'Fher@chedraui.com', 1429, 'Usuario', 'Cobranza', '13216565e1fw1e', 0),
+(11, 'Mari', 'Landa', 'MLanda@chdraui.com', 1032, 'Usuario', 'Ventas', '1jgvuyf67rfvhvj', 1);
 
 --
 -- Índices para tablas volcadas
@@ -185,7 +187,7 @@ ALTER TABLE `tiendas`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

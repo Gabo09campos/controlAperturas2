@@ -20,7 +20,7 @@ app.use(express.static("./cliente"));
 
 //Back-end de usuarios.
 app.use("/usuarios", function(pet, rest){
-    conexion.query("SELECT id, Nombre, Apellidos, Correo_electrónico, N_empleados, T_usuario, Departamento, Contrasena FROM usuarios", function(err, resultado){
+    conexion.query("SELECT id, Nombre, Apellidos, Correo_electrónico, N_empleados, T_usuario, Departamento, Contrasena, Permiso FROM usuarios", function(err, resultado){
         if(err){
             console.log(err);
             rest.status(500).json({error: "Hubo un error al realizar la consulta"});
@@ -36,7 +36,7 @@ app.post("/login", (req, res) => {
     let body = req.body;
     const {usuario, contrasena} = req.body;
     //Realizamos la consulta a la base de datos para comprobar que el usuario ingresado existe.
-    const consultaSql = `SELECT Nombre, T_usuario, Contrasena, Departamento FROM usuarios WHERE Nombre = ? AND  Contrasena = ? `;
+    const consultaSql = `SELECT Nombre, T_usuario, Contrasena, Departamento, Permiso FROM usuarios WHERE Nombre = ? AND  Contrasena = ? `;
     conexion.query(consultaSql, [usuario, contrasena], function(err, resultado){   
         if(err){
             console.log(err)
@@ -165,7 +165,7 @@ app.put("/editarUsuario/:id", function(req, res){
     // Aquí es donde actualizamos los datos de la tienda en la base de datos.
     // Utilizaríamos req.params.id para obtener el ID de la tienda a actualizar.
     // Utilizaríamos req.body para obtener los nuevos datos de la tienda.
-    conexion.query("UPDATE usuarios SET Nombre = ?, Apellidos = ?, Correo_electrónico = ?, N_empleados = ?, T_usuario = ?, Departamento = ?, Contrasena = ? WHERE id = ?", [req.body.Nombre,  req.body.Apellidos, req.body.Correo_electrónico, req.body.N_empleados, req.body.T_usuario, req.body.Departamento, req.body.Contrasena, req.params.id], function(err, resultado){
+    conexion.query("UPDATE usuarios SET Nombre = ?, Apellidos = ?, Correo_electrónico = ?, N_empleados = ?, T_usuario = ?, Departamento = ?, Contrasena = ?, Permiso = ? WHERE id = ?", [req.body.Nombre,  req.body.Apellidos, req.body.Correo_electrónico, req.body.N_empleados, req.body.T_usuario, req.body.Departamento, req.body.Contrasena, req.body.Permiso, req.params.id], function(err, resultado){
         if(res){
             // Envía una respuesta al cliente para indicar que el usuario fue actualizado exitosamente.
             res.status(200).send({message: 'Usuario actualizado exitosamente'});
@@ -234,10 +234,10 @@ app.use("/agregarPaso", function(pet, rest){
 //Back-end para agregar nuevos usuarios.
 app.use("/agregarUsuario", function(pet, rest){
     //Conectamos con el front para recibir los valores del formulario.
-    const {Nombre, Apellidos, Correo_electrónico, N_empleados, T_usuario, Departamento, Contrasena} = pet.body
+    const {Nombre, Apellidos, Correo_electrónico, N_empleados, T_usuario, Departamento, Contrasena, Permiso} = pet.body
     // Insertamos los datos del formulario a la base de datos.
-    const consultaSql = `INSERT INTO usuarios (Nombre, Apellidos, Correo_electrónico, N_empleados, T_usuario, Departamento, Contrasena) VALUES (?, ?, ?, ?, ?, ?, ?) `;
-    conexion.query(consultaSql, [Nombre, Apellidos, Correo_electrónico, N_empleados, T_usuario, Departamento, Contrasena], function(err, resultado){
+    const consultaSql = `INSERT INTO usuarios (Nombre, Apellidos, Correo_electrónico, N_empleados, T_usuario, Departamento, Contrasena, Permiso) VALUES (?, ?, ?, ?, ?, ?, ?, ?) `;
+    conexion.query(consultaSql, [Nombre, Apellidos, Correo_electrónico, N_empleados, T_usuario, Departamento, Contrasena, Permiso], function(err, resultado){
         if(err){
             console.log(err)
             rest.status(500).json({error: "Hubo un error al realizar la consulta de la base de datos"});

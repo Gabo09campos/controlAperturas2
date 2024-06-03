@@ -8,7 +8,8 @@ function cerrarSesion() {
     localStorage.removeItem('nombreUsuario');
     localStorage.removeItem('TAU');     
     localStorage.removeItem('PTAU');     
-    localStorage.removeItem('DUA');     
+    localStorage.removeItem('DUA');   
+    localStorage.removeItem('PUU');   
     // Redirigir al usuario a la página de inicio de sesión.
     window.location.href = "./login.html";
 }

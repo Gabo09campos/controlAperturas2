@@ -44,6 +44,7 @@ form.addEventListener("submit", e => {
             sessionStorage.setItem('token', token);
             localStorage.setItem('nombreUsuario', usuario.Nombre);
             localStorage.setItem('DUA', usuario.Departamento); // Departamento de Usuario Actual.
+            localStorage.setItem('PUU', usuario.Permiso); // Permiso de Usuario a Usar.
             switch(usuario.T_usuario){
                 //redireccionar
                 case 'Administrador':

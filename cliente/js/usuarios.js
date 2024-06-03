@@ -40,6 +40,10 @@ fetch("http://localhost:3004/usuarios")
         Contrasena.innerHTML = usuario.Contrasena;
         row.appendChild(Contrasena);
 
+        let Permiso = document.createElement('td');
+        Permiso.innerHTML = usuario.Permiso;
+        row.appendChild(Permiso);
+
         let opciones = document.createElement('td');
         opciones.innerHTML = `
         <abbr title="Editar usuario">
@@ -70,6 +74,7 @@ fetch("http://localhost:3004/usuarios")
                     <input id="swal-input5" class="swal2-input" value="${usuario.T_usuario}">
                     <input id="swal-input6" class="swal2-input" value="${usuario.Departamento}">
                     <input id="swal-input7" class="swal2-input" value="${usuario.Contrasena}">
+                    <input id="swal-input8" class="swal2-input" type="checkbox" value="${usuario.Permiso}" > Permite actualizar
                 `,
                 focusConfirm: false,
                 preConfirm: () => {
@@ -81,14 +86,15 @@ fetch("http://localhost:3004/usuarios")
                         document.getElementById("swal-input4").value,
                         document.getElementById("swal-input5").value,
                         document.getElementById("swal-input6").value,
-                        document.getElementById("swal-input7").value
+                        document.getElementById("swal-input7").value,
+                        document.getElementById("swal-input8").checked
                     ];
                 }
             });
             // Si el usuario confirmó el formulario...
             if (formValues) {
                 // Desestructuramos los valores del formulario.
-                const [nuevoNombre, nuevoApellido, nuevaCorreo, nuevoNumeroEmpleado, nuevoTipoUsuario, nuevoDepartamento, nuevaContrasena] = formValues;
+                const [nuevoNombre, nuevoApellido, nuevaCorreo, nuevoNumeroEmpleado, nuevoTipoUsuario, nuevoDepartamento, nuevaContrasena, nuevoPermiso] = formValues;
                 // Creamos un objeto con los nuevos datos del usuario.
                 const myDataObject = {
                     Nombre: nuevoNombre,
@@ -97,7 +103,8 @@ fetch("http://localhost:3004/usuarios")
                     N_empleados: nuevoNumeroEmpleado,
                     T_usuario: nuevoTipoUsuario,
                     Departamento: nuevoDepartamento,
-                    Contrasena: nuevaContrasena
+                    Contrasena: nuevaContrasena,
+                    Permiso: nuevoPermiso
                 }
                 // Hacemos una petición PUT para actualizar el usuario en el servidor.
                 fetch(`http://localhost:3004/editarUsuario/${usuario.id}`, { 
@@ -118,6 +125,7 @@ fetch("http://localhost:3004/usuarios")
                     T_usuario.innerHTML = nuevoTipoUsuario;
                     Departamento.innerHTML = nuevoDepartamento;
                     Contrasena.innerHTML = nuevaContrasena;
+                    Permiso.innerHTML = nuevoPermiso;
                 })
                 .catch(error => console.error('error:', error));
             }

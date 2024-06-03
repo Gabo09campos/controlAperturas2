@@ -5,7 +5,7 @@ const numeroUsuario = document.getElementById("numeroUsuario");
 const tipoUsuario = document.getElementById("myDropdownTipo");
 const contrasenaUsuario = document.getElementById("contrasenaUsuario");
 const correoUsuario = document.getElementById("correoUsuario");
-const permisos = document.getElementById("permisos"); // Pendiente de agregar al form y darle sus funciones.
+const permisos = document.getElementById("permisos"); // Pendiente de agregar al form y darle sus funciones. 
 const form = document.getElementById('agregarUsuario');
 const parrafo = document.getElementById("warnings");
 const botonAceptar = document.getElementById("btnAceptar");
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 document.addEventListener("DOMContentLoaded", function() {
     // Comprobamos que primero se ejecute el html y despues el JS.
     if(form){
-        // Agregamos un evento de escucha al formulario.
+        // Agregamos un evento de escucha al formulario. 
         form.addEventListener("submit", e =>{ 
             e.preventDefault(); // Prevenimos que se envie solito.
             let warnings = ""; //Creamos una variable "warnings" para mandar el mensaje de input no valido.
@@ -50,15 +50,16 @@ document.addEventListener("DOMContentLoaded", function() {
                     N_empleados: numeroUsuario.value,
                     T_usuario: tipoUsuario.value,
                     Departamento: departamentoUsuario.value,
-                    Contrasena: contrasenaUsuario.value
-                })
+                    Contrasena: contrasenaUsuario.value,
+                    Permiso: permisos.checked
+                }) 
                 .then(function (response) {
                     console.log(response.data);
                 })
                 .then((error) => console.log(error));  // Manejamos los errores que puedan ocurrir en el codigo.
+                form.reset(); //Utilizamos una funcion "reset" para limpiar el formulario despues de ingresar.
+                window.location.href = './usuarios.html';
             }
-            form.reset(); //Utilizamos una funcion "reset" para limpiar el formulario despues de ingresar.
-            window.location.href = './usuarios.html';
         });
     } else {
         console.log("El elemento 'form' no existe en el DOM");
