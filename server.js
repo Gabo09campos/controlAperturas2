@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const app = express();
 const bcrypt = require('bcrypt');
 const { log } = require("node:console");
+var nodemailer = require('nodemailer');
 app.use(express.json());
 app.use(express.static("./cliente"));
 /** 
@@ -248,6 +249,30 @@ app.use("/agregarUsuario", function(pet, rest){
     });
 });
 
+// Bck-end de enviar correo.
+// Queda pendiente recibir los datos del front y realizar el codigo para enviar el correo.
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'youremail@gmail.com',
+      pass: 'yourpassword'
+    }
+  });
+  
+  var mailOptions = {
+    from: 'youremail@gmail.com',
+    to: 'myfriend@yahoo.com',
+    subject: 'Sending Email using Node.js',
+    text: 'That was easy!'
+  };
+  
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
 /**
  * creamos un servidor http de node.js para acelerar el funcionanmiento.
  * le decimos el puerto en donde estara.

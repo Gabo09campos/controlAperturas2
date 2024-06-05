@@ -40,7 +40,6 @@ fetch("http://localhost:3004/pasos")
         /*********************************************************** */
         // En el nombre de cada boton ponemos un evento de escucha para el click.
         Nom_apertura.addEventListener('click', function(e) {
-            console.log(permisos);
             // Prevenimos que la pagina se recargue.
             e.preventDefault();
             // En una variable llamamos los pasos.
@@ -51,6 +50,24 @@ fetch("http://localhost:3004/pasos")
                 // Al estar finalizado el paso, cambia su color.
                 Nom_apertura.style.color = "white";
                 Nom_apertura.style.backgroundColor = "green";
+                /******************************************************* */
+                // Queda pendiente de enviar datos para que el en back se envie el correo.
+                fetch('http://localhost:3004/enviarCorreo', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        from: correoRemitente, // Quien envia el correo.
+                        to: correoReceptor, // Quien(es) recibe(n) el correo.
+                        subject: asunto, // El asunto.
+                        text: cuerpoCorreo // Que dice el correo.
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => console.log('Success:', data))
+                .catch((error) => console.error('Error:', error)); 
+                /************************************************************* */
                 // Traemos el ID de la tienda en la que estamos (localStorage).
                 let idTiendaActual = localStorage.getItem('TAU');
                     // Enviamos los datos del objeto a la tienda correspondiente.
