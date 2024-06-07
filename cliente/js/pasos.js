@@ -3,6 +3,10 @@ let pasos = document.getElementById("pasosApertura");
 let estadoBotones = []; // Creamos un objeto para almacenar los botones que ya fueron completados.
 // Al cargar la página, obtenemos los pasos guardados en localStorage y parseamos el String un Array.
 let pasosGuardados = JSON.parse(localStorage.getItem('PTAU'));
+const correoRemitente = 'aplicacionespos@chedraui.com.mx';
+const correoReceptor = 'correo@ejemplo.com';
+const asunto = 'Correo enviado desde js';
+const cuerpoCorreo = 'Llego el correo.';
 /*************************************************************************************
  * Con un fetch indicamos cual sera la url en donde nos mostrara los datos en la web.
  * Con .then recibimos la respuesta de la base de datos y con el json lo interpreta a una manera legible para el usuario.
@@ -72,7 +76,7 @@ fetch("http://localhost:3004/pasos")
                 let idTiendaActual = localStorage.getItem('TAU');
                     // Enviamos los datos del objeto a la tienda correspondiente.
                     // Esta comentado para las pruebas.
-                    if(idTiendaActual){
+                   /* if(idTiendaActual){
                         // Filtramos y eliminamos todos los valores que no sean booleano.
                         let nuevoEstado = estadoBotones.filter(value => value !== null && value !== "null" && value !== undefined && value !== "" && (value === 0 || value === 1));
                         // Enviar el estado de los botones a la base de datos.
@@ -90,7 +94,7 @@ fetch("http://localhost:3004/pasos")
                         .then(response => response.json())
                         .then(data => console.log('Success:', data))
                         .catch((error) => console.error('Error:', error)); 
-                    }
+                    } */
                     // Si ya finalizo en paso, se le reedirige hacia el index y se guarda el valor del boton como finalizado.
                     Swal.fire({
                         icon: "success",

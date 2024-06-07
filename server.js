@@ -6,6 +6,8 @@ const app = express();
 const bcrypt = require('bcrypt');
 const { log } = require("node:console");
 var nodemailer = require('nodemailer');
+const bodyParser = require('body-parser');
+
 app.use(express.json());
 app.use(express.static("./cliente"));
 /** 
@@ -251,33 +253,88 @@ app.use("/agregarUsuario", function(pet, rest){
 
 // Bck-end de enviar correo.
 // Queda pendiente recibir los datos del front y realizar el codigo para enviar el correo.
-var transporter = nodemailer.createTransport({
-    service: 'gmail',
+/* Middleware para parsear el cuerpo de las solicitudes HTTP POST
+app.use(bodyParser.json());
+
+let transporter = nodemailer.createTransport({
+    host: 'relay.chedraui.com.mx', // Dirección IP del servidor de correo
+    port: 25, // Puerto por defecto para SMTP
     auth: {
-      user: 'youremail@gmail.com',
-      pass: 'yourpassword'
+      user: 'aplicacionespos', // Usuario del servidor de correo
+      pass: 'Soporte.202020' // Contraseña del usuario
     }
   });
+
+app.post('/enviarCorreo', (req, res) => {
+    const { from, to, subject, text, html } = req.body;
   
-  var mailOptions = {
-    from: 'youremail@gmail.com',
-    to: 'myfriend@yahoo.com',
-    subject: 'Sending Email using Node.js',
-    text: 'That was easy!'
-  };
-  
-  transporter.sendMail(mailOptions, function(error, info){
-    if (error) {
-      console.log(error);
-    } else {
-      console.log('Email sent: ' + info.response);
-    }
-  });
+    let mailOptions = {
+      from: from || ' aplicacionespos@chedraui.com.mx', // Remitente
+      to: to, // Destinatario
+      subject: subject, // Asunto
+      text: text, // Cuerpo del correo electrónico en texto plano
+      html: html || '' // Cuerpo del correo electrónico en formato HTML
+    };
+
+    transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+            console.log(error);
+            res.status(500).send(error);
+        } else {
+            console.log('Email sent: ' + info.response);
+            res.status(200).send(info.response);
+        }
+    });
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
 /**
  * creamos un servidor http de node.js para acelerar el funcionanmiento.
  * le decimos el puerto en donde estara.
  * creamos una function que nos muestre en consola si saliio bien.
 */
+
+app.use(bodyParser.json());
+
+let transporter = nodemailer.createTransport({
+  host: 'relay.chedraui.com.mx', // Dirección IP del servidor de correo
+  port: 25, // Puerto por defecto para SMTP
+  secure: false,
+  auth: {
+    user: 'aplicacionespos', // Usuario del servidor de correo
+    pass: 'Soporte.202020' // Contraseña del usuario
+  },
+  tls: {
+    rejectUnauthorized: false
+  }
+});
+
+// Ruta para enviar el correo electrónico
+app.post('/enviarCorreo', (req, res) => {
+  const { from, to, subject, text } = req.body;
+
+  let mailOptions = {
+    from: from || 'aplicacionespos@chedraui.com.mx', // Remitente
+    to: to, // Destinatario
+    subject: subject, // Asunto
+    text: text // Cuerpo del correo electrónico en texto plano
+  };
+  
+  transporter.sendMail(mailOptions, (err, info) => {
+    if (err) {
+      console.log('Error al enviar el correo electrónico:', err.message);
+      res.status(500).send('Error al enviar el correo electrónico');
+    } else {
+      console.log('Correo electrónico enviado con éxito!');
+      res.send('Correo electrónico enviado con éxito!');
+    }
+  });
+});
+ 
+/************************************************** */
 let servidor = http.createServer(app);
 servidor.listen(3004, function(){
     console.log("Te estoy escuchando");
