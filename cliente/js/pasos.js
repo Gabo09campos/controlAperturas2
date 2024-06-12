@@ -54,29 +54,11 @@ fetch("http://localhost:3004/pasos")
                 // Al estar finalizado el paso, cambia su color.
                 Nom_apertura.style.color = "white";
                 Nom_apertura.style.backgroundColor = "green";
-                /******************************************************* */
-                // Queda pendiente de enviar datos para que el en back se envie el correo.
-                fetch('http://localhost:3004/enviarCorreo', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        from: correoRemitente, // Quien envia el correo.
-                        to: correoReceptor, // Quien(es) recibe(n) el correo.
-                        subject: asunto, // El asunto.
-                        text: cuerpoCorreo // Que dice el correo.
-                    }),
-                })
-                .then(response => response.json())
-                .then(data => console.log('Success:', data))
-                .catch((error) => console.error('Error:', error)); 
-                /************************************************************* */
                 // Traemos el ID de la tienda en la que estamos (localStorage).
                 let idTiendaActual = localStorage.getItem('TAU');
                     // Enviamos los datos del objeto a la tienda correspondiente.
                     // Esta comentado para las pruebas.
-                   /* if(idTiendaActual){
+                    if(idTiendaActual){
                         // Filtramos y eliminamos todos los valores que no sean booleano.
                         let nuevoEstado = estadoBotones.filter(value => value !== null && value !== "null" && value !== undefined && value !== "" && (value === 0 || value === 1));
                         // Enviar el estado de los botones a la base de datos.
@@ -92,9 +74,26 @@ fetch("http://localhost:3004/pasos")
                             }),
                         })
                         .then(response => response.json())
-                        .then(data => console.log('Success:', data))
+                        .then(data => {
+                            console.log('Success:', data);
+                            // Aqui hacemos la peticion para poder enviar el correo electronico al encargado del siguiente paso.
+                            fetch('/enviarCorreo', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                    // Enviamos los datos que se requieren en el servidor para enviar el correo.
+                                    name: 'Gabriel Campos',
+                                    email: 'gabo.camp12@outlook.com'
+                                }),
+                            })
+                            .then(response => response.json())
+                            .then(data => console.log('correo enviado', data))
+                            .catch((error) => console.error('Error', error));
+                        })
                         .catch((error) => console.error('Error:', error)); 
-                    } */
+                    }
                     // Si ya finalizo en paso, se le reedirige hacia el index y se guarda el valor del boton como finalizado.
                     Swal.fire({
                         icon: "success",

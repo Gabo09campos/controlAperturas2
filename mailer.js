@@ -5,7 +5,7 @@ const transporter = nodemailer.createTransport({
     port: 465, // Puerto por defecto para SMTP
     secure: true,
     auth: {
-      user: 'aplicacionespos', // Usuario del servidor de correo
+      user: 'gc786041@gmail.com', // Usuario del servidor de correo
       pass: 'mlct nhnq effw axmm' // Contraseña del usuario
     },
 });

@@ -5,8 +5,6 @@ const jwt = require('jsonwebtoken');
 const app = express();
 const bcrypt = require('bcrypt');
 const { log } = require("node:console");
-//import { userInfo } from "node:os";
-//import { transporter } from "./mailer.js";
 const os = require("os");
 const userInfo = os.userInfo;
 const transporter = require("./mailer.js").transporter;
@@ -256,12 +254,15 @@ app.use("/agregarUsuario", function(pet, rest){
 
 // Queda pendiente recibir los datos del front y realizar el codigo para enviar el correo.
 //Back-end de enviar correo.
+// Llamamos el archivo mailer.js para saber los datos de quien envia el correo.
 app.use("/enviarCorreo", async function(req, res){
+    // Extraemos los datos que recibimos desde el front.
+    const {name, email} = req.body;
     try{
         await transporter.sendMail({
-            from: '"Aplicaiones POS" <aplicacionespos@chedraui.com.mx>',
-            to: 'correoReceptor@outlook.com',
-            subject: 'Correo de prueba',
+            from: '"Aplicaiones POS" <gc786041@gmail.com>',
+            to: email, // Usamos el correo que recibimos.
+            subject: `Correo de prueba para ${name}`, // Usamos el nombre que recibimos.
             html: `
             <b>El departamento del paso anterior ya ha finalizado su parte del trabajo.</b>
             `
