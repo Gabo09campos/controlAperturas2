@@ -33,13 +33,14 @@
     justify-content: right;
 
 }
-
+/* Estilos de buscador*/
 .formInput{
-    width: 120px;
+    margin-right: 20px;
+    width: 150px;
     height: 30px;
     background: lavenderblush;
     border-radius: 4px;
-    margin-right: 20px;
+    text-align: center;
 }
 /* Estilos del nombre del usuario. */
 .tituloNav{
@@ -63,32 +64,30 @@
 /* Estilos del div que contiene el nombre de la pestaña y un boton. */
 .divTitulo{
     display: flex;
-    flex-direction: row;
     align-items: center;
-    /*justify-content: space-around;*/
-    margin-left: 365px;
-    width: 265;
+    justify-content: right;
+    width: 98%;
 }
 /* Div para ajustar los elementos. */
 .divRelleno{
-    width: 276px;
+    width: 450px;
 }
 
 .btnAgregarUsuarios{
     border-radius: 5px;
-    width: 115px;
+    width: 130px;
     height: 30px;
     background-color: #0076c8;
     cursor: pointer;
     color: white;
 }
 /* Estilos de la tabla que contiene a los usuarios. */
-table{
+.table{
     border:2rem;
-    width: 1000px;
+    width: 95%;
     height: 200px;
-    text-align: center;
     margin-top: 20px;
+    text-align: justify;
 }
 /* Icono de el boton de editar. */
 .imgEditar{

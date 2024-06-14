@@ -1,8 +1,8 @@
 /* Estilos del header en donde esta el logo. */
 .headerLogin{
-    align-items: center;
+    display: flex;
+    justify-content: center;
     margin-top: 5%;
-    margin-left: 350px;
 }
 /* Estilos del formulario para inicio de sesion. */
 .formLogin{

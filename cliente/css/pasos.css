@@ -36,11 +36,12 @@
 }
 
 .formInput{
-    width: 120px;
+    margin-right: 20px;
+    width: 150px;
     height: 30px;
     background: lavenderblush;
     border-radius: 4px;
-    margin-right: 20px;
+    text-align: center;
 }
 /* Estilo del nombre de usuario. */
 .tituloNav{
@@ -64,14 +65,13 @@
 /* Estilos del titulo de la pestaña. */
 .divTitulo{
     display: flex;
-    flex-direction: row;
     align-items: center;
-    margin-left: 384px;
-    width: 265;
+    justify-content: center;
+    width: 98%;
 }
 /* Div para ajustar los elementos. */
 .divRelleno{
-    width: 276px;
+    width: 450px;
 }
 
 .btnAgregarPaso{

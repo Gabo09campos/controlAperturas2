@@ -37,7 +37,7 @@
 /* Estilos del buscados */
 .formInput{
     margin-right: 20px;
-    width: 120px;
+    width: 150px !important;
     height: 30px;
     background: lavenderblush;
     border-radius: 4px;
@@ -50,7 +50,7 @@
 
 .btnCerrarSesion{
     border-radius: 5px;
-    width: 110px;
+    width: 130px;
     height: 30px;
     background-color: #0076c8;
     cursor: pointer;

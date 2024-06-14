@@ -33,10 +33,10 @@
     justify-content: right;
 
 }
-/* Estilos del buscados */
+/* Estilos del buscador */
 .formInput{
     margin-right: 20px;
-    width: 120px;
+    width: 150px;
     height: 30px;
     background: lavenderblush;
     border-radius: 4px;
@@ -64,32 +64,30 @@
 /* Estilo del div del titulo de la pestaña. */
 .divTitulo{
     display: flex;
-    flex-direction: row;
     align-items: center;
-    /*justify-content: space-around;*/
-    margin-left: 390px;
-    width: 265;
+    justify-content: right;
+    width: 98%;
 }
 /* Div para ajustar los elementos. */
 .divRelleno{
-    width: 276px;
+    width: 450px;
 }
 
 .btnAgregarTienda{
     border-radius: 5px;
-    width: 110px;
+    width: 130px;
     height: 30px;
     background-color: #0076c8;
     cursor: pointer;
     color: white;
 }
 /* Estilos en donde se muestra la lista de las tiendas. */
-table{
+.table{
     border:2rem;
-    width: 1000px;
+    width: 95%;
     height: 200px;
     text-align: center;
-    margin-top: 20px;
+    margin-top: 40px;
 }
 /* Boton que esta en js y es el enlace hacia los pasos de cada tienda. */
 #enlacePasos{
@@ -110,12 +108,6 @@ table{
     height: 30px;
     filter: invert(1);
 }
-/* Icono de el boton de eliminar. */
-.imgEliminar{
-    width: 45px;
-    height: 30px;
-    filter: invert(1);
-}
 
 .btnEditar{
     border-radius: 5px;
@@ -124,15 +116,6 @@ table{
     background: #20ab20;
     cursor: pointer;
     color: black;
-}
-
-.btnEliminar{
-    border-radius: 5px;
-    width: 60px;
-    height: 38px;
-    background: #c73131;
-    cursor: pointer;
-    color: white;
 }
 /* El footer. */
 footer{
