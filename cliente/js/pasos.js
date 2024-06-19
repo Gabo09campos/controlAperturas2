@@ -44,7 +44,7 @@ fetch("http://localhost:3004/pasos")
         /*********************************************************** */
         // En el nombre de cada boton ponemos un evento de escucha para el click.
         Nom_apertura.addEventListener('click', function(e) {
-            // Prevenimos que la pagina se recargue.
+            // Prevenimos que la pagina se recargue. 
             e.preventDefault();
             // En una variable llamamos los pasos.
             let numPaso = apertura.Num_paso;
@@ -79,7 +79,7 @@ fetch("http://localhost:3004/pasos")
                             // Aqui hacemos la peticion para poder enviar el correo electronico al encargado del siguiente paso.
                             fetch('/enviarCorreo', {
                                 method: 'POST',
-                                headers: {
+                                headers: { 
                                     'Content-Type': 'application/json',
                                 },
                                 body: JSON.stringify({

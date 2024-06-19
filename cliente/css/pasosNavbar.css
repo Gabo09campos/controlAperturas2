@@ -1,35 +1,112 @@
+/* Estilos del navbar, este es del navbar completo. */
+.navIndex{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 10px;
+    margin-right: 10px;
+    background: lavender;
+    padding: 10px;
+}
+/* Estilo del div de los links hacias las pestañas del sistema. */
+.navLink{
+    width: 300px;
+    display: contents;
+}
+/* Estilos de los enlaces. */
+.linkPNav{
+    font-size: 21px;
+    color: black;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.linkPNav:hover{
+    font-size: 24px;
+    color: blue;
+}
+/* Estilos del div donde esta el titulo y el boton de cerrar ssion. */
+.navBtnTitulo{
+    width: 330px;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+
+}
+/* Estilos del buscador */
+.formInput{
+    margin-right: 20px;
+    width: 150px !important;
+    height: 30px;
+    background: lavenderblush;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.btnCerrarSesion{
+    border-radius: 5px;
+    width: 110px;
+    height: 30px;
+    background-color: #0076c8;
+    cursor: pointer;
+    color: white;
+}
+/* Estilos de la seccion de la lista de las tiendas. */
+.seccionPasos{
+    align-items: center;
+    text-align: -webkit-center;
+    margin-top: 3%;
+}
+/* Estilo del div del titulo de la pestaña. */
+.divTitulo{
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    width: 97%;
+}
+/* Div para ajustar los elementos. */
+.divRelleno{
+    width: 400px;
+}
+
+.btnAgregarPaso{
+    border-radius: 5px;
+    width: 130px;
+    height: 30px;
+    background-color: #0076c8;
+    cursor: pointer;
+    color: white;
+}
+/* Estilos en donde se muestra la lista de las tiendas. */
+.table{
+    border:2rem;
+    width: 95% !important;
+    height: 200px;
+    text-align: center;
+    margin-top: 40px;
+}
 /* Icono de el boton de editar. */
 .imgEditar{
     width: 25px;
-    height: 15px;
-    filter: invert(1);
-}
-/* Icono de el boton de eliminar. */
-.imgEliminar{
-    width: 25px;
-    height: 20px;
+    height: 30px;
     filter: invert(1);
 }
 
 .btnEditar{
     border-radius: 5px;
-    width: 40px;
-    height: 30px;
+    width: 55px;
+    height: 38px;
+    margin-top: 1px;
     background: #20ab20;
     cursor: pointer;
     color: black;
 }
-
-.btnEliminar{
-    border-radius: 5px;
-    width: 40px;
-    height: 30px;
-    background: #c73131;
-    cursor: pointer;
-    color: white;
+/* El footer. */
+footer{
+    text-align: center;
+    margin-top: 50px;
 }
-
-.div{
-    display: flex;
-    justify-content: space-between;
+/* Logo de pie de pagina. */
+.LogoChedraui{
+    width: 300px;
 }

@@ -28,7 +28,7 @@
 }
 /* Estilos del div donde esta el titulo y el boton de cerrar ssion. */
 .navBtnTitulo{
-    width: 295px;
+    width: 330px;
     display: flex;
     align-items: center;
     justify-content: right;
@@ -43,10 +43,6 @@
     border-radius: 4px;
     text-align: center;
 }
-/* Estilos del titulo o nombre del usuario que ingreso. */
-.tituloNav{
-    margin-right: 30px;
-}
 
 .btnCerrarSesion{
     border-radius: 5px;
@@ -60,7 +56,7 @@
 .listasTiendas{
     align-items: center;
     text-align: -webkit-center;
-    margin-top: 5%;
+    margin-top: 3%;
 }
 /* Titulo de la pestaña en donde estamos.*/
 .divTitulo{
@@ -68,14 +64,15 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    width: 97%;
 }
 /* Estilos de la tabla. */
 table{
     border:2rem;
-    width: 1000px;
+    width: 95% !important;
     height: 200px;
     text-align: center;
-    margin-top: 20px;
+    margin-top: 40px;
 }
 /* Boton que esta en js y es el enlace hacia los pasos de cada tienda. */
 #enlacePasos{

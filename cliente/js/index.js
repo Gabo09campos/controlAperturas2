@@ -46,7 +46,7 @@ fetch("http://localhost:3004/tiendas")
         `;
         row.appendChild(opciones);
 
-        tiendas.appendChild(row);
+        tiendas.appendChild(row); 
         /******************************************************************************* */
         // Código para editar la tienda.
         opciones.querySelector('.btnEditar').addEventListener('click', async function() {

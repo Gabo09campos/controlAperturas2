@@ -34,22 +34,18 @@
     justify-content: right;
 
 }
-
+/* Estilos del buscador de los pasos*/
 .formInput{
     margin-right: 20px;
-    width: 150px;
+    width: 150px !important;
     height: 30px;
     background: lavenderblush;
     border-radius: 4px;
     text-align: center;
 }
-/* Estilo del nombre de usuario. */
-.tituloNav{
-    margin-right: 30px;
-}
 
 .btnCerrarSesion{
-    border-radius: 5px;
+    border-radius: 5px !important;
     width: 110px;
     height: 30px;
     background-color: #0076c8;
@@ -67,35 +63,23 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 98%;
-}
-/* Div para ajustar los elementos. */
-.divRelleno{
-    width: 450px;
-}
-
-.btnAgregarPaso{
-    border-radius: 5px;
-    text-align: center;
-    width: 110px;
-    height: 30px;
-    background-color: #0076c8;
-    margin-left: auto;
-    cursor: pointer;
-    color: white;
+    width: 97%;
+    margin-top: 30px;
 }
 /* Estilos del form en donde se muestran los pasos. */
 .pasosLista{
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 30px;
 }
 /* Cada boton es un paso a seguir. */
 button{
-    border-radius: 100%;
+    border-radius: 100% !important;
     text-align: center;
     width: 150px;
     height: 90px;
-    margin: 20px 10px 20px 5px;
+    margin: 20px 10px 20px 5px !important;
 }
 /* El footer. */
 footer{
