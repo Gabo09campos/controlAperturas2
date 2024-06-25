@@ -4,9 +4,9 @@ let estadoBotones = []; // Creamos un objeto para almacenar los botones que ya f
 // Al cargar la página, obtenemos los pasos guardados en localStorage y parseamos el String un Array.
 let pasosGuardados = JSON.parse(localStorage.getItem('PTAU'));
 const correoRemitente = 'aplicacionespos@chedraui.com.mx';
-const correoReceptor = 'correo@ejemplo.com';
-const asunto = 'Correo enviado desde js';
-const cuerpoCorreo = 'Llego el correo.';
+const correoReceptor = 'correo@ejemplo.com'; // En este caso mandamos el correo directamente desde el fetch.
+const asunto = 'Correo enviado desde js'; // Desde el back es el subject.
+const cuerpoCorreo = 'Llego el correo.'; // El cuerpo se envia como html dsde el back.
 /*************************************************************************************
  * Con un fetch indicamos cual sera la url en donde nos mostrara los datos en la web.
  * Con .then recibimos la respuesta de la base de datos y con el json lo interpreta a una manera legible para el usuario.
@@ -84,8 +84,8 @@ fetch("http://localhost:3004/pasos")
                                 },
                                 body: JSON.stringify({
                                     // Enviamos los datos que se requieren en el servidor para enviar el correo.
-                                    name: 'Gabriel Campos',
-                                    email: 'gabo.camp12@outlook.com'
+                                    name: 'Mari Marin',
+                                    email: 'marinmari496@gmail.com'
                                 }),
                             })
                             .then(response => response.json())

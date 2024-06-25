@@ -234,7 +234,7 @@ app.use("/agregarPaso", function(pet, rest){
         }
     });
 });
-// pendiente de postman.
+// pendiente de thunder.
 //Back-end para agregar nuevos usuarios.
 app.use("/agregarUsuario", function(pet, rest){
     //Conectamos con el front para recibir los valores del formulario.
@@ -252,7 +252,6 @@ app.use("/agregarUsuario", function(pet, rest){
     });
 });
 
-// Queda pendiente recibir los datos del front y realizar el codigo para enviar el correo.
 //Back-end de enviar correo.
 // Llamamos el archivo mailer.js para saber los datos de quien envia el correo.
 app.use("/enviarCorreo", async function(req, res){
@@ -260,7 +259,7 @@ app.use("/enviarCorreo", async function(req, res){
     const {name, email} = req.body;
     try{
         await transporter.sendMail({
-            from: '"Aplicaiones POS" <gc786041@gmail.com>',
+            from: '"Aplicaiones POS" <aplicacionespos@chedraui.com.mx>',
             to: email, // Usamos el correo que recibimos.
             subject: `Correo de prueba para ${name}`, // Usamos el nombre que recibimos.
             html: `
