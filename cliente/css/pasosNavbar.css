@@ -82,8 +82,8 @@
     border:2rem;
     width: 95% !important;
     height: 200px;
-    text-align: center;
     margin-top: 40px;
+    text-align: left;
 }
 /* Icono de el boton de editar. */
 .imgEditar{

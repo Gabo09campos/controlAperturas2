@@ -86,7 +86,7 @@
     border:2rem;
     width: 95%;
     height: 200px;
-    text-align: center;
+    text-align: left;
     margin-top: 40px;
 }
 /* Boton que esta en js y es el enlace hacia los pasos de cada tienda. */

@@ -7,17 +7,14 @@ const bcrypt = require('bcrypt');
 const { log } = require("node:console");
 const os = require("os");
 const userInfo = os.userInfo;
-const transporter = require("./mailer.js").transporter;
+const nodemailer = require('nodemailer'); // Para poder enviar correos.
 
 app.use(express.json());
 app.use(express.static("./cliente"));
 /** 
- * requerimos a express y creamos un servodor con http.
+ * requerimos a express y creamos un servidor con http.
  * creamos una constante para la aplicacion de express donde express es un servidor web http.
  * creamos una funcion de peticion(pet) y respuesta(rest).
-*/
-
-/**
  * app es una aplicacion de express, use es una funcion de la aplicacion(app).
  * esta funcion le dice a la aplicacion de express que use o cree una nueva ruta que seria la cadena en el primer parametro, en este caso "/usuarios", cuando llegue una peticion http a la ruta usuarios va a correr la funcion en el segundo parametro de la funcion use.
 */
@@ -253,29 +250,38 @@ app.use("/agregarUsuario", function(pet, rest){
 });
 
 //Back-end de enviar correo.
-// Llamamos el archivo mailer.js para saber los datos de quien envia el correo.
 app.use("/enviarCorreo", async function(req, res){
     // Extraemos los datos que recibimos desde el front.
     const {name, email} = req.body;
-    try{
-        await transporter.sendMail({
-            from: '"Aplicaiones POS" <aplicacionespos@chedraui.com.mx>',
-            to: email, // Usamos el correo que recibimos.
-            subject: `Correo de prueba para ${name}`, // Usamos el nombre que recibimos.
-            html: `
-            <b>El departamento del paso anterior ya ha finalizado su parte del trabajo.</b>
-            `
-        });
-    } catch(error){
-        emailStatus = error;
-        return res.status(400).json({ message: 'Algo ha salido mal', error});
-    }
+    // Ponemos los datos para poder enviar el correo.
+    const transporter = nodemailer.createTransport({
+        host: 'relay.chedraui.com.mx', // Dirección IP del servidor de correo.
+        port: 25, // Puerto por defecto para SMTP.
+        secure: false, // Desactivamos la seguridad. 
+    });
+    transporter.verify().then(() => {
+        console.log('Ready for send email');
+        try{
+             transporter.sendMail({
+                from: '"Aplicaciones POS" <aplicacionespos@chedraui.com.mx>',
+                to: email, // Usamos el correo que recibimos.
+                subject: `Correo de prueba para ${name}`, // Usamos el nombre que recibimos.
+                html: `
+                <b>El departamento del paso anterior ya ha finalizado su parte del trabajo.</b>
+                `
+            });
+            res.status(200).json({ message: 'Correo enviado exitosamente' }); // Respuesta de exito.
+        } catch(error){
+            emailStatus = error;
+            return res.status(400).json({ message: 'Algo ha salido mal', error});
+        }
+    });
 });
 
 /**
  * creamos un servidor http de node.js para acelerar el funcionanmiento.
  * le decimos el puerto en donde estara.
- * creamos una function que nos muestre en consola si saliio bien.
+ * creamos una function que nos muestre en consola si salio bien.
 */
 let servidor = http.createServer(app);
 servidor.listen(3004, function(){
