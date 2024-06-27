@@ -34,7 +34,7 @@ fetch("http://localhost:3004/usuarios")
 
         let Departamento = document.createElement('td');
         Departamento.innerHTML = usuario.Departamento;
-        row.appendChild(Departamento);
+        row.appendChild(Departamento); 
 
         let Contrasena = document.createElement('td');
         Contrasena.innerHTML = usuario.Contrasena;

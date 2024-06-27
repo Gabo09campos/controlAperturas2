@@ -231,7 +231,7 @@ app.use("/agregarPaso", function(pet, rest){
         }
     });
 });
-// pendiente de thunder.
+
 //Back-end para agregar nuevos usuarios.
 app.use("/agregarUsuario", function(pet, rest){
     //Conectamos con el front para recibir los valores del formulario.

@@ -1,3 +1,4 @@
+// Estos son los pasos que se muestran al dar click al boton de "ver paso finalizados" en la lista de tiendas.
 //Obtenemos la tabla de el HTML a travez de su id para poder mandarle los datos.
 let pasos = document.getElementById("pasosApertura");
 let estadoBotones = []; // Creamos un objeto para almacenar los botones que ya fueron completados.
