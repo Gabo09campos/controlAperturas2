@@ -29,7 +29,7 @@ fetch("http://localhost:3004/tiendas")
         let Fecha_apertura = document.createElement('td');
         Fecha_apertura.innerHTML = tienda.Fecha_apertura;
         row.appendChild(Fecha_apertura);
-        // Creamos los botones para editar, eliminar y pasos finalizados de las tiendas.
+        // Creamos los botones para editar y pasos finalizados de las tiendas.
         // Con 'abbr' ponemos texto emergente a los botones.
         let opciones = document.createElement('td');
         opciones.innerHTML = `

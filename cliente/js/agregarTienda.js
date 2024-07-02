@@ -9,8 +9,8 @@ const botonCancelar = document.getElementById("btnCancelar");
 const pasosFinalizados = []; // Creamos un objeto que enviaremos vacio a la BD para posterior llenarlo con los pasos de apertura.
 let mensaje = "";
 /**
-     * A travez del form estaremos escuchando todo lo que sucede en el login con el "addEventListener" (linea 25).
-     * Con el "preventDefault" evitamos que se envie el formulario al dar clic al boton sin antes obtener lo datos (linea 26).
+     * A travez del form estaremos escuchando todo lo que sucede en el login con el "addEventListener" (linea 20).
+     * Con el "preventDefault" evitamos que se envie el formulario al dar clic al boton sin antes obtener lo datos (linea 23).
      * Creamos una variable "warnings" para mandar el mensaje de input no valido.
      * Agregamos un booleano para saber si se mostrara el mensaje de warning o no.
      * Finalmente redirigimos hacia una nueva pantalla despues de dar clic al boton y haber validado que todo este correcto esto con "href".
@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function() {
             let warnings = "";
             let entrar = true;
             if(numeroTienda.value.length < 3 || nombreTienda.value.length < 10 || fPruebas.value.length < 8 || fApertura.value.length < 8 ){
-                warnings += 'Todos los campos deben ser llenados correctamente <br>'
+                warnings += 'Todos los campos deben ser llenados correctamente <br>' 
                 entrar = false;
                 parrafo.innerHTML = warnings;
             }else{

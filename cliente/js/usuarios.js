@@ -73,7 +73,7 @@ fetch("http://localhost:3004/usuarios")
                     <input id="swal-input4" class="swal2-input" value="${usuario.N_empleados}">
                     <input id="swal-input5" class="swal2-input" value="${usuario.T_usuario}">
                     <input id="swal-input6" class="swal2-input" value="${usuario.Departamento}">
-                    <input id="swal-input7" class="swal2-input" value="${usuario.Contrasena}">
+                    <input id="swal-input7" class="swal2-input" value="${usuario.Contrasena}"><br>
                     <input id="swal-input8" class="swal2-input" type="checkbox" value="${usuario.Permiso}" > Permite actualizar
                 `,
                 focusConfirm: false,

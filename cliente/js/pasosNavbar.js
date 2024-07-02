@@ -41,6 +41,59 @@ fetch("http://localhost:3004/pasos")
  
         pasos.appendChild(row);
         /**************************************************************************************************************** */
+        // Código para editar un paso.
+        opciones.querySelector('.btnEditar').addEventListener('click', async function() {
+            // Mostramos un formulario SweetAlert2 con los valores actuales de la tienda.
+            const { value: formValues } = await Swal.fire({
+                title: "Multiple inputs",
+                html: `
+                    <input id="swal-input1" class="swal2-input" value="${apertura.Num_paso}">
+                    <input id="swal-input2" class="swal2-input" value="${apertura.Nom_apertura}">
+                    <input id="swal-input3" class="swal2-input" value="${apertura.Departamento_responsble}">
+                    <input id="swal-input4" class="swal2-input" value="${apertura.Usuario}">
+                `,
+                focusConfirm: false,
+                preConfirm: () => {
+                    // Recogemos los valores del formulario.
+                    return [
+                        document.getElementById("swal-input1").value,
+                        document.getElementById("swal-input2").value,
+                        document.getElementById("swal-input3").value,
+                        document.getElementById("swal-input4").value
+                    ];
+                }
+            });
+            // Si el usuario confirmó el formulario...
+            if (formValues) {
+                // Desestructuramos los valores del formulario.
+                const [nuevoNumeroPaso, nuevoNombrePaso, nuevoDepartamentoResponsable, nuevoUsuario] = formValues;
+                // Creamos un objeto con los nuevos datos de la tienda.
+                const myDataObject = {
+                    Num_paso: nuevoNumeroPaso,
+                    Nom_apertura: nuevoNombrePaso,
+                    Departamento_responsble: nuevoDepartamentoResponsable,
+                    Usuario: nuevoUsuario
+                }
+                console.log(apertura.Id_agregar);
+                // Hacemos una petición PUT para actualizar la tienda en el servidor.
+                fetch(`http://localhost:3004/editarPaso/${apertura.Id_agregar}`, { 
+                    method: 'PUT',
+                    headers: {
+                        'Content-type': 'application/json'
+                    },
+                    body: JSON.stringify(myDataObject)
+                })
+                .then(response => response.json())
+                .then(() => {
+                    // Finalmente actualiza los datos en la tabla.
+                    Num_paso.innerHTML = nuevoNumeroPaso;
+                    Nom_apertura.innerHTML = nuevoNombrePaso;
+                    Departamento_responsable.innerHTML = nuevoDepartamentoResponsable;
+                    Usuario.innerHTML = nuevoUsuario;
+                })
+                .catch(error => console.error('error:', error));
+            }
+        });
         // Funcion para buscar pasos por su nombre.
         document.addEventListener("keyup", e => {
             // Verifica si el evento se originó en el elemento con el ID "inputBuscar".
