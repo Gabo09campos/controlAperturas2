@@ -129,14 +129,10 @@ app.put("/editarTienda/:id", function(req, res){
     }); 
 });
 
-//Back-end para editar un paso.
+//Back-end para editar pasos de las tiendas control aperturas.
 app.put("/editarPaso/:id", function(req, res){
-    // Aquí es donde actualizamos los datos del paso en la base de datos.
-    // Utilizaríamos req.params.id para obtener el ID del paso a actualizar.
-    // Utilizaríamos req.body para obtener los nuevos datos del paso.
     conexion.query("UPDATE pasosconsecutivos SET Num_paso = ?, Nom_apertura = ?, Departamento_responsble = ?, Usuario = ? WHERE Id_agregar = ?", [req.body.Num_paso,  req.body.Nom_apertura, req.body.Departamento_responsble, req.body.Usuario, req.params.id], function(err, resultado){
         if(res){
-            // Envía una respuesta al cliente para indicar que la tienda fue actualizada exitosamente.
             res.status(200).send({message: 'Tienda actualizada exitosamente'});
             //conexion.end();
         }else{
