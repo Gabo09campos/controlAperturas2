@@ -176,9 +176,9 @@ app.post("/borrarUsuario/:id", function(req, res){
 
 //Back-end para editar un usuario de la lista de aperturas.
 app.put("/editarUsuario/:id", function(req, res){
-    // Aquí es donde actualizamos los datos de la tienda en la base de datos.
-    // Utilizaríamos req.params.id para obtener el ID de la tienda a actualizar.
-    // Utilizaríamos req.body para obtener los nuevos datos de la tienda.
+    // Aquí es donde actualizamos los datos del usuario en la base de datos.
+    // Utilizaríamos req.params.id para obtener el ID del usuario a actualizar.
+    // Utilizaríamos req.body para obtener los nuevos datos del usuario.
     conexion.query("UPDATE usuarios SET Nombre = ?, Apellidos = ?, Correo_electrónico = ?, N_empleados = ?, T_usuario = ?, Departamento = ?, Contrasena = ?, Permiso = ? WHERE id = ?", [req.body.Nombre,  req.body.Apellidos, req.body.Correo_electrónico, req.body.N_empleados, req.body.T_usuario, req.body.Departamento, req.body.Contrasena, req.body.Permiso, req.params.id], function(err, resultado){
         if(res){
             // Envía una respuesta al cliente para indicar que el usuario fue actualizado exitosamente.
