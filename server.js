@@ -302,10 +302,14 @@ servidor.listen(3004, function(){
 });
 */
 
-const port = process.env.PORT || 3000; // Usa el puerto proporcionado por Heroku o 3000 si se ejecuta localmente.
+const http = require('http');
+const app = require('./app'); // Importa tu aplicación Express u otra configuración de servidor
+
+const port = process.env.PORT || 3000; // Usa el puerto proporcionado por Heroku o 3000 si se ejecuta localmente
 
 const server = http.createServer(app);
 
 server.listen(port, () => {
     console.log(`Servidor escuchando en el puerto ${port}`);
 });
+
