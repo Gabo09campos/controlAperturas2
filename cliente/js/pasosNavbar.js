@@ -2,7 +2,7 @@
 //Obtenemos la tabla de el HTML a travez de su id para poder mandarle los datos.
 let pasos = document.getElementById("pasosApertura");
 // Realiza una solicitud GET a la API para obtener todos los pasos.
-fetch("http://localhost:3004/pasos")
+fetch("pasos")
 .then(rest => rest.json()) // Convierte la respuesta en un objeto JSON.
 .then(rest => {
     // Ordena el array 'rest' según el número de paso.

@@ -10,7 +10,7 @@ let permisos = localStorage.getItem('PUU'); // Traemos los valores de si tiene o
  * Con .then recibimos la respuesta de la base de datos y con el json lo interpreta a una manera legible para el usuario.
  * En el forEach creamos una variable "tienda" y le indicamos que si encuentra algun registro nuevo se incremente la tabla con el appendChild.
 */
-fetch("http://localhost:3004/pasos")
+fetch("pasos")
 .then(rest => rest.json())
 .then(rest => {
     // Ordena el array 'rest' según el número de paso
@@ -73,7 +73,7 @@ fetch("http://localhost:3004/pasos")
                                 // Filtramos y eliminamos todos los valores que no sean booleano.
                                 let nuevoEstado = estadoBotones.filter(value => value !== null && value !== "null" && value !== undefined && value !== "" && (value === 0 || value === 1));
                                 // Enviar el estado de los botones a la base de datos.
-                                fetch('http://localhost:3004/agregarPasoFinzalizado', {
+                                fetch('agregarPasoFinzalizado', {
                                     method: 'POST',
                                     headers: {
                                         'Content-Type': 'application/json',

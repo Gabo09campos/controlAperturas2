@@ -5,7 +5,7 @@ const usuarios = document.getElementById("usuariosLista");
  * Con .then recibimos la respuesta de la base de datos y con el json lo interpreta a una manera legible para el usuario.
  * En el forEach creamos una variable "tienda" y le indicamos que si encuentra algun registro nuevo se incremente la tabla con el appendChild.
  */
-fetch("http://localhost:3004/usuarios")
+fetch("usuarios")
 .then(rest => rest.json())
 .then(rest => {
     rest.forEach(usuario => {

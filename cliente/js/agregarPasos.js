@@ -12,7 +12,7 @@ let mensaje = "";
 */
 // Dropdown de departamento responsable del paso.
 document.addEventListener('DOMContentLoaded', (event) => {
-    fetch("http://localhost:3004/departamentos")
+    fetch("departamentos")
     .then(rest => rest.json())
     .then(rest => {
         let selectDep = document.getElementById('myDropdownDep'); // Menú desplegable de departamentos.
@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 parrafo.innerHTML = warning;
             }else{
                 // Llamamos a todos los pasos de la API con una solicitud GET.
-                fetch("http://localhost:3004/pasos")
+                fetch("pasos")
                 .then(rest => rest.json()) // Convertimos la respuesta en un objeto JSON.
                 .then( rest => {
                     // Verificamos si ya existen pasos en la base de datos.
@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             if(paso >= nuevo){
                                 paso++; // ...Se le incrementara 1.
                                 // El id debe ser el mismo que recibe el back y que esta en la base de datos.
-                                return fetch(`http://localhost:3004/actualizarPaso/${apertura.Id_agregar}`,
+                                return fetch(`actualizarPaso/${apertura.Id_agregar}`,
                                 {
                                     method: 'PUT',
                                     headers: {

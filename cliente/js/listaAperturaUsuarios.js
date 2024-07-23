@@ -1,7 +1,7 @@
 // Llamamos a la vista de tinedas de usuarios con su id.
 const tiendas = document.getElementById("tiendasUsuarios");
 //Usamos el mismo Back que con el administrador, solo que quitamos funciones de los administradores.
-fetch("http://localhost:3004/tiendas")
+fetch("tiendas")
 .then(rest => rest.json())
 .then(rest => {
     rest.forEach(tienda => {

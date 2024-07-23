@@ -7,7 +7,7 @@ const tiendas = document.getElementById("tiendasLista");
  */
 // variable o arreglo para guardar los paso por cada tienda.
 let pasosFinalizados = [];
-fetch("http://localhost:3004/tiendas")
+fetch("tiendas")
 .then(rest => rest.json())
 .then(rest => {
     rest.forEach(tienda => {
