@@ -295,8 +295,17 @@ app.use("/enviarCorreo", async function(req, res){
  * creamos un servidor http de node.js para acelerar el funcionanmiento.
  * le decimos el puerto en donde estara.
  * creamos una function que nos muestre en consola si salio bien.
-*/
+
 let servidor = http.createServer(app);
 servidor.listen(3004, function(){
     console.log("Te estoy escuchando");
+});
+*/
+
+const port = process.env.PORT || 3000; // Usa el puerto proporcionado por Heroku o 3000 si se ejecuta localmente.
+
+const server = http.createServer(app);
+
+server.listen(port, () => {
+    console.log(`Servidor escuchando en el puerto ${port}`);
 });
