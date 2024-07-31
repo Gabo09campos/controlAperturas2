@@ -81,8 +81,8 @@ fetch("pasos")
                                 },
                                 body: JSON.stringify({
                                     // Enviamos los datos que se requieren en el servidor para enviar el correo.
-                                    name: 'Brandon',
-                                    email: 'bluna@chedraui.com.mx' // Unicamente se puede enviar correos al dominio de chedraui.
+                                    name: 'Mari',
+                                    email: 'marinmari496@gmal.com' // Unicamente se puede enviar correos al dominio de chedraui.
                                 }),
                             })
                             .then(response => response.json())

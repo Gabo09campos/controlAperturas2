@@ -17,7 +17,6 @@ const conexion = baseDatos.createConnection({
 module.exports = conexion; 
 
 /* Se realiza una comproblacion para saber si la conexion es correcta.
-/**
  * dentro del metodo utilizamos una funcion para comprobar si existe o no error para la conexion a la base de datos.
  * Con un condicional comprobamos si existe un error, que nos arroje los resultados de el error, si no un mensaje positivo.
 */

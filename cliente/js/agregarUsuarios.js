@@ -13,7 +13,7 @@ const botonCancelar = document.getElementById("btnCancelar");
 let mensaje = "";
 // Dropdown de departamento responsable del usuario.
 document.addEventListener('DOMContentLoaded', (event) => {
-    fetch("http://localhost:3004/departamentos")
+    fetch("departamentos")
     .then(rest => rest.json())
     .then(rest => {
         let selectDep = document.getElementById('myDropdownDep'); // Menú desplegable de departamentos.

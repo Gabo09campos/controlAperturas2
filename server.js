@@ -133,7 +133,7 @@ app.put("/editarTienda/:id", function(req, res){
 app.put("/editarPaso/:id", function(req, res){
     conexion.query("UPDATE pasosconsecutivos SET Num_paso = ?, Nom_apertura = ?, Departamento_responsble = ?, Usuario = ? WHERE Id_agregar = ?", [req.body.Num_paso,  req.body.Nom_apertura, req.body.Departamento_responsble, req.body.Usuario, req.params.id], function(err, resultado){
         if(res){
-            res.status(200).send({message: 'Tienda actualizada exitosamente'});
+            res.status(200).send({message: 'Paso actualizado exitosamente'});
             //conexion.end();
         }else{
             console.log(err)
@@ -268,9 +268,14 @@ app.use("/enviarCorreo", async function(req, res){
     const {name, email} = req.body;
     // Ponemos los datos para poder enviar el correo.
     const transporter = nodemailer.createTransport({
-        host: 'relay.chedraui.com.mx', // Dirección IP del servidor de correo.
-        port: 25, // Puerto por defecto para SMTP.
-        secure: false, // Desactivamos la seguridad. 
+        host: 'smtp.gmail.com', // Dirección IP del servidor de correo.
+        port: 465, // Puerto por defecto para SMTP.
+        secure: true, // Desactivamos la seguridad. 
+        auth: {
+            user: 'aplicacionespos', // Usuario del servidor de correo
+            user: 'gc786041@gmail.com', // Usuario del servidor de correo
+            pass: 'mlct nhnq effw axmm' // Contraseña del usuario
+          },
     });
     transporter.verify().then(() => {
         console.log('Ready for send email');
