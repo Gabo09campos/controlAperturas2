@@ -107,7 +107,7 @@ fetch("usuarios")
                     Permiso: nuevoPermiso
                 }
                 // Hacemos una petición PUT para actualizar el usuario en el servidor.
-                fetch(`http://localhost:3004/editarUsuario/${usuario.id}`, { 
+                fetch(`editarUsuario/${usuario.id}`, { 
                     method: 'PUT',
                     headers: {
                         'Content-type': 'application/json'
@@ -156,7 +156,7 @@ fetch("usuarios")
                         text: "El usuario ha sido eliminado.",
                         icon: "success"
                     });
-                    fetch(`http://localhost:3004/borrarUsuario/${usuario.id}`,
+                    fetch(`borrarUsuario/${usuario.id}`,
                     { 
                         method: 'POST',
                             headers: {

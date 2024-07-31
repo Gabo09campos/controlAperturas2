@@ -76,7 +76,7 @@ fetch("pasos")
                 }
                 console.log(apertura.Id_agregar);
                 // Hacemos una petición PUT para actualizar la tienda en el servidor.
-                fetch(`http://localhost:3004/editarPaso/${apertura.Id_agregar}`, { 
+                fetch(`editarPaso/${apertura.Id_agregar}`, { 
                     method: 'PUT',
                     headers: {
                         'Content-type': 'application/json'

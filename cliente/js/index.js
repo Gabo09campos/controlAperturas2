@@ -82,7 +82,7 @@ fetch("tiendas")
                     Fecha_apertura: nuevaFechaApertura
                 }
                 // Hacemos una petición PUT para actualizar la tienda en el servidor.
-                fetch(`http://localhost:3004/editarTienda/${tienda.id}`, { 
+                fetch(`editarTienda/${tienda.id}`, { 
                     method: 'PUT',
                     headers: {
                         'Content-type': 'application/json'
