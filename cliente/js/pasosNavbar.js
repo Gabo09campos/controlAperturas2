@@ -45,7 +45,7 @@ fetch("pasos")
         opciones.querySelector('.btnEditar').addEventListener('click', async function() {
             // Mostramos un formulario SweetAlert2 con los valores actuales de la tienda.
             const { value: formValues } = await Swal.fire({
-                title: "Multiple inputs",
+                title: "Editar paso",
                 html: `
                     <input id="swal-input1" class="swal2-input" value="${apertura.Num_paso}">
                     <input id="swal-input2" class="swal2-input" value="${apertura.Nom_apertura}">

@@ -65,7 +65,7 @@ fetch("usuarios")
         opciones.querySelector('.btnEditar').addEventListener('click', async function() {
             // Mostramos un formulario SweetAlert2 con los valores actuales del usuario.
             const { value: formValues } = await Swal.fire({
-                title: "Multiple inputs",
+                title: "Editar usuario",
                 html: `
                     <input id="swal-input1" class="swal2-input" value="${usuario.Nombre}">
                     <input id="swal-input2" class="swal2-input" value="${usuario.Apellidos}">

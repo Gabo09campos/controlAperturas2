@@ -52,7 +52,7 @@ fetch("tiendas")
         opciones.querySelector('.btnEditar').addEventListener('click', async function() {
             // Mostramos un formulario SweetAlert2 con los valores actuales de la tienda.
             const { value: formValues } = await Swal.fire({
-                title: "Multiple inputs",
+                title: "Editar tienda",
                 html: `
                     <input id="swal-input1" class="swal2-input" value="${tienda.N_tienda}">
                     <input id="swal-input2" class="swal2-input" value="${tienda.Nom_tienda}">
@@ -101,7 +101,6 @@ fetch("tiendas")
                 .catch(error => console.error('error:', error));
             }
         });
-
         // Al hacer click al boton de la tienda te redirige a los pasos marcando en especifico el paso en el que va.
         opciones.querySelector('.btnPasos').addEventListener('click', function() {
             // Traemos el id de la tienda y el objeto de los pasos de este id.
