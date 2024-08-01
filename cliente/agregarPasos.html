@@ -14,15 +14,15 @@
         </div>
         <div class="inputAgregar">
             <!-- Nombre del paso a agregar -->
-            <input type="text" placeholder="Nombre de apertura" id="nombrePaso" required>
+            <input type="text" placeholder="Nombre de apertura" id="nombrePaso" maxlength="45" required>
             <!-- Seleccion del departamento responsable -->  
             <select name="choice" class="btnDep" id="myDropdownDep" required>
                 <option value="" selected="selected">Departamento responsable</option>
             </select>
             <!-- Seleccion del usuario -->
-            <input type="text" placeholder="Nombre de usuario" id="nombreUsuario" required>
+            <input type="text" placeholder="Nombre de usuario" id="nombreUsuario" maxlength="45" required>
             <!-- Selecciona el numero del nuevo paso -->
-            <input type="number" placeholder="Numero de paso" id="posicion" min="0" required>
+            <input type="number" placeholder="Numero de paso" id="posicion" min="0" max="5" required>
             <!-- Mensaje de error -->
             <p class="warnings" id="warnings"></p>
             <!-- Botones -->
