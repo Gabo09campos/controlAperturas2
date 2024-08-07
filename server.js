@@ -249,6 +249,18 @@ app.use("/agregarPaso", function(pet, rest){
 app.use("/agregarUsuario", function(pet, rest){
     //Conectamos con el front para recibir los valores del formulario.
     const {Nombre, Apellidos, Correo_electrónico, N_empleados, T_usuario, Departamento, Contrasena, Permiso} = pet.body
+    /**************************************/
+    // Encriptando la contraseña, pero aun no se guarada en la base de datos.
+    const saltRounds = 10;
+    
+    bcrypt.hash(Contrasena, saltRounds, (err, hash) => {
+    if (err) {
+        console.error(err);
+        return;
+    }
+
+    console.log(`Contraseña cifrada: ${hash}`);
+    }); 
     // Insertamos los datos del formulario a la base de datos.
     const consultaSql = `INSERT INTO usuarios (Nombre, Apellidos, Correo_electrónico, N_empleados, T_usuario, Departamento, Contrasena, Permiso) VALUES (?, ?, ?, ?, ?, ?, ?, ?) `;
     conexion.query(consultaSql, [Nombre, Apellidos, Correo_electrónico, N_empleados, T_usuario, Departamento, Contrasena, Permiso], function(err, resultado){
