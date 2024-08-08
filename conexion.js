@@ -6,10 +6,10 @@ const baseDatos = require("mysql");
     (host=nombre de base de datos, database=nombre de la base de datos, user=nombre de usuario, password).
 */
 const conexion = baseDatos.createConnection({
-    host: "us-cluster-east-01.k8s.cleardb.net",
-    database: "heroku_e9ec0d785746c90",
-    user: "b74b53a5e76437",
-    password: "687f82c3"
+    host: "localhost",
+    database: "controlapertras",
+    user: "root",
+    password: ""
 });
 /**
  * exportamos la conexion para que pueda ser requerida en otras hojas.

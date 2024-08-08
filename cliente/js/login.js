@@ -33,6 +33,7 @@ form.addEventListener("submit", e => {
                 contrasena: contra.value
         })
         .then(resultado => {
+            console.log(resultado);
             //Obtenemos el resultado del back si existe coincidencia con los datos ingresados en el formulario.
             if(resultado.data.error){
                 console.log(resultado.data.error);

@@ -35,6 +35,65 @@ app.use("/usuarios", function(pet, rest){
 app.post("/login", (req, res) => {
     //Obtenemos del front los valores del cuerpo.
     let body = req.body;
+    let {usuario, contrasena} = req.body;
+    //Realizamos la consulta a la base de datos para comprobar que el usuario ingresado existe.
+    const consultaSql = `SELECT Nombre, T_usuario, Contrasena, Departamento, Permiso FROM usuarios WHERE Nombre = ? `;
+    conexion.query(consultaSql, [usuario], async (err, resultado) => {  
+        if(err){
+            console.log(err)
+            return res.status(500).json({error: "Hubo un error al realizar la consulta del login"});
+        }
+        // Verificamos que no este vacio el resultado.
+        if(resultado && resultado.length > 0){
+            // Desestructuración de los datos.
+            // Ahora puedes usar las variables Nombre, T_usuario y Contraseña directamente.
+            const [{Nombre, T_usuario, Contrasena: hashedPassword }] = resultado;
+            try{
+                const isMatch = await bcrypt.compare(contrasena, hashedPassword );
+                console.log(hashedPassword);
+                console.log(contrasena);
+                if(isMatch){
+                    console.log('Son iguales las contraseñas :)', isMatch);
+                    //Creamos un token JWT para el usuario.
+                    let token = jwt.sign({
+                        usuario: usuario
+                    }, 'este-es-el-seed', {expiresIn: '120'});
+                    //Enviamos la respuesta, el usuario y el token.
+                    res.json({
+                        ok: true,
+                        usuario: usuario,
+                        token,
+                        resultado
+                    });
+                } else {
+                    // Contraseña incorrecta
+                    res.status(400).json({
+                      ok: false,
+                      err: {
+                        message: 'Usuario o contraseña incorrectos'
+                      }
+                    });
+                    console.log('No son iguales ');
+                }
+            } catch (compareErr) {
+                console.error('Error al comparar contraseñas:', compareErr);
+                return res.status(500).json({ error: 'Error en el proceso de comparación de contraseñas' });
+            }
+        }else{
+            console.log("No se encontro un resultado");
+            return res.status(400).json({
+                ok: false,
+                err: {
+                    message: 'Usuario o contraseña incorrectos'
+                }
+            });
+        } 
+    });
+});
+/**************************************** 
+app.post("/login", (req, res) => {
+    //Obtenemos del front los valores del cuerpo.
+    let body = req.body;
     const {usuario, contrasena} = req.body;
     //Realizamos la consulta a la base de datos para comprobar que el usuario ingresado existe.
     const consultaSql = `SELECT Nombre, T_usuario, Contrasena, Departamento, Permiso FROM usuarios WHERE Nombre = ? AND  Contrasena = ? `;
@@ -69,7 +128,7 @@ app.post("/login", (req, res) => {
             resultado
         });
     });
-});
+});*/
 
 //Back-end index/lista de tiendas por aperturar.
 app.get("/tiendas", function(pet, rest){
@@ -256,21 +315,19 @@ app.use("/agregarUsuario", function(pet, rest){
     bcrypt.hash(Contrasena, saltRounds, (err, hash) => {
     if (err) {
         console.error(err);
-        return;
     }
-
-    console.log(`Contraseña cifrada: ${hash}`);
-    }); 
-    // Insertamos los datos del formulario a la base de datos.
-    const consultaSql = `INSERT INTO usuarios (Nombre, Apellidos, Correo_electrónico, N_empleados, T_usuario, Departamento, Contrasena, Permiso) VALUES (?, ?, ?, ?, ?, ?, ?, ?) `;
-    conexion.query(consultaSql, [Nombre, Apellidos, Correo_electrónico, N_empleados, T_usuario, Departamento, Contrasena, Permiso], function(err, resultado){
-        if(err){
-            console.log(err)
-            rest.status(500).json({error: "Hubo un error al realizar la consulta de la base de datos"});
-        }else{
-            console.log("Datos insertados correctamente");
-            rest.status(200).send({message: 'Usuario agregado exitosamente'});
-        }
+        console.log(`Contraseña cifrada: ${hash}`);
+        // Insertamos los datos del formulario a la base de datos.
+        const consultaSql = `INSERT INTO usuarios (Nombre, Apellidos, Correo_electrónico, N_empleados, T_usuario, Departamento, Contrasena, Permiso) VALUES (?, ?, ?, ?, ?, ?, ?, ?) `;
+        conexion.query(consultaSql, [Nombre, Apellidos, Correo_electrónico, N_empleados, T_usuario, Departamento, hash, Permiso], function(err, resultado){
+            if(err){
+                console.log(err)
+                rest.status(500).json({error: "Hubo un error al realizar la consulta de la base de datos"});
+            }else{
+                console.log("Datos insertados correctamente");
+                rest.status(200).send({message: 'Usuario agregado exitosamente'});
+            }
+        });
     });
 });
 
