@@ -3,7 +3,7 @@ const http = require("node:http");
 const conexion = require("./conexion.js");
 const jwt = require('jsonwebtoken');
 const app = express();
-const bcrypt = require('bcrypt');
+const CryptoJS = require('crypto-js');
 const { log } = require("node:console");
 const os = require("os");
 const userInfo = os.userInfo;
@@ -31,7 +31,7 @@ app.use("/usuarios", function(pet, rest){
     }); 
 });
 
-// Back-end de login.
+/* Back-end de login.
 app.post("/login", (req, res) => {
     //Obtenemos del front los valores del cuerpo.
     let body = req.body;
@@ -49,9 +49,10 @@ app.post("/login", (req, res) => {
             // Ahora puedes usar las variables Nombre, T_usuario y Contraseña directamente.
             const [{Nombre, T_usuario, Contrasena: hashedPassword }] = resultado;
             try{
-                const isMatch = await bcrypt.compare(contrasena, hashedPassword );
+                const cleanedContrasena = contrasena.trim();
+                const isMatch = await bcrypt.compare(cleanedContrasena, hashedPassword );
                 console.log(hashedPassword);
-                console.log(contrasena);
+                console.log(cleanedContrasena);
                 if(isMatch){
                     console.log('Son iguales las contraseñas :)', isMatch);
                     //Creamos un token JWT para el usuario.
@@ -90,7 +91,65 @@ app.post("/login", (req, res) => {
         } 
     });
 });
-/**************************************** 
+*/
+app.post("/login", (req, res) => {
+    // Obtenemos del front los valores del cuerpo.
+    let { usuario, contrasena } = req.body;
+
+    // Realizamos la consulta a la base de datos para comprobar que el usuario ingresado existe.
+    const consultaSql = `SELECT Nombre, T_usuario, Contrasena, Departamento, Permiso FROM usuarios WHERE Nombre = ?`;
+    conexion.query(consultaSql, [usuario], (err, resultado) => {  
+        if (err) {
+            console.log(err);
+            return res.status(500).json({ error: "Hubo un error al realizar la consulta del login" });
+        }
+        
+        // Verificamos que no esté vacío el resultado.
+        if (resultado && resultado.length > 0) {
+            // Desestructuración de los datos.
+            const [{ Nombre, T_usuario, Contrasena: encryptedMessage }] = resultado;
+            console.log(encryptedMessage);
+            // Desencriptamos la contraseña almacenada en la base de datos
+            const key = 'ClaveSecreta123';
+            const decryptedMessage = CryptoJS.AES.decrypt(encryptedMessage, key).toString(CryptoJS.enc.Utf8);
+            console.log('si se pudo', decryptedMessage); // 'Hello, world!'
+            
+            // Comparamos la contraseña ingresada con la desencriptada
+            if (decryptedMessage === contrasena) {
+                // Creamos un token JWT para el usuario.
+                let token = jwt.sign({
+                    usuario: usuario
+                }, 'este-es-el-seed', { expiresIn: '120m' });
+
+                // Enviamos la respuesta, el usuario y el token.
+                res.json({
+                    ok: true,
+                    usuario: usuario,
+                    token,
+                    resultado
+                });
+            } else {
+                console.log("Contraseña incorrecta");
+                return res.status(400).json({
+                    ok: false,
+                    err: {
+                        message: 'Usuario o contraseña incorrectos'
+                    }
+                });
+            }
+        } else {
+            console.log("No se encontró un resultado");
+            return res.status(400).json({
+                ok: false,
+                err: {
+                    message: 'Usuario o contraseña incorrectos'
+                }
+            });
+        }
+    });
+});
+
+/*************************************** 
 app.post("/login", (req, res) => {
     //Obtenemos del front los valores del cuerpo.
     let body = req.body;
@@ -128,8 +187,8 @@ app.post("/login", (req, res) => {
             resultado
         });
     });
-});*/
-
+});
+*/
 //Back-end index/lista de tiendas por aperturar.
 app.get("/tiendas", function(pet, rest){
     //Hacemos la consulta a la base de datos de las tiendas existentes.
@@ -309,25 +368,23 @@ app.use("/agregarUsuario", function(pet, rest){
     //Conectamos con el front para recibir los valores del formulario.
     const {Nombre, Apellidos, Correo_electrónico, N_empleados, T_usuario, Departamento, Contrasena, Permiso} = pet.body
     /**************************************/
-    // Encriptando la contraseña, pero aun no se guarada en la base de datos.
-    const saltRounds = 10;
-    
-    bcrypt.hash(Contrasena, saltRounds, (err, hash) => {
-    if (err) {
-        console.error(err);
-    }
-        console.log(`Contraseña cifrada: ${hash}`);
-        // Insertamos los datos del formulario a la base de datos.
-        const consultaSql = `INSERT INTO usuarios (Nombre, Apellidos, Correo_electrónico, N_empleados, T_usuario, Departamento, Contrasena, Permiso) VALUES (?, ?, ?, ?, ?, ?, ?, ?) `;
-        conexion.query(consultaSql, [Nombre, Apellidos, Correo_electrónico, N_empleados, T_usuario, Departamento, hash, Permiso], function(err, resultado){
-            if(err){
-                console.log(err)
-                rest.status(500).json({error: "Hubo un error al realizar la consulta de la base de datos"});
-            }else{
-                console.log("Datos insertados correctamente");
-                rest.status(200).send({message: 'Usuario agregado exitosamente'});
-            }
-        });
+    const mensaje = Contrasena;
+    const clave = "ClaveSecreta123";
+    const iv = CryptoJS.lib.WordArray.random(16);
+    // Ciframos el mensaje utilizando AES con un IV
+    const mensajeCifrado = CryptoJS.AES.encrypt(mensaje, clave, { iv }).toString();
+    console.log(mensajeCifrado); // Imprime el mensaje cifrado en la consola
+/****************************************************************************************** */
+    // Insertamos los datos del formulario a la base de datos.
+    const consultaSql = `INSERT INTO usuarios (Nombre, Apellidos, Correo_electrónico, N_empleados, T_usuario, Departamento, Contrasena, Permiso) VALUES (?, ?, ?, ?, ?, ?, ?, ?) `;
+    conexion.query(consultaSql, [Nombre, Apellidos, Correo_electrónico, N_empleados, T_usuario, Departamento, mensajeCifrado, Permiso], function(err, resultado){
+        if(err){
+            console.log(err)
+            rest.status(500).json({error: "Hubo un error al realizar la consulta de la base de datos"});
+        }else{
+            console.log("Datos insertados correctamente");
+            rest.status(200).send({message: 'Usuario agregado exitosamente'});
+        }
     });
 });
 
