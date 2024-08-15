@@ -1,6 +1,4 @@
 const logout = document.getElementById('btnCerrarSesion').addEventListener('click', cerrarSesion);
-//const titulo = document.getElementById("tituloNav");
-
 //Funcion para cerrar sesion.
 function cerrarSesion() {
     // Eliminar el token y demas datos de localStorage para que al cerrar sesion no se pueda utulzar la pagina.
@@ -31,11 +29,5 @@ window.onload = function() {
     if (!estaLogueado()) {
         // Si el usuario no está logueado, redirigir a la página de inicio de sesión.
         window.location.replace('./login.html');
-    }else{
-        // Si el usuario está logueado, mostrar su nombre en la barra de navegación.
-        //var elementoNavbar = document.getElementById('tituloNav');
-        // Obtenemos el nombre del usuario del almacenamiento local y lo mostramos en el nav.
-        //var nombreUsuario = localStorage.getItem('nombreUsuario'); 
-        //elementoNavbar.innerHTML = nombreUsuario;
     }
 } 

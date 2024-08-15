@@ -1,9 +1,9 @@
 const express = require("express");
 const http = require("node:http");
 const conexion = require("./conexion.js");
+const funciones = require('./funciones/funciones.js'); // Importamos las funciones para encriptar las contraseñas.
 const jwt = require('jsonwebtoken');
 const app = express();
-const CryptoJS = require('crypto-js');
 const { log } = require("node:console");
 const os = require("os");
 const userInfo = os.userInfo;
@@ -21,81 +21,24 @@ app.use(express.static("./cliente"));
 
 //Back-end de usuarios.
 app.use("/usuarios", function(pet, rest){
-    conexion.query("SELECT id, Nombre, Apellidos, Correo_electrónico, N_empleados, T_usuario, Departamento, Contrasena, Permiso FROM usuarios", function(err, resultado){
+    conexion.query("SELECT id, Nombre, Apellidos, Correo_electrónico, N_empleados, T_usuario, Departamento, Permiso FROM usuarios", function(err, resultado){
         if(err){
             console.log(err);
             rest.status(500).json({error: "Hubo un error al realizar la consulta"});
             return;
         }
+        // Con este for convertimos los boleanos de los permisos en string para un mejor entendiminetopara el usuario.
+        for( i=0; i<resultado.length ; i++){
+            resultado[i].Permiso = funciones.convertirBoleean(resultado[i].Permiso);
+        }
         return rest.json(resultado);
     }); 
 });
 
-/* Back-end de login.
-app.post("/login", (req, res) => {
-    //Obtenemos del front los valores del cuerpo.
-    let body = req.body;
-    let {usuario, contrasena} = req.body;
-    //Realizamos la consulta a la base de datos para comprobar que el usuario ingresado existe.
-    const consultaSql = `SELECT Nombre, T_usuario, Contrasena, Departamento, Permiso FROM usuarios WHERE Nombre = ? `;
-    conexion.query(consultaSql, [usuario], async (err, resultado) => {  
-        if(err){
-            console.log(err)
-            return res.status(500).json({error: "Hubo un error al realizar la consulta del login"});
-        }
-        // Verificamos que no este vacio el resultado.
-        if(resultado && resultado.length > 0){
-            // Desestructuración de los datos.
-            // Ahora puedes usar las variables Nombre, T_usuario y Contraseña directamente.
-            const [{Nombre, T_usuario, Contrasena: hashedPassword }] = resultado;
-            try{
-                const cleanedContrasena = contrasena.trim();
-                const isMatch = await bcrypt.compare(cleanedContrasena, hashedPassword );
-                console.log(hashedPassword);
-                console.log(cleanedContrasena);
-                if(isMatch){
-                    console.log('Son iguales las contraseñas :)', isMatch);
-                    //Creamos un token JWT para el usuario.
-                    let token = jwt.sign({
-                        usuario: usuario
-                    }, 'este-es-el-seed', {expiresIn: '120'});
-                    //Enviamos la respuesta, el usuario y el token.
-                    res.json({
-                        ok: true,
-                        usuario: usuario,
-                        token,
-                        resultado
-                    });
-                } else {
-                    // Contraseña incorrecta
-                    res.status(400).json({
-                      ok: false,
-                      err: {
-                        message: 'Usuario o contraseña incorrectos'
-                      }
-                    });
-                    console.log('No son iguales ');
-                }
-            } catch (compareErr) {
-                console.error('Error al comparar contraseñas:', compareErr);
-                return res.status(500).json({ error: 'Error en el proceso de comparación de contraseñas' });
-            }
-        }else{
-            console.log("No se encontro un resultado");
-            return res.status(400).json({
-                ok: false,
-                err: {
-                    message: 'Usuario o contraseña incorrectos'
-                }
-            });
-        } 
-    });
-});
-*/
+// Back-end de login.
 app.post("/login", (req, res) => {
     // Obtenemos del front los valores del cuerpo.
     let { usuario, contrasena } = req.body;
-
     // Realizamos la consulta a la base de datos para comprobar que el usuario ingresado existe.
     const consultaSql = `SELECT Nombre, T_usuario, Contrasena, Departamento, Permiso FROM usuarios WHERE Nombre = ?`;
     conexion.query(consultaSql, [usuario], (err, resultado) => {  
@@ -103,19 +46,14 @@ app.post("/login", (req, res) => {
             console.log(err);
             return res.status(500).json({ error: "Hubo un error al realizar la consulta del login" });
         }
-        
         // Verificamos que no esté vacío el resultado.
         if (resultado && resultado.length > 0) {
             // Desestructuración de los datos.
-            const [{ Nombre, T_usuario, Contrasena: encryptedMessage }] = resultado;
-            console.log(encryptedMessage);
-            // Desencriptamos la contraseña almacenada en la base de datos
-            const key = 'ClaveSecreta123';
-            const decryptedMessage = CryptoJS.AES.decrypt(encryptedMessage, key).toString(CryptoJS.enc.Utf8);
-            console.log('si se pudo', decryptedMessage); // 'Hello, world!'
-            
+            const [{ Nombre, T_usuario, Contrasena }] = resultado;
+            const contralog = funciones.cifrarTexto(contrasena);
+            console.log(contralog);
             // Comparamos la contraseña ingresada con la desencriptada
-            if (decryptedMessage === contrasena) {
+            if (contralog === resultado[0].Contrasena) {
                 // Creamos un token JWT para el usuario.
                 let token = jwt.sign({
                     usuario: usuario
@@ -149,46 +87,6 @@ app.post("/login", (req, res) => {
     });
 });
 
-/*************************************** 
-app.post("/login", (req, res) => {
-    //Obtenemos del front los valores del cuerpo.
-    let body = req.body;
-    const {usuario, contrasena} = req.body;
-    //Realizamos la consulta a la base de datos para comprobar que el usuario ingresado existe.
-    const consultaSql = `SELECT Nombre, T_usuario, Contrasena, Departamento, Permiso FROM usuarios WHERE Nombre = ? AND  Contrasena = ? `;
-    conexion.query(consultaSql, [usuario, contrasena], function(err, resultado){   
-        if(err){
-            console.log(err)
-            return res.status(500).json({error: "Hubo un error al realizar la consulta del login"});
-        }
-        // Verificamos que no este vacio el resultado.
-        if(resultado && resultado.length > 0){
-            // Desestructuración de los datos.
-            // Ahora puedes usar las variables Nombre, T_usuario y Contraseña directamente.
-            const [{Nombre, T_usuario, Contrasena}] = resultado;
-        }else{
-            console.log("No se encontro un resultado");
-            return res.status(400).json({
-                ok: false,
-                err: {
-                    message: 'Usuario o contraseña incorrectos'
-                }
-            });
-        }
-        //Creamos un token JWT para el usuario.
-        let token = jwt.sign({
-            usuario: usuario
-        }, 'este-es-el-seed', {expiresIn: '120'});
-        //Enviamos la respuesta, el usuario y el token.
-        res.json({
-            ok: true,
-            usuario: usuario,
-            token,
-            resultado
-        });
-    });
-});
-*/
 //Back-end index/lista de tiendas por aperturar.
 app.get("/tiendas", function(pet, rest){
     //Hacemos la consulta a la base de datos de las tiendas existentes.
@@ -297,7 +195,10 @@ app.put("/editarUsuario/:id", function(req, res){
     // Aquí es donde actualizamos los datos del usuario en la base de datos.
     // Utilizaríamos req.params.id para obtener el ID del usuario a actualizar.
     // Utilizaríamos req.body para obtener los nuevos datos del usuario.
-    conexion.query("UPDATE usuarios SET Nombre = ?, Apellidos = ?, Correo_electrónico = ?, N_empleados = ?, T_usuario = ?, Departamento = ?, Contrasena = ?, Permiso = ? WHERE id = ?", [req.body.Nombre,  req.body.Apellidos, req.body.Correo_electrónico, req.body.N_empleados, req.body.T_usuario, req.body.Departamento, req.body.Contrasena, req.body.Permiso, req.params.id], function(err, resultado){
+    // Encriptamos la contraseña para enviarla a la base de datos.
+    const {Nombre, Apellidos, Correo_electrónico, N_empleados, T_usuario, Departamento, Contrasena, Permiso} = req.body
+    const contrasena1 = funciones.cifrarTexto(Contrasena);
+    conexion.query("UPDATE usuarios SET Nombre = ?, Apellidos = ?, Correo_electrónico = ?, N_empleados = ?, T_usuario = ?, Departamento = ?, Contrasena = ?, Permiso = ? WHERE id = ?", [Nombre,  Apellidos, Correo_electrónico,N_empleados, T_usuario, Departamento, contrasena1, Permiso, req.params.id], function(err, resultado){
         if(res){
             // Envía una respuesta al cliente para indicar que el usuario fue actualizado exitosamente.
             res.status(200).send({message: 'Usuario actualizado exitosamente'});
@@ -367,17 +268,11 @@ app.use("/agregarPaso", function(pet, rest){
 app.use("/agregarUsuario", function(pet, rest){
     //Conectamos con el front para recibir los valores del formulario.
     const {Nombre, Apellidos, Correo_electrónico, N_empleados, T_usuario, Departamento, Contrasena, Permiso} = pet.body
-    /**************************************/
-    const mensaje = Contrasena;
-    const clave = "ClaveSecreta123";
-    const iv = CryptoJS.lib.WordArray.random(16);
-    // Ciframos el mensaje utilizando AES con un IV
-    const mensajeCifrado = CryptoJS.AES.encrypt(mensaje, clave, { iv }).toString();
-    console.log(mensajeCifrado); // Imprime el mensaje cifrado en la consola
-/****************************************************************************************** */
+    // Encriptamos la contraseña para enviarla a la base de datos.
+    const contrasena1 = funciones.cifrarTexto(Contrasena);
     // Insertamos los datos del formulario a la base de datos.
     const consultaSql = `INSERT INTO usuarios (Nombre, Apellidos, Correo_electrónico, N_empleados, T_usuario, Departamento, Contrasena, Permiso) VALUES (?, ?, ?, ?, ?, ?, ?, ?) `;
-    conexion.query(consultaSql, [Nombre, Apellidos, Correo_electrónico, N_empleados, T_usuario, Departamento, mensajeCifrado, Permiso], function(err, resultado){
+    conexion.query(consultaSql, [Nombre, Apellidos, Correo_electrónico, N_empleados, T_usuario, Departamento, contrasena1, Permiso], function(err, resultado){
         if(err){
             console.log(err)
             rest.status(500).json({error: "Hubo un error al realizar la consulta de la base de datos"});
@@ -422,21 +317,11 @@ app.use("/enviarCorreo", async function(req, res){
     });
 });
 
-/**
- * creamos un servidor http de node.js para acelerar el funcionanmiento.
- * le decimos el puerto en donde estara.
- * creamos una function que nos muestre en consola si salio bien.
-
-let servidor = http.createServer(app);
-servidor.listen(3004, function(){
-    console.log("Te estoy escuchando");
-});
-*/
-
-const port = process.env.PORT || 3000; // Usa el puerto proporcionado por Heroku o 3000 si se ejecuta localmente
-
+// Usa el puerto proporcionado por Heroku o 3000 si se ejecuta localmente.
+const port = process.env.PORT || 3000;
+// Creamos el servidor.
 const server = http.createServer(app);
-
+// Escuchamos el puerto y nos dice cual es.
 server.listen(port, () => {
     console.log(`Servidor escuchando en el puerto ${port}`);
 });

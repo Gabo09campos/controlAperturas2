@@ -36,10 +36,6 @@ fetch("usuarios")
         Departamento.innerHTML = usuario.Departamento;
         row.appendChild(Departamento); 
 
-        let Contrasena = document.createElement('td');
-        Contrasena.innerHTML = usuario.Contrasena;
-        row.appendChild(Contrasena);
-
         let Permiso = document.createElement('td');
         Permiso.innerHTML = usuario.Permiso;
         row.appendChild(Permiso);
@@ -73,7 +69,7 @@ fetch("usuarios")
                     <input id="swal-input4" class="swal2-input" value="${usuario.N_empleados}">
                     <input id="swal-input5" class="swal2-input" value="${usuario.T_usuario}">
                     <input id="swal-input6" class="swal2-input" value="${usuario.Departamento}">
-                    <input id="swal-input7" class="swal2-input" value="${usuario.Contrasena}"><br>
+                    <input id="swal-input7" class="swal2-input" value="Contraseña"><br>
                     <input id="swal-input8" class="swal2-input" type="checkbox" value="${usuario.Permiso}" > Permite actualizar
                 `,
                 focusConfirm: false,

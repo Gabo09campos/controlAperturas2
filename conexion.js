@@ -1,4 +1,4 @@
-/* Creamos una variable para llamar a la libreria y los metodos necesarios */
+// Creamos una variable para llamar a la libreria y los metodos necesarios 
 const baseDatos = require("mysql");
 /* Creamos otra variable para crear la conexion con la base de datos.
     Utilizando la variable anterior llamamos el metodo de crear la coneccion. 
@@ -11,11 +11,8 @@ const conexion = baseDatos.createConnection({
     user: "root",
     password: ""
 });
-/**
- * exportamos la conexion para que pueda ser requerida en otras hojas.
- */
+// exportamos la conexion para que pueda ser requerida en otras hojas.
 module.exports = conexion; 
-
 /* Se realiza una comproblacion para saber si la conexion es correcta.
  * dentro del metodo utilizamos una funcion para comprobar si existe o no error para la conexion a la base de datos.
  * Con un condicional comprobamos si existe un error, que nos arroje los resultados de el error, si no un mensaje positivo.
@@ -27,8 +24,3 @@ conexion.connect(function(err){
         console.log("conexion exitosa");
     }
 }); 
-
-/**
- * para finalizar la ejecucion de la comprobacion hacemos lo siguiente:
- 
-conexion.end(); */
