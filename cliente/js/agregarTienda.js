@@ -39,9 +39,10 @@ document.addEventListener("DOMContentLoaded", function() {
                     console.log(response.data);
                 })
                 .then((error) => console.log(error));
+                form.reset();
+                window.location.href = './index.html';
             }
-            form.reset();
-            window.location.href = './index.html';
+            
         });
     } else {
         console.log("El elemento 'form' no existe en el DOM");

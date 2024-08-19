@@ -20,7 +20,7 @@ app.use(express.static("./cliente"));
 */
 
 //Back-end de usuarios.
-app.use("/usuarios", function(pet, rest){
+app.use("/usuarios",  function(pet, rest){
     conexion.query("SELECT id, Nombre, Apellidos, Correo_electrónico, N_empleados, T_usuario, Departamento, Permiso FROM usuarios", function(err, resultado){
         if(err){
             console.log(err);

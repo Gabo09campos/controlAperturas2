@@ -12,19 +12,24 @@
             <h1>Agregar usuario</h1> 
         </div>
         <div class="inputAgregar">
+            <label for="">Nombre(s) del usuario</label>
             <input type="text" placeholder="Nombre(s)" maxlength="45" id="nombreUsuario">
+            <label for="">Apellido(s) del usuario</label>
             <input type="text" placeholder="Apellidos" maxlength="50" id="apellidoUsuario">
             <!-- Seleccion del departamento responsable -->  
             <select name="choice" class="btnDep" id="myDropdownDep" required>
                 <option value="" selected="selected">Departamento responsable</option>
             </select>
+            <label for="">Numero de empleado</label>
             <input type="number" placeholder="Numero de empleado" id="numeroUsuario" >
             <!-- Seleccion del tipo de usuario -->  
             <select name="choice" class="btnTipo" id="myDropdownTipo" required>
                 <option value="Administrador" selected="selected">Administrador</option>
                 <option value="Usuario" selected="selected">Usuario</option>
             </select>
+            <label for="">Contraseña del usuario</label>
             <input type="password" placeholder="Contraseña" id="contrasenaUsuario">
+            <label for="">Correo del usuario</label>
             <input type="email" placeholder="Correo" id="correoUsuario">
             <div class="checkdiv">
                 <input type="checkbox" id="permisos" name="choice" value="permisos" class="permisos">
