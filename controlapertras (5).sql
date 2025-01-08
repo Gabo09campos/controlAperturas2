@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-06-2024 a las 21:53:56
+-- Tiempo de generación: 08-01-2025 a las 05:46:17
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.1.25
 
@@ -75,7 +75,8 @@ INSERT INTO `pasosconsecutivos` (`Id_agregar`, `Nom_apertura`, `Departamento_res
 (208, 'Pruebas integrales', 'Direccion TI', 'Gabriel', 13),
 (209, 'Apertura', 'Inmobiliaria', 'Fernando', 14),
 (210, 'prueba de paso 1', 'Direccion TI', 'Gabriel', 3),
-(211, 'prueba de paso 2', 'Ventas', 'Pedro', 5);
+(211, 'prueba de paso 2', 'Ventas', 'Pedro', 5),
+(212, 'apertura final345', 'Inmobiliaria', 'gtyu67', 15);
 
 -- --------------------------------------------------------
 
@@ -101,7 +102,8 @@ INSERT INTO `tiendas` (`id`, `Nom_tienda`, `N_tienda`, `Fecha_prueba`, `Fecha_ap
 (121, 'SUPERCITO LOPEZ MATEOS ATIZAPA', 891, '2024-01-10', '2024-02-14', '[]'),
 (122, 'SUPERCITO VERACRUZ DOS CAMINOS', 219, '2024-03-12', '2024-04-15', '[]'),
 (123, 'SUPERCITO XALAPA REVOLUCION', 893, '2024-06-04', '2024-07-09', '[]'),
-(124, 'SUPERCITO XALAPA CLAVIJERO', 206, '2024-05-09', '2024-05-15', '[]');
+(124, 'SUPERCITO XALAPA CLAVIJERO', 315, '2024-05-09', '2024-08-23', '[]'),
+(125, 'supercito xalapa ver', 613, '2025-01-14', '2025-09-14', '[]');
 
 -- --------------------------------------------------------
 
@@ -117,7 +119,7 @@ CREATE TABLE `usuarios` (
   `N_empleados` int(10) NOT NULL,
   `T_usuario` varchar(30) NOT NULL,
   `Departamento` varchar(30) NOT NULL,
-  `Contrasena` varchar(30) NOT NULL,
+  `Contrasena` varchar(300) NOT NULL,
   `Permiso` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -126,11 +128,11 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `Nombre`, `Apellidos`, `Correo_electrónico`, `N_empleados`, `T_usuario`, `Departamento`, `Contrasena`, `Permiso`) VALUES
-(1, 'Miguel Angel', 'Perez', 'MangelP@chedraui.com', 1023, 'Administrador', 'Direccion TI', '123456789', 1),
+(1, 'Miguel Angel', 'Perez', 'MangelP@chedraui.com', 1023, 'Administrador', 'Direccion TI', 'T3ZvZElZRVNxUWF4eDAvTWpUbFhDUT09', 1),
 (2, 'Gabriel', 'Campos', 'Gabo@chedraui.com', 1045, 'Usuario', 'Direccion TI', '987654321', 0),
 (6, 'Juan', 'Marquez', 'Jmaz@chedraui.com', 1027, 'Usuario', 'Direccion TI', '12345676543', 0),
 (7, 'Pedro', 'Martinez', 'PeMa@chedraui.com', 1028, 'Usuario', 'Ventas', '9876513245', 1),
-(9, 'Fernando', 'Hernandez', 'Fher@chedraui.com', 1429, 'Usuario', 'Cobranza', '13216565e1fw1e', 0),
+(9, 'Fernando', 'Hernandez', 'Fher@chedraui.com', 1429, 'Usuario', 'Cobranza', 'a0U5SWRqUmJNT0Jnd21OKy8rMmFTUT09', 0),
 (11, 'Mari', 'Landa', 'MLanda@chdraui.com', 1032, 'Usuario', 'Ventas', '1jgvuyf67rfvhvj', 1);
 
 --
@@ -175,13 +177,13 @@ ALTER TABLE `departamentos`
 -- AUTO_INCREMENT de la tabla `pasosconsecutivos`
 --
 ALTER TABLE `pasosconsecutivos`
-  MODIFY `Id_agregar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=212;
+  MODIFY `Id_agregar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=213;
 
 --
 -- AUTO_INCREMENT de la tabla `tiendas`
 --
 ALTER TABLE `tiendas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=126;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`

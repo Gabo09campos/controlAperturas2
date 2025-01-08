@@ -37,11 +37,52 @@ document.addEventListener("DOMContentLoaded", function() {
             let warnings = ""; //Creamos una variable "warnings" para mandar el mensaje de input no valido.
             let entrar = true; //Agregamos un booleano para saber si se mostrara el mensaje de warning o no.
             // Validamos que los campos no esten vacios para enviar el form.
-            if(nombreUsuario.value.length < 3 || apellidoUsuario.value.length < 3 || departamentoUsuario.selectedIndex === 0 || numeroUsuario.value.length < 4 || tipoUsuario.selectedIndex === 0 || contrasenaUsuario.value.length < 8 || correoUsuario.value.length < 4){
-                warnings += 'Todos los campos deben ser llenados correctamente <br>'
+            // Expresiones regulares.
+            const regexTexto = /^[a-zA-Z\s]+$/; // Solo letras y espacios.
+            const regexNumero = /^[0-9]+$/; // Solo números.
+            const regexCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Formato de correo electrónico.
+
+            // Validaciones.
+            if (!regexTexto.test(nombreUsuario.value) || nombreUsuario.value.length < 3) {
+                warnings += "El nombre debe contener solo letras y al menos 3 caracteres.<br>";
                 entrar = false;
+            }
+
+            if (!regexTexto.test(apellidoUsuario.value) || apellidoUsuario.value.length < 3) {
+                warnings += "El apellido debe contener solo letras y al menos 3 caracteres.<br>";
+                entrar = false;
+            }
+
+            if (departamentoUsuario.selectedIndex === 0) {
+                warnings += "Debe seleccionar un departamento válido.<br>";
+                entrar = false;
+            }
+
+            if (!regexNumero.test(numeroUsuario.value) || numeroUsuario.value.length < 4) {
+                warnings += "El número de empleado debe contener solo números y tener al menos 4 dígitos.<br>";
+                entrar = false;
+            }
+
+            if (tipoUsuario.selectedIndex === 0) {
+                warnings += "Debe seleccionar un tipo de usuario válido.<br>";
+                entrar = false;
+            }
+
+            if (!regexCorreo.test(correoUsuario.value) || correoUsuario.value.length < 4) {
+                warnings += "El correo debe tener un formato válido (ejemplo@dominio.com).<br>";
+                entrar = false;
+            }
+
+            if (contrasenaUsuario.value.length < 8 || !/[A-Za-z]/.test(contrasenaUsuario.value) || !/[0-9]/.test(contrasenaUsuario.value)) {
+                warnings += "La contraseña debe tener al menos 8 caracteres, incluyendo letras y números.<br>";
+                entrar = false;
+            }
+
+            // Mostrar advertencias si hay errores.
+            if (!entrar) {
                 parrafo.innerHTML = warnings;
-            }else{
+                return;
+            }
                 // Enviamos una solicitud POST  a la API para agregar el nuevo usuario.
                 axios.post("agregarUsuario", {
                     Nombre: nombreUsuario.value,
@@ -59,7 +100,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 .then((error) => console.log(error));  // Manejamos los errores que puedan ocurrir en el codigo.
                 form.reset(); //Utilizamos una funcion "reset" para limpiar el formulario despues de ingresar.
                 window.location.href = './usuarios.html';
-            }
         });
     } else {
         console.log("El elemento 'form' no existe en el DOM");

@@ -1,3 +1,5 @@
+//const { default: Swal } = require("sweetalert2");
+
 //Obtenemos la tabla de el HTML a travez de su id para poder mandarle los datos.
 const tiendas = document.getElementById("tiendasLista");
 /**
@@ -54,20 +56,46 @@ fetch("tiendas")
             const { value: formValues } = await Swal.fire({
                 title: "Editar tienda",
                 html: `
-                    <input id="swal-input1" class="swal2-input" value="${tienda.N_tienda}">
-                    <input id="swal-input2" class="swal2-input" value="${tienda.Nom_tienda}">
-                    <input id="swal-input3" class="swal2-input" value="${tienda.Fecha_prueba}">
-                    <input id="swal-input4" class="swal2-input" value="${tienda.Fecha_apertura}">
+                    <input id="swal-input1" class="swal2-input" value="${tienda.N_tienda}" placeholder="Numero de tienda">
+                    <input id="swal-input2" class="swal2-input" value="${tienda.Nom_tienda}" placeholder="Nombre de tienda">
+                    <input id="swal-input3" class="swal2-input" value="${tienda.Fecha_prueba}" placeholder="Fecha de prueba">
+                    <input id="swal-input4" class="swal2-input" value="${tienda.Fecha_apertura}" placeholder="Fecha de apertura">
                 `,
                 focusConfirm: false,
                 preConfirm: () => {
                     // Recogemos los valores del formulario.
-                    return [
-                        document.getElementById("swal-input1").value,
-                        document.getElementById("swal-input2").value,
-                        document.getElementById("swal-input3").value,
-                        document.getElementById("swal-input4").value
-                    ];
+                    const nuevoNumero = document.getElementById("swal-input1").value.trim();
+                    const nuevoNombre = document.getElementById("swal-input2").value.trim();
+                    const nuevaFechaPrueba = document.getElementById("swal-input3").value.trim();
+                    const nuevaFechaApertura = document.getElementById("swal-input4").value.trim();
+                    
+                    // Expresiones regulares para validaciones.
+                    const regexNumero = /^[0-9]+$/; // Solo números.
+                    const regexTexto = /^[a-zA-Z\s]+$/; // Solo letras y espacios.
+                    const regexFecha = /^\d{4}-\d{2}-\d{2}$/; // Formato YYYY-MM-DD.
+
+                    // Validaciones de cada campo.
+                    if (!nuevoNumero || !regexNumero.test(nuevoNumero)) {
+                        Swal.showValidationMessage("El número de tienda debe contener solo números.");
+                        return null;
+                    }
+                    if (!nuevoNombre || !regexTexto.test(nuevoNombre)) {
+                        Swal.showValidationMessage("El nombre de la tienda debe contener solo letras y espacios.");
+                        return null;
+                    }
+                    if (!nuevaFechaPrueba || !regexFecha.test(nuevaFechaPrueba)) {
+                        Swal.showValidationMessage("La fecha de prueba debe estar en el formato YYYY-MM-DD.");
+                        return null;
+                    }
+                    if (!nuevaFechaApertura || !regexFecha.test(nuevaFechaApertura)) {
+                        Swal.showValidationMessage("La fecha de apertura debe estar en el formato YYYY-MM-DD.");
+                        return null;
+                    }
+
+                    
+
+                    return [nuevoNumero, nuevoNombre, nuevaFechaPrueba, nuevaFechaApertura];
+                    
                 }
             });
             // Si el usuario confirmó el formulario...

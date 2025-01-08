@@ -47,20 +47,42 @@ fetch("pasos")
             const { value: formValues } = await Swal.fire({
                 title: "Editar paso",
                 html: `
-                    <input id="swal-input1" class="swal2-input" value="${apertura.Num_paso}">
-                    <input id="swal-input2" class="swal2-input" value="${apertura.Nom_apertura}">
-                    <input id="swal-input3" class="swal2-input" value="${apertura.Departamento_responsble}">
-                    <input id="swal-input4" class="swal2-input" value="${apertura.Usuario}">
+                    <input id="swal-input1" class="swal2-input" value="${apertura.Num_paso}" placeholder="Numero de paso">
+                    <input id="swal-input2" class="swal2-input" value="${apertura.Nom_apertura}" placeholder="Nombre de paso">
+                    <input id="swal-input3" class="swal2-input" value="${apertura.Departamento_responsble}" placeholder="Departamento responsable">
+                    <input id="swal-input4" class="swal2-input" value="${apertura.Usuario}" placeholder="Nombre de usuario">
                 `,
                 focusConfirm: false,
                 preConfirm: () => {
                     // Recogemos los valores del formulario.
-                    return [
-                        document.getElementById("swal-input1").value,
-                        document.getElementById("swal-input2").value,
-                        document.getElementById("swal-input3").value,
-                        document.getElementById("swal-input4").value
-                    ];
+                    const nuevoNumeroPaso = document.getElementById("swal-input1").value.trim();
+                    const nuevoNombrePaso = document.getElementById("swal-input2").value.trim();
+                    const nuevoDepartamentoResponsable = document.getElementById("swal-input3").value.trim();
+                    const nuevoUsuario = document.getElementById("swal-input4").value.trim();
+                    // Expresiones regulares para validaciones.
+                    const regexNumero = /^[0-9]+$/; // Solo números.
+                    const regexTexto = /^[a-zA-Z\s]+$/; // Solo letras y espacios.
+
+                    // Validaciones de cada campo.
+                    if (!nuevoNumeroPaso || !regexNumero.test(nuevoNumeroPaso)) {
+                        Swal.showValidationMessage("El número de paso debe contener solo números.");
+                        return null;
+                    }
+                    if (!nuevoNombrePaso || !regexTexto.test(nuevoNombrePaso)) {
+                        Swal.showValidationMessage("El nombre del paso debe contener solo letras y espacios.");
+                        return null;
+                    }
+                    if (!nuevoDepartamentoResponsable || !regexTexto.test(nuevoDepartamentoResponsable)) {
+                        Swal.showValidationMessage("El nombre del departamento debe contener solo letras y espacios.");
+                        return null;
+                    }
+                    if (!nuevoUsuario || !regexTexto.test(nuevoUsuario)) {
+                        Swal.showValidationMessage("El nombre del usuario debe contener solo letras y espacios.");
+                        return null;
+                    }
+
+                    return [nuevoNumeroPaso, nuevoNombrePaso, nuevoDepartamentoResponsable, nuevoUsuario];
+                    
                 }
             });
             // Si el usuario confirmó el formulario...

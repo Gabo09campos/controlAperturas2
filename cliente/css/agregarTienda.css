@@ -1,3 +1,60 @@
+/* Estilos del navbar, este es del navbar completo. */
+.navIndex{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 10px;
+    margin-right: 10px;
+    background: lavender;
+    padding: 10px;
+}
+/* Estilo del div de los links hacias las pestañas del sistema. */
+.navLink{
+    width: 300px;
+    display: contents;
+}
+/* Estilos de los enlaces. */
+.linkPNav{
+    font-size: 21px;
+    color: black;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.linkPNav:hover{
+    font-size: 24px;
+    color: blue;
+}
+/* Estilos del div donde esta el titulo y el boton de cerrar ssion. */
+.navBtnTitulo{
+    width: 330px;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+
+}
+/* Estilos del buscador */
+.formInput{
+    margin-right: 20px;
+    width: 150px;
+    height: 30px;
+    background: lavenderblush;
+    border-radius: 4px;
+    text-align: center;
+}
+/* Estilos del titulo o nombre del usuario que ingreso. */
+.tituloNav{
+    margin-right: 30px;
+}
+
+.btnCerrarSesion{
+    border-radius: 5px;
+    width: 110px;
+    height: 30px;
+    background-color: #0076c8;
+    cursor: pointer;
+    color: white;
+}
 /* Estilos de todo el form. */
 .agregarTienda{
     align-items: center;

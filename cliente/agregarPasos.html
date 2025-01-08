@@ -7,6 +7,22 @@
     <link rel="stylesheet" href="css/agregarPasos.css">
     <!-- Le cambio la direccion del estilo -->
 </head>
+<header>
+    <nav class="navIndex">
+        <h3>Control de aperturas</h3>
+        <div class="navLink">
+            <a href="index.html" class="linkPNav">Tiendas</a>
+            <a href="pasosNavbar.html" class="linkPNav">Pasos</a> 
+            <a href="usuarios.html" class="linkPNav">Usuarios</a>
+        </div>
+        <div class="navBtnTitulo">
+            <abbr title="Esc para borrar">
+                <input class="form-control mr-sm-2 formInput" id="inputBuscar" type="search" placeholder="Buscar tienda" aria-label="Search" >
+            </abbr>
+            <button id="btnCerrarSesion" class="btnCerrarSesion" type="button">cerrar sesion</button>
+        </div>
+    </nav>
+</header>
 <body>
     <form class="agregarPaso" id="agregarPaso"> 
         <div>
@@ -24,8 +40,8 @@
             <label for="">Nombre del usuario responsable</label>
             <input type="text" placeholder="Nombre de usuario" id="nombreUsuario" maxlength="45" required>
             <!-- Selecciona el numero del nuevo paso -->
-            <label for="">Nombre de paso</label>
-            <input type="number" placeholder="Numero de paso" id="posicion" min="0" max="5" required>
+            <label for="">Numero de paso</label>
+            <input type="number" placeholder="Numero de paso" id="posicion" min="0" max="20" required>
             <!-- Mensaje de error -->
             <p class="warnings" id="warnings"></p>
             <!-- Botones -->

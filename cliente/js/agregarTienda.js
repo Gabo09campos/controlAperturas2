@@ -23,11 +23,38 @@ document.addEventListener("DOMContentLoaded", function() {
             e.preventDefault();
             let warnings = "";
             let entrar = true;
-            if(numeroTienda.value.length < 3 || nombreTienda.value.length < 10 || fPruebas.value.length < 8 || fApertura.value.length < 8 ){
-                warnings += 'Todos los campos deben ser llenados correctamente <br>' 
+            // Expresiones regulares para validaciones.
+            const regexNumero = /^[0-9]+$/; // Solo números.
+            const regexTexto = /^[a-zA-Z\s]+$/; // Solo letras y espacios.
+            const regexFecha = /^\d{4}-\d{2}-\d{2}$/; // Formato YYYY-MM-DD.
+
+            // Validaciones.
+            if (!regexNumero.test(numeroTienda.value) || numeroTienda.value.length < 3) {
+                warnings += "El número de tienda debe contener solo números y tener al menos 3 caracteres.<br>";
                 entrar = false;
+            }
+
+            if (!regexTexto.test(nombreTienda.value) || nombreTienda.value.length < 10) {
+                warnings += "El nombre de la tienda debe contener solo letras y espacios, y tener al menos 10 caracteres.<br>";
+                entrar = false;
+            }
+
+            if (!regexFecha.test(fPruebas.value)) {
+                warnings += "La fecha de pruebas debe estar en el formato YYYY-MM-DD.<br>";
+                entrar = false;
+            }
+
+            if (!regexFecha.test(fApertura.value)) {
+                warnings += "La fecha de apertura debe estar en el formato YYYY-MM-DD.<br>";
+                entrar = false;
+            }
+
+            // Si alguna validación falla, mostramos los warnings.
+            if (!entrar) {
                 parrafo.innerHTML = warnings;
-            }else{
+                return;
+            }
+            // Si todas las validaciones pasan, enviamos los datos.
                 axios.post("agregarTienda", {
                     N_tienda: numeroTienda.value,
                     Nom_tienda: nombreTienda.value,
@@ -41,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 .then((error) => console.log(error));
                 form.reset();
                 window.location.href = './index.html';
-            }
+            
             
         });
     } else {

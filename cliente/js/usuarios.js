@@ -63,39 +63,75 @@ fetch("usuarios")
             const { value: formValues } = await Swal.fire({
                 title: "Editar usuario",
                 html: `
-                    <input id="swal-input1" class="swal2-input" value="${usuario.Nombre}">
-                    <input id="swal-input2" class="swal2-input" value="${usuario.Apellidos}">
-                    <input id="swal-input3" class="swal2-input" value="${usuario.Correo_electrónico}">
-                    <input id="swal-input4" class="swal2-input" value="${usuario.N_empleados}">
-                    <input id="swal-input5" class="swal2-input" value="${usuario.T_usuario}">
-                    <input id="swal-input6" class="swal2-input" value="${usuario.Departamento}">
+                    <input id="swal-input1" class="swal2-input" value="${usuario.Nombre}" placeholder="Nombre del usuario">
+                    <input id="swal-input2" class="swal2-input" value="${usuario.Apellidos}" placeholder="Apellido del usuario">
+                    <input id="swal-input3" class="swal2-input" value="${usuario.Correo_electrónico}" placeholder="Correo electronico">
+                    <input id="swal-input4" class="swal2-input" value="${usuario.N_empleados}" placeholder="Numero de empleado">
+                    <input id="swal-input5" class="swal2-input" value="${usuario.T_usuario}" placeholder="Tipo de usuario">
+                    <input id="swal-input6" class="swal2-input" value="${usuario.Departamento}" placeholder="Departamento">
                     <input id="swal-input7" class="swal2-input" value="Contraseña"><br>
                     <input id="swal-input8" class="swal2-input" type="checkbox" value="${usuario.Permiso}" > Permite actualizar
                 `,
                 focusConfirm: false,
                 preConfirm: () => {
                     // Recogemos los valores del formulario.
-                    return [
-                        document.getElementById("swal-input1").value,
-                        document.getElementById("swal-input2").value,
-                        document.getElementById("swal-input3").value,
-                        document.getElementById("swal-input4").value,
-                        document.getElementById("swal-input5").value,
-                        document.getElementById("swal-input6").value,
-                        document.getElementById("swal-input7").value,
-                        document.getElementById("swal-input8").checked
-                    ];
+                    const nuevoNombre = document.getElementById("swal-input1").value.trim();
+                    const nuevoApellido = document.getElementById("swal-input2").value.trim();
+                    const nuevoCorreo = document.getElementById("swal-input3").value.trim();
+                    const nuevoNumeroEmpleado = document.getElementById("swal-input4").value.trim();
+                    const nuevoTipoUsuario = document.getElementById("swal-input5").value.trim();
+                    const nuevoDepartamento = document.getElementById("swal-input6").value.trim();
+                    const nuevaContrasena = document.getElementById("swal-input7").value.trim();
+                    const nuevoPermiso = document.getElementById("swal-input8").checked
+                    // Expresiones regulares para validaciones.
+                    const regexNumero = /^[0-9]+$/; // Solo números.
+                    const regexTexto = /^[a-zA-Z\s]+$/; // Solo letras y espacios.
+                    const regexCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Formato de correo.
+                    const regexContrasena = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/; // Reglas de contraseña.
+
+                    // Validaciones de cada campo.
+                    if (!nuevoNombre || !regexTexto.test(nuevoNombre)) {
+                        Swal.showValidationMessage("El nombre del usuario debe contener solo letras y espacios.");
+                        return null;
+                    }
+                    if (!nuevoApellido || !regexTexto.test(nuevoApellido)) {
+                        Swal.showValidationMessage("El apellido del usuario debe contener solo letras y espacios.");
+                        return null;
+                    }
+                    if (!nuevoCorreo || !regexCorreo.test(nuevoCorreo)) {
+                        Swal.showValidationMessage("El correo electrónico no tiene un formato válido.");
+                        return null;
+                    }
+                    if (!nuevoNumeroEmpleado || !regexNumero.test(nuevoNumeroEmpleado)) {
+                        Swal.showValidationMessage("El número de empleado debe contener solo números.");
+                        return null;
+                    }
+                    if (!nuevoTipoUsuario || !regexTexto.test(nuevoTipoUsuario)) {
+                        Swal.showValidationMessage("El tipo de usuario debe contener solo letras y espacios.");
+                        return null;
+                    }
+                    if (!nuevoDepartamento || !regexTexto.test(nuevoDepartamento)) {
+                        Swal.showValidationMessage("El departamento del usuario debe contener solo letras y espacios.");
+                        return null;
+                    }
+                    if (!regexContrasena.test(nuevaContrasena)) {
+                        Swal.showValidationMessage("La contraseña debe tener al menos 8 caracteres, una letra mayúscula, una letra minúscula, un número y un carácter especial.");
+                        return null;
+                    }
+
+                    return [nuevoNombre, nuevoApellido, nuevoCorreo, nuevoNumeroEmpleado, nuevoTipoUsuario, nuevoDepartamento, nuevaContrasena, nuevoPermiso];
+                    
                 }
             });
             // Si el usuario confirmó el formulario...
             if (formValues) {
                 // Desestructuramos los valores del formulario.
-                const [nuevoNombre, nuevoApellido, nuevaCorreo, nuevoNumeroEmpleado, nuevoTipoUsuario, nuevoDepartamento, nuevaContrasena, nuevoPermiso] = formValues;
+                const [nuevoNombre, nuevoApellido, nuevoCorreo, nuevoNumeroEmpleado, nuevoTipoUsuario, nuevoDepartamento, nuevaContrasena, nuevoPermiso] = formValues;
                 // Creamos un objeto con los nuevos datos del usuario.
                 const myDataObject = {
                     Nombre: nuevoNombre,
                     Apellidos: nuevoApellido,
-                    Correo_electrónico: nuevaCorreo,
+                    Correo_electrónico: nuevoCorreo,
                     N_empleados: nuevoNumeroEmpleado,
                     T_usuario: nuevoTipoUsuario,
                     Departamento: nuevoDepartamento,

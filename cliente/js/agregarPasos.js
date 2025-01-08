@@ -35,11 +35,36 @@ document.addEventListener("DOMContentLoaded", function() {
             let warning = "";
             let entrar = true;
             // Validamos que los campos no esten vacios para enviar el form.
-            if(NombrePaso.value.length < 5 || departamento.selectedIndex === 0 || usuario.value.length < 3 || posicion.value === ''){
-                warning += 'Todos los campos debens ser llenados <br>'
+            // Expresiones regulares para validar campos.
+            const regexTexto = /^[a-zA-Z\s]+$/; // Solo letras y espacios.
+            const regexNumero = /^[1-9][0-9]*$/; // Número entero positivo.
+
+            // Validaciones.
+            if (NombrePaso.value.length < 5 || !regexTexto.test(NombrePaso.value)) {
+                warning += "El nombre del paso debe contener solo letras y al menos 5 caracteres.<br>";
                 entrar = false;
+            }
+
+            if (departamento.selectedIndex === 0) {
+                warning += "Debe seleccionar un departamento válido.<br>";
+                entrar = false;
+            }
+
+            if (usuario.value.length < 3 || !regexTexto.test(usuario.value)) {
+                warning += "El usuario debe contener solo letras y al menos 3 caracteres.<br>";
+                entrar = false;
+            }
+
+            if (!regexNumero.test(posicion.value)) {
+                warning += "La posición debe ser un número entero positivo.<br>";
+                entrar = false;
+            }
+
+            // Mostrar advertencias si hay errores.
+            if (!entrar) {
                 parrafo.innerHTML = warning;
-            }else{
+                return;
+            }
                 // Llamamos a todos los pasos de la API con una solicitud GET.
                 fetch("pasos")
                 .then(rest => rest.json()) // Convertimos la respuesta en un objeto JSON.
@@ -86,7 +111,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     window.location.href = './pasosNavbar.html';
                 })
                 .catch((error) => console.log(error)); // Manejamos los errores que puedan ocurrir en el codigo.
-            }
+            
         })
     }else{
         console.log('El elemento form no existe en el DOM');

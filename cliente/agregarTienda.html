@@ -8,7 +8,19 @@
     <link rel="stylesheet" href="css/agregarTienda.css">
     <!-- Le cambio la direcion del estilo -->
 </head>
-
+<header>
+    <nav class="navIndex">
+        <h3>Control de aperturas</h3>
+        <div class="navLink">
+            <a href="index.html" class="linkPNav">Tiendas</a>
+            <a href="pasosNavbar.html" class="linkPNav">Pasos</a> 
+            <a href="usuarios.html" class="linkPNav">Usuarios</a>
+        </div>
+        <div class="navBtnTitulo">
+            <button id="btnCerrarSesion" class="btnCerrarSesion" type="button">cerrar sesion</button>
+        </div>
+    </nav>
+</header>
 <body>
     <form class="agregarTienda" id="formAgregarTienda">
         <div>
@@ -51,6 +63,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="js/agregarTienda.js"></script>
+    <script src="js/navbar.js"></script>
 </body>
 
 </html>
